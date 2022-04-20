@@ -1,3 +1,5 @@
+package main;
+import pathfinder.PathManager;
 import java.awt.Color;
 import javax.swing.JFrame;
 

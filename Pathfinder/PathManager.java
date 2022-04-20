@@ -1,3 +1,8 @@
+package pathfinder;
+
+import main.Updatable;
+import main.Map;
+
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Collections;

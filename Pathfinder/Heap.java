@@ -1,3 +1,4 @@
+package pathfinder;
 import java.util.Arrays;
 
 public class Heap <T>  {
