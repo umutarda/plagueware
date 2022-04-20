@@ -1,12 +1,12 @@
 package main;
 import pathfinder.PathManager;
-import java.awt.Color;
+import java.awt.*;
 import javax.swing.JFrame;
 
 
 public class Main {
     
-    
+    public static GameData gameData;
     public static void main(String[] args)  throws InterruptedException  {
         
         JFrame frame = new JFrame();
@@ -21,6 +21,10 @@ public class Main {
         PathManager pathManager = new PathManager(map);
         UpdateManager updateManager = new UpdateManager(map);
       
+        for (int i = 0; i < 100; i++) {
+            
+            pathManager.requestPath(null, new Point(0,0), new Point(49,49));
+        }
         updateManager.addUpdatable(pathManager);        
         
         while (true) {

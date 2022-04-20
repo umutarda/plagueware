@@ -1,4 +1,5 @@
-package pathfinder;
+package entity.Buildings;
+
 import java.awt.Point;
 import java.awt.Color;
 
@@ -18,3 +19,5 @@ public abstract class Node {
     public abstract Color getColor();
 
 }
+    
+

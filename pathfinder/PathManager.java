@@ -39,6 +39,7 @@ public class PathManager implements Updatable {
     {
         findPath(requestedPaths.get(0).startPosition, requestedPaths.get(0).targetPosition);
         requestedPaths.remove(0);
+        System.out.println("Path processed");
         
     }
 

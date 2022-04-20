@@ -41,10 +41,15 @@ public class UpdateManager{
 
         }
         
+        for (Updatable updatable : updatables) {
+           updatable.reset(); 
+        }
         map.repaint();
 
         updatables.addAll(requestedUpdatables);
         requestedUpdatables.clear();
+
+        System.out.println("update end");
     }
 
 }
