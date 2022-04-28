@@ -8,11 +8,18 @@ public class UpdateManager{
     private ArrayList<Updatable> requestedUpdatables;
     private Map map;
 
+    private double deltaTime;
+
     public UpdateManager(Map map) 
     {
         this.map = map;
         updatables = new ArrayList<Updatable>();
         requestedUpdatables = new ArrayList<Updatable>();
+    }
+
+    public double deltaTime() 
+    {
+        return deltaTime;
     }
 
     public void addUpdatable (Updatable updatable) 
@@ -49,7 +56,9 @@ public class UpdateManager{
         updatables.addAll(requestedUpdatables);
         requestedUpdatables.clear();
 
-        System.out.println("update end");
+        
+
+        deltaTime = (1.0 * (System.nanoTime() - startTime)) / Math.pow(10, 9);
     }
 
 }
