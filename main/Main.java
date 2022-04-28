@@ -11,7 +11,6 @@ public class Main {
     public static GameData gameData;
     public static void main(String[] args)  throws InterruptedException  {
         
-        
         DrawManager drawManager = new DrawManager();
         gameData.drawManager = drawManager;
 
@@ -24,20 +23,15 @@ public class Main {
 
         UpdateManager updateManager = new UpdateManager(drawManager);
         gameData.updateManager = updateManager;
+        updateManager.addUpdatable(pathManager); 
 
-        JFrame frame = new JFrame();
-                                        
+        JFrame frame = new JFrame();                                        
         frame.setContentPane(drawManager);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setBackground(Color.BLACK);
         frame.pack();
         frame.setVisible(true);
 
-       /* for (int i = 0; i < 100; i++) {
-            
-            pathManager.requestPath(null, new Point(0,0), new Point(49,49));
-        }*/
-        updateManager.addUpdatable(pathManager);        
         
         Person aPerson = new Person(false, false, false, -1);
         updateManager.addUpdatable(aPerson);
