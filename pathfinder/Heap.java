@@ -54,6 +54,18 @@ public class Heap <T>  {
         return -1;
     }
 
+    public void clear() 
+    {
+        for (int i = 0; i < heap.length; i++) {
+            
+            if (heap[i] == null)
+                continue;
+
+            ((IHeapItem<T>) heap[i] ).resetHeapIndex();
+            ((PathfindNode) heap[i] ).resetPathfindNodeValues();
+            heap[i] = null;
+        }
+    }
     public void add (T elem)
     {
         if (size == 0) 

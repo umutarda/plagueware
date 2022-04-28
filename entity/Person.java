@@ -4,24 +4,32 @@ import pathfinder.PathfindNode;
 import pathfinder.Node;
 import java.awt.*;
 import java.util.Random;
+import java.util.function.UnaryOperator;
 
+import main.Drawable;
 import main.Main;
 import main.Map;
 import main.Updatable;
-public class Person implements Updatable {
+public class Person implements Updatable, Drawable{
 
     //variables
     boolean condition;
     boolean mask = true;
     boolean vaccinated;
+    boolean updated;
     int age; // 0-100
-    Point coordinate;
+    
+    Point location;
+    Point currentNodePosition;
+    Point nextNodePosition;
+    double currentPercentage;
+
     Building house;
     int stress;//(discontent) 0-100 
     int awareness; // 0-100
     double penalty; //0-20
 
-    PathfindNode[] path;
+    Object[] path;
     int pathIndex;
 
     Random random;
@@ -38,6 +46,11 @@ public class Person implements Updatable {
 
         return penalty;
     }
+
+    public void setPath (Object[] path) 
+    {
+        this.path = path;
+    }
     private void calculateSpreadPenalty(){
         penalty = 0;
         if(!vaccinated)
@@ -49,9 +62,36 @@ public class Person implements Updatable {
 
     @Override
     public void run() {
-        // TODO Auto-generated method stub
+
+        if (path != null) 
+        {
+            if (location == null || currentPercentage == 1 )
+            {
+                currentPercentage = 0;
+                currentNodePosition = Main.gameData.map.getPositionOfNode((Node)path[++pathIndex]);
+                
+                if (pathIndex < path.length - 1)
+                    nextNodePosition = Main.gameData.map.getPositionOfNode((Node)path[pathIndex+1]);
+                else 
+                    nextNodePosition = null;
+                
+            }
+
+            if (location == null)
+                location = new Point (-1,-1);
+            
+            if (nextNodePosition != null) 
+            {
+                currentPercentage = Math.min(currentPercentage += 20 * Main.gameData.updateManager.deltaTime(), 1);
+                location.setLocation(currentNodePosition.x + (nextNodePosition.x - currentNodePosition.x) * currentPercentage,
+                currentNodePosition.y + (nextNodePosition.y - currentNodePosition.y) * currentPercentage );
+            }
+
+        }
+
+       
       
-        Map map = Main.gameData.map;
+        /*Map map = Main.gameData.map;
         
         if(condition) 
         {
@@ -70,20 +110,32 @@ public class Person implements Updatable {
                     p.condition = true;
             
             }
-        }
+        }*/
         
        // pathManager.requestPath(this, startPosition, targetPosition);
+
+
+       updated = true;
     }
 
     @Override
     public boolean hasFullyUpdated() {
         // TODO Auto-generated method stub
-        return false;
+        return updated;
     }
     @Override
     public void reset() {
         penalty = -1;
+        updated = false;
+    }
+
+    @Override
+    public void paint(Graphics g) {
         
+        if (location == null)
+            return;
+        g.setColor(Color.RED);
+        g.fillOval(location.x, location.y, 5, 5);
     }
 
 }

@@ -6,13 +6,13 @@ public class UpdateManager{
     public final long UPDATE_TIME = 33333333;
     private ArrayList<Updatable> updatables;
     private ArrayList<Updatable> requestedUpdatables;
-    private Map map;
+    private DrawManager drawManager;
 
     private double deltaTime;
 
-    public UpdateManager(Map map) 
+    public UpdateManager(DrawManager drawManager) 
     {
-        this.map = map;
+        this.drawManager = drawManager;
         updatables = new ArrayList<Updatable>();
         requestedUpdatables = new ArrayList<Updatable>();
     }
@@ -51,12 +51,11 @@ public class UpdateManager{
         for (Updatable updatable : updatables) {
            updatable.reset(); 
         }
-        map.repaint();
+
+        Main.gameData.drawManager.repaint();
 
         updatables.addAll(requestedUpdatables);
         requestedUpdatables.clear();
-
-        
 
         deltaTime = (1.0 * (System.nanoTime() - startTime)) / Math.pow(10, 9);
     }

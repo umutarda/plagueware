@@ -3,6 +3,8 @@ package pathfinder;
 import java.awt.Color;
 import java.awt.Point;
 
+import javax.crypto.spec.GCMParameterSpec;
+
 public class PathfindNode extends Node implements IHeapItem<PathfindNode> {
     
     public enum State 
@@ -36,7 +38,12 @@ public class PathfindNode extends Node implements IHeapItem<PathfindNode> {
 
     }
 
-
+    public void resetPathfindNodeValues() 
+    {
+        parent = null;
+        h_cost = 0;
+        g_cost = 0;
+    }
     @Override
     public int getHeapIndex() {
         return heapIndex;

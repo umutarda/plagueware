@@ -9,7 +9,7 @@ import pathfinder.Node;
 import pathfinder.PathfindNode;
 import pathfinder.ImpassibleNode;
 
-public class Map extends JPanel 
+public class Map implements Drawable
 {
     private int width, height, blockSize, gap;
     private Node[] nodes;
@@ -20,8 +20,9 @@ public class Map extends JPanel
         this.blockSize = blockSize;
         this.gap = gap;
 
-        setBackground(Color.BLACK);
-        setPreferredSize(new Dimension (blockSize + (width-1) * (blockSize+gap), blockSize + (height-1) * (blockSize+gap)));
+        Main.gameData.drawManager.setBackground(Color.BLACK);
+        Main.gameData.drawManager.setPreferredSize(new Dimension (blockSize + (width-1) * (blockSize+gap), blockSize + (height-1) * (blockSize+gap)));
+        
         nodes = new Node[width * height];
         for (int j = 0; j < height; j++) {
             
@@ -55,6 +56,11 @@ public class Map extends JPanel
         return nodes [position.x + position.y * width];
     }
 
+    public Point getPositionOfNode (Node node) 
+    {
+        return new Point ((int)node.getPosition().getX() * (blockSize + gap), (int)node.getPosition().getY() * (blockSize + gap));
+    }
+
     public Node[] getNeighboursOf (Node node) 
     {
         Node[] neighbours = new Node[8];
@@ -79,13 +85,18 @@ public class Map extends JPanel
     }
 
     @Override
-    protected void paintComponent(Graphics g) {
+    public void paint(Graphics g) {
         
-        setBackground(Color.BLACK);
-
         for (Node node : nodes) 
         {
-            g.setColor (node.getColor());
+            if (node instanceof ImpassibleNode)
+            {
+                g.setColor (Color.BLACK);
+            }
+
+            else
+                g.setColor (Color.WHITE);
+            
             g.fillRect ((int)node.getPosition().getX() * (blockSize + gap), (int)node.getPosition().getY() * (blockSize + gap), blockSize, blockSize);
         }
 

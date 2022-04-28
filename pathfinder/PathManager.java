@@ -7,6 +7,8 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import entity.Person;
+
 public class PathManager implements Updatable {
     
     private Map map;
@@ -37,9 +39,11 @@ public class PathManager implements Updatable {
 
     private void processFirstPath() 
     {
-        findPath(requestedPaths.get(0).startPosition, requestedPaths.get(0).targetPosition);
+        PathRequest req = requestedPaths.get(0);
+        if(req.requester instanceof Person)
+            ((Person)req.requester).setPath(findPath(req.startPosition, req.targetPosition));
+            
         requestedPaths.remove(0);
-        System.out.println("Path processed");
         
     }
 
@@ -112,6 +116,8 @@ public class PathManager implements Updatable {
             traceBackNode = traceBackNode.getParent();
         }
 
+        openNodes.clear();
+        closedNodes.forEach(n->n.resetPathfindNodeValues());
         Collections.reverse(path);
         return path.toArray();
     }
@@ -124,6 +130,12 @@ public class PathManager implements Updatable {
     @Override
     public void run() {
         processFirstPath();
+    }
+
+    @Override
+    public void reset() {
+        // TODO Auto-generated method stub
+        
     }
 }
 
