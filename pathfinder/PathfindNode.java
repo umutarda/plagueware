@@ -93,19 +93,6 @@ public class PathfindNode extends Node implements IHeapItem<PathfindNode> {
 
     @Override
     public Color getColor() {
-
-        switch (state) 
-        {
-            case NORMAL:
-                return Color.WHITE;
-            case END:
-                return Color.CYAN;
-            case OPEN:
-                return Color.GREEN;
-            case CLOSED:
-                return Color.RED;
-           default:
-                return Color.BLACK;  
-        }
+        return Color.WHITE;
     }
 }

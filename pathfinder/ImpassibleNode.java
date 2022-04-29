@@ -10,7 +10,10 @@ public class ImpassibleNode extends Node {
 
     @Override
     public Color getColor() {
-        return Color.GRAY;
+        if(color == null) {
+            return Color.GRAY;
+        }
+        return color;
     }
 
 }

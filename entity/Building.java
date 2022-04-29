@@ -24,7 +24,7 @@ public class Building {
         this.buildingType = buildingType;
         nodes = new ImpassibleNode[getNodeHeight()][getNodeWidth()];
         if(x + getNodeWidth() > map.getNodeWidth() || x < 0 ||
-                y + getNodeHeight() > map.getNodeHeight() || y < 0) {
+                y + getNodeHeight() > map.getNodeHeight() || y < 0 || getEnterNode() == null) {
             throw new Exception("Invalid Building Placement");
         }
         for(int i = 0; i < getNodeHeight(); i++) {
@@ -39,7 +39,12 @@ public class Building {
                     throw new Exception("Invalid Building Placement");
                 }
                 map.setNodeImpassible(node.getPosition());
+<<<<<<< Updated upstream
                 nodes[i][j] = (ImpassibleNode) map.getNodeAtRowColumn(new Point(x + j, y + i));
+=======
+                map.getNodeAtPosition(node.getPosition()).setColor(getColor());
+                nodes[i][j] = (ImpassibleNode) map.getNodeAtPosition(new Point(x + j, y + i));
+>>>>>>> Stashed changes
             }
         }
         enterNode = getEnterNode();
@@ -90,9 +95,24 @@ public class Building {
         return null;
     }
     public void enter(Person p) {
-        
+        persons.add(p);
+        p.location = null;
     }
     public void exit(Person p) {
-        
+        persons.remove(p);
+        p.location = map.getPositionOfNode(getEnterNode());
+        //p.chooseBuilding();
+    }
+    public Person[] getPeople() {
+        return (Person[])persons.toArray();
+    }
+    public Color getColor() {
+        switch(buildingType) {
+            case CAFE: return Color.BLUE;
+            case APARTMENT: return Color.GRAY;
+            case HOSPITAL: return Color.RED;
+            case HOUSE: return Color.ORANGE;
+        }
+        return null;
     }
 }
