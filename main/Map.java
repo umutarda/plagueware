@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Point;
 import javax.swing.JPanel;
+import javax.swing.text.Position;
 
 import pathfinder.Node;
 import pathfinder.PathfindNode;
@@ -46,7 +47,7 @@ public class Map implements Drawable
         }
     }
 
-    public Node getNodeAtPosition (Point position) 
+    public Node getNodeAtRowColumn (Point position) 
     {
         if (position.x < 0 || position.x >= width)
             return null;
@@ -55,6 +56,11 @@ public class Map implements Drawable
             return null;
 
         return nodes [position.x + position.y * width];
+    }
+
+    public Node getNodeAtPosition (Point position) 
+    {
+        return getNodeAtRowColumn(new Point((int) (position.getX() /  (blockSize + gap)), (int) (position.getY() /  (blockSize + gap))));
     }
 
     public Point getPositionOfNode (Node node) 
@@ -76,7 +82,7 @@ public class Map implements Drawable
 
                if (!neighbourPosition.equals(node.getPosition()))
                 {
-                    neighbours[index++] = getNodeAtPosition(neighbourPosition);
+                    neighbours[index++] = getNodeAtRowColumn(neighbourPosition);
                 }
 
             }
@@ -84,15 +90,16 @@ public class Map implements Drawable
 
         return neighbours;
     }
+
     public void setNodePassible(Point position) {
-        Node node = getNodeAtPosition(position);
+        Node node = getNodeAtRowColumn(position);
         if(node instanceof PathfindNode) {
             return;
         }
         nodes[position.x + position.y * width] = new PathfindNode(position, State.NORMAL);
     }
     public void setNodeImpassible(Point position) {
-        Node node = getNodeAtPosition(position);
+        Node node = getNodeAtRowColumn(position);
         if(node instanceof ImpassibleNode) {
             return;
         }
@@ -116,7 +123,7 @@ public class Map implements Drawable
             }
 
             else
-                g.setColor (Color.WHITE);
+                g.setColor (node.getColor());
             
             g.fillRect ((int)node.getPosition().getX() * (blockSize + gap), (int)node.getPosition().getY() * (blockSize + gap), blockSize, blockSize);
         }

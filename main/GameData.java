@@ -54,15 +54,15 @@ public class GameData {
 
     static void chooseBuilding(Person p){
         int hour = time.hour;
-
+        Map = Main.gameData.map;
         if(hour>24 || hour<8)
-            pathManager.requestPath(p, p.location , p.house.getEnterNode());
+            pathManager.requestPath(p,  map.getNodeAtPosition(p.location) , p.house.getEnterNode());
 
         else if(hour>8 && hour<16)
-            pathManager.requestPath(p, p.location , entertainmentBuilding.get(rand.nextInt(entertainmentBuilding.size())).getEnterNode() );
+            pathManager.requestPath(p, map.getNodeAtPosition(p.location) , entertainmentBuilding.get(rand.nextInt(entertainmentBuilding.size())).getEnterNode() );
         
         else if(hour>16 && hour<24)
-            pathManager.requestPath(p, p.location , entertainmentBuilding.get(rand.nextInt(entertainmentBuilding.size())).getEnterNode() );
+            pathManager.requestPath(p, map.getNodeAtPosition(p.location) , entertainmentBuilding.get(rand.nextInt(entertainmentBuilding.size())).getEnterNode() );
 
 
     }
