@@ -7,6 +7,7 @@ import javax.swing.JPanel;
 
 import pathfinder.Node;
 import pathfinder.PathfindNode;
+import pathfinder.PathfindNode.State;
 import pathfinder.ImpassibleNode;
 
 public class Map implements Drawable
@@ -83,6 +84,26 @@ public class Map implements Drawable
 
         return neighbours;
     }
+    public void setNodePassible(Point position) {
+        Node node = getNodeAtPosition(position);
+        if(node instanceof PathfindNode) {
+            return;
+        }
+        nodes[position.x + position.y * width] = new PathfindNode(position, State.NORMAL);
+    }
+    public void setNodeImpassible(Point position) {
+        Node node = getNodeAtPosition(position);
+        if(node instanceof ImpassibleNode) {
+            return;
+        }
+        nodes[position.x + position.y * width] = new ImpassibleNode(position);
+    }
+    
+    public int getNodeWidth() {return this.width;}
+    public int getNodeHeight() {return this.height;}
+    public int getBlockSize() {return blockSize;}
+    public int getGapSize() {return gap;}
+
 
     @Override
     public void paint(Graphics g) {
