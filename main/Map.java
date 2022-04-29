@@ -47,15 +47,15 @@ public class Map implements Drawable
         }
     }
 
-    public Node getNodeAtRowColumn (Point position) 
+    public Node getNodeAtRowColumn (Point rowColumn) 
     {
-        if (position.x < 0 || position.x >= width)
+        if (rowColumn.x < 0 || rowColumn.x >= width)
             return null;
         
-        if (position.y < 0 || position.y >= height)
+        if (rowColumn.y < 0 || rowColumn.y >= height)
             return null;
 
-        return nodes [position.x + position.y * width];
+        return nodes [rowColumn.x + rowColumn.y * width];
     }
 
     public Node getNodeAtPosition (Point position) 
@@ -91,19 +91,19 @@ public class Map implements Drawable
         return neighbours;
     }
 
-    public void setNodePassible(Point position) {
-        Node node = getNodeAtRowColumn(position);
+    public void setNodePassible(Point rowColumn) {
+        Node node = getNodeAtRowColumn(rowColumn);
         if(node instanceof PathfindNode) {
             return;
         }
-        nodes[position.x + position.y * width] = new PathfindNode(position, State.NORMAL);
+        nodes[rowColumn.x + rowColumn.y * width] = new PathfindNode(rowColumn, State.NORMAL);
     }
-    public void setNodeImpassible(Point position) {
-        Node node = getNodeAtRowColumn(position);
+    public void setNodeImpassible(Point rowColumn) {
+        Node node = getNodeAtRowColumn(rowColumn);
         if(node instanceof ImpassibleNode) {
             return;
         }
-        nodes[position.x + position.y * width] = new ImpassibleNode(position);
+        nodes[rowColumn.x + rowColumn.y * width] = new ImpassibleNode(rowColumn);
     }
     
     public int getNodeWidth() {return this.width;}
