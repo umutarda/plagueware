@@ -3,6 +3,7 @@ import pathfinder.PathManager;
 import pathfinder.PathfindNode;
 import pathfinder.Node;
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.function.UnaryOperator;
 
@@ -19,13 +20,14 @@ public class Person implements Updatable, Drawable{
     public boolean vaccinated;
     public boolean updated;
     public int age; // 0-100
-    
+    public int umut;
     public Point location;
     public Point currentNodePosition;
     public Point nextNodePosition;
     public double currentPercentage;
 
     public Building house;
+    public Building current;
     public int stress;//(discontent) 0-100 
     public int awareness; // 0-100
     public double penalty; //0-20
@@ -71,10 +73,10 @@ public class Person implements Updatable, Drawable{
                 ((PathfindNode)path[pathIndex]).removePerson(this);
                 ((PathfindNode)path[++pathIndex]).addPerson(this);
                 currentPercentage = 0;
-                currentNodePosition = Main.gameData.map.getPositionOfNode((Node)path[pathIndex]);
+                currentNodePosition = GameData.map.getPositionOfNode((Node)path[pathIndex]);
                 
                 if (pathIndex < path.length - 1)
-                    nextNodePosition = Main.gameData.map.getPositionOfNode((Node)path[pathIndex+1]);
+                    nextNodePosition = GameData.map.getPositionOfNode((Node)path[pathIndex+1]);
                 else 
                     nextNodePosition = null;
                 
@@ -85,7 +87,7 @@ public class Person implements Updatable, Drawable{
             
             if (nextNodePosition != null) 
             {
-                currentPercentage = Math.min(currentPercentage += 20 * Main.gameData.updateManager.deltaTime(), 1);
+                currentPercentage = Math.min(currentPercentage += 20 * GameData.updateManager.deltaTime(), 1);
                 location.setLocation(currentNodePosition.x + (nextNodePosition.x - currentNodePosition.x) * currentPercentage,
                 currentNodePosition.y + (nextNodePosition.y - currentNodePosition.y) * currentPercentage );
             }
@@ -153,9 +155,9 @@ public class Person implements Updatable, Drawable{
                     {
                         double otherPenalty= p.getSpreadPenalty();
 
-                        int die = random.nextInt(21);
+                        int dice = random.nextInt(21);
 
-                        if (die <= otherPenalty)
+                        if (dice <= otherPenalty)
                         p.condition = true;
                     }
                     
@@ -163,6 +165,25 @@ public class Person implements Updatable, Drawable{
             }
         }
     }
+
+    public void insideContact()
+    {
+        
+        for (Person person : current.getPeople()) {
+            if(!person.condition)
+            {
+                double otherPenalty= person.getSpreadPenalty();
+
+                int dice = random.nextInt(21);
+
+                if (dice <= otherPenalty)
+                   person.condition = true;
+            }
+            
+            
+        }
+    }
+
 
     @Override
     public void paint(Graphics g) {

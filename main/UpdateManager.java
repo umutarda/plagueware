@@ -52,7 +52,7 @@ public class UpdateManager{
            updatable.reset(); 
         }
 
-        Main.gameData.drawManager.repaint();
+        GameData.drawManager.repaint();
 
         updatables.addAll(requestedUpdatables);
         requestedUpdatables.clear();

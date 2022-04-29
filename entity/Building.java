@@ -14,6 +14,7 @@ public class Building {
     public final static int HOSPITAL = 2;
     public final static int HOUSE = 3;
     
+    private Point position;
     private ImpassibleNode[][] nodes;
     private Map map;
     private Node enterNode;
@@ -22,6 +23,8 @@ public class Building {
     ArrayList<Person> persons;
     public Building(Map map, int x, int y, int buildingType) throws Exception {
         this.buildingType = buildingType;
+        this.position = new Point(x, y);
+        this.map = map;
         nodes = new ImpassibleNode[getNodeHeight()][getNodeWidth()];
         if(x + getNodeWidth() > map.getNodeWidth() || x < 0 ||
                 y + getNodeHeight() > map.getNodeHeight() || y < 0 || getEnterNode() == null) {
@@ -40,7 +43,7 @@ public class Building {
                 }
                 map.setNodeImpassible(node.getPosition());
                 nodes[i][j] = (ImpassibleNode) map.getNodeAtRowColumn(new Point(x + j, y + i));
-                map.getNodeAtPosition(node.getPosition()).setColor(getColor());
+                nodes[i][j].setColor(getColor());
             }
         }
         enterNode = getEnterNode();
@@ -65,24 +68,25 @@ public class Building {
         return -1;
     }
     public Node getEnterNode() {
-        int x = this.nodes[0][0].getPosition().x + getNodeWidth() / 2;
-        int y = this.nodes[0][0].getPosition().y - 1;
+        Node pos = map.getNodeAtPosition(position);
+        int x = pos.getPosition().x + getNodeWidth() / 2;
+        int y = pos.getPosition().y - 1;
         Node node = map.getNodeAtRowColumn(new Point(x, y));
         if(node instanceof PathfindNode) {
             return node;
         }
-        y = this.nodes[0][0].getPosition().y - getNodeHeight() + 1;
+        y = pos.getPosition().y - getNodeHeight() + 1;
         node = map.getNodeAtRowColumn(new Point(x, y));
         if(node instanceof PathfindNode) {
             return node;
         }
-        y = this.nodes[0][0].getPosition().y + getNodeHeight() / 2;
-        x = this.nodes[0][0].getPosition().x - 1;
+        y = pos.getPosition().y + getNodeHeight() / 2;
+        x = pos.getPosition().x - 1;
         node = map.getNodeAtRowColumn(new Point(x, y));
         if(node instanceof PathfindNode) {
             return node;
         }
-        x = this.nodes[0][0].getPosition().x + getNodeWidth() + 1;
+        x = pos.getPosition().x + getNodeWidth() + 1;
         node = map.getNodeAtRowColumn(new Point(x, y));
         if(node instanceof PathfindNode) {
             return node;

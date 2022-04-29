@@ -22,8 +22,8 @@ public class Map implements Drawable
         this.blockSize = blockSize;
         this.gap = gap;
 
-        Main.gameData.drawManager.setBackground(Color.BLACK);
-        Main.gameData.drawManager.setPreferredSize(new Dimension (blockSize + (width-1) * (blockSize+gap), blockSize + (height-1) * (blockSize+gap)));
+        GameData.drawManager.setBackground(Color.BLACK);
+        GameData.drawManager.setPreferredSize(new Dimension (blockSize + (width-1) * (blockSize+gap), blockSize + (height-1) * (blockSize+gap)));
         
         nodes = new Node[width * height];
         for (int j = 0; j < height; j++) {
@@ -117,13 +117,8 @@ public class Map implements Drawable
         
         for (Node node : nodes) 
         {
-            if (node instanceof ImpassibleNode)
-            {
-                g.setColor (Color.BLACK);
-            }
-
-            else
-                g.setColor (node.getColor());
+            
+            g.setColor (node.getColor());
             
             g.fillRect ((int)node.getPosition().getX() * (blockSize + gap), (int)node.getPosition().getY() * (blockSize + gap), blockSize, blockSize);
         }

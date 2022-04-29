@@ -24,8 +24,6 @@ public class GameData {
 
 
     static ArrayList<Person> generatePeople(int peopleCount, int illCount, double averMask, double averVacc, double averAge){//avermask 0-1  avervacc 0-1 average 0-100
-
-
         
         ArrayList<Person> ret = new ArrayList<Person>(peopleCount);
 
@@ -51,10 +49,20 @@ public class GameData {
         
     }
 
+    static void resetAll() 
+    {
+        map = null;
+        pathManager = null;
+        updateManager = null;
+        drawManager = null;
+        entertainmentBuilding = null;
+        people = null;
+        hospital = null;
+        
+    }
 
     static void chooseBuilding(Person p){
         int hour = time.hour;
-        Map  map = Main.gameData.map;
         if(hour>24 || hour<8)
             pathManager.requestPath(p,  map.getNodeAtPosition(p.location) , p.house.getEnterNode());
 
