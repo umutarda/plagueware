@@ -15,15 +15,15 @@ public class PathManager implements Updatable {
     private ArrayList<PathRequest> requestedPaths;
     class PathRequest 
     {
-        PathRequest(Object requester, Point startPosition, Point targetPosition) 
+        PathRequest(Object requester, Node startNode, Node targetNode) 
         {
             this.requester = requester;
-            this.startPosition = startPosition;
-            this.targetPosition = targetPosition;
+            this.startNode = startNode;
+            this.targetNode = targetNode;
         }
 
         Object requester;
-        Point startPosition, targetPosition;
+        Node startNode, targetNode;
     }
 
     public PathManager (Map map) 
@@ -32,25 +32,25 @@ public class PathManager implements Updatable {
         requestedPaths = new ArrayList<PathRequest>();
     }
 
-    public void requestPath(Object requester, Point startPosition, Point targetPosition)
+    public void requestPath(Object requester, Node startNode, Node targetNode)
     {
-        requestedPaths.add(new PathRequest(requester,startPosition,targetPosition));
+        requestedPaths.add(new PathRequest(requester,startNode,targetNode));
     }
 
     private void processFirstPath() 
     {
         PathRequest req = requestedPaths.get(0);
         if(req.requester instanceof Person)
-            ((Person)req.requester).setPath(findPath(req.startPosition, req.targetPosition));
+            ((Person)req.requester).setPath(findPath(req.startNode, req.targetNode));
             
         requestedPaths.remove(0);
         
     }
 
-    private Object[] findPath (Point startPosition, Point targetPosition)
+    private Object[] findPath (Node _startNode, Node _targetNode)
     {
-        PathfindNode startNode = (PathfindNode)map.getNodeAtPosition(startPosition);
-        PathfindNode targetNode = (PathfindNode)map.getNodeAtPosition(targetPosition);
+        PathfindNode startNode = (PathfindNode) _startNode;
+        PathfindNode targetNode = (PathfindNode) _targetNode;
 
         startNode.set_H_Cost((int)(10*startNode.getPosition().distance(targetNode.getPosition())));
         

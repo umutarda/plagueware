@@ -36,12 +36,12 @@ public class Main {
         Person aPerson = new Person(false, false, false, -1);
         updateManager.addUpdatable(aPerson);
         drawManager.addDrawable(aPerson);
-        pathManager.requestPath(aPerson, new Point (0,0), new Point (40,49));
+        pathManager.requestPath(aPerson, map.getNodeAtRowColumn(new Point (0,0)),  map.getNodeAtRowColumn(new Point (40,49)));
 
         Person bPerson = new Person(false, false, false, -1);
         updateManager.addUpdatable(bPerson);
         drawManager.addDrawable(bPerson);
-        pathManager.requestPath(bPerson, new Point (5,0), new Point (30,35));
+        pathManager.requestPath(bPerson,  map.getNodeAtRowColumn(new Point (5,0)),  map.getNodeAtRowColumn(new Point (30,35)));
 
         while (true) {
             updateManager.update();
