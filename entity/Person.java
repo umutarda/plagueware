@@ -31,16 +31,21 @@ public class Person implements Updatable, Drawable{
     public int stress;//(discontent) 0-100 
     public int awareness; // 0-100
     public double penalty; //0-20
+    private Building currentBuilding;
 
     public Object[] path;
     public int pathIndex;
 
     public Random random;
-    public Person(boolean condition, boolean mask, boolean vaccinated, int age){
+    
+    public Person(boolean condition, boolean mask, boolean vaccinated, int age, Point position){
         this.condition = condition;
         this.mask = mask;
         this.vaccinated = vaccinated;
         this.age = age;
+        this.currentBuilding = null;
+        this.pathIndex = -1;
+        this.location = position;
     }
     public double getSpreadPenalty(){
          
@@ -68,7 +73,7 @@ public class Person implements Updatable, Drawable{
 
         if (path != null) 
         {
-            if (location == null || currentPercentage == 1 )
+            if (pathIndex == -1 || currentPercentage == 1 )
             {
                 ((PathfindNode)path[pathIndex]).removePerson(this);
                 ((PathfindNode)path[++pathIndex]).addPerson(this);
@@ -78,16 +83,19 @@ public class Person implements Updatable, Drawable{
                 if (pathIndex < path.length - 1)
                     nextNodePosition = GameData.map.getPositionOfNode((Node)path[pathIndex+1]);
                 else 
+                {
                     nextNodePosition = null;
+                    location = null;
+                    path = null;
+                    pathIndex = -1;
+                    currentBuilding.enter(this);
+                }
                 
             }
 
-            if (location == null)
-                location = new Point (-1,-1);
-            
             if (nextNodePosition != null) 
             {
-                currentPercentage = Math.min(currentPercentage += 20 * GameData.updateManager.deltaTime(), 1);
+                currentPercentage = Math.min(currentPercentage += 2 * GameData.updateManager.deltaTime(), 1);
                 location.setLocation(currentNodePosition.x + (nextNodePosition.x - currentNodePosition.x) * currentPercentage,
                 currentNodePosition.y + (nextNodePosition.y - currentNodePosition.y) * currentPercentage );
             }
@@ -121,6 +129,16 @@ public class Person implements Updatable, Drawable{
 
 
        updated = true;
+    }
+    public void travelToBuilding(Building b) {
+
+        // if (location == null)
+        //     location = new Point (0,0);
+
+       
+        currentBuilding = b;
+        GameData.pathManager.requestPath(this, GameData.map.getNodeAtPosition(location), b.getEnterNode());
+
     }
 
     @Override
@@ -190,8 +208,13 @@ public class Person implements Updatable, Drawable{
         
         if (location == null)
             return;
-        g.setColor(Color.RED);
-        g.fillOval(location.x, location.y, 5, 5);
+        if(condition) {
+            g.setColor(Color.RED);
+        }
+        else {
+            g.setColor(Color.GREEN);
+        }
+        g.fillOval(location.x, location.y, 10, 10);
     }
 
 }

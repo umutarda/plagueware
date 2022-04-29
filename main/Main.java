@@ -14,7 +14,7 @@ public class Main {
         DrawManager drawManager = new DrawManager();
         GameData.drawManager = drawManager;
 
-        Map map = new Map(50, 50, 10, 1, "0".repeat(50*50));  
+        Map map = new Map(300, 100, 10, 1, "0".repeat(100*300));  
         GameData.map = map;
         drawManager.addDrawable(map);
 
@@ -32,23 +32,32 @@ public class Main {
         frame.pack();
         frame.setVisible(true);
 
-        
-        // Person aPerson = new Person(false, false, false, -1);
-        // updateManager.addUpdatable(aPerson);
-        // drawManager.addDrawable(aPerson);
-        // pathManager.requestPath(aPerson, map.getNodeAtRowColumn(new Point (0,0)),  map.getNodeAtRowColumn(new Point (40,49)));
-
-        // Person bPerson = new Person(false, false, false, -1);
-        // updateManager.addUpdatable(bPerson);
-        // drawManager.addDrawable(bPerson);
-        // pathManager.requestPath(bPerson,  map.getNodeAtRowColumn(new Point (5,0)),  map.getNodeAtRowColumn(new Point (30,35)));
+        Building[] buildings = new Building[10];
         try {
-            Building b = new Building(map, 1, 1, Building.HOSPITAL);
-            System.out.println(b.getEnterNode().getPosition());
+            buildings[0] = new Building(map, 1, 1, Building.HOSPITAL);
+            buildings[1] = new Building(map, 20, 10, Building.CAFE);
+            buildings[2] = new Building(map, 50, 10, Building.HOUSE);
+            buildings[3] = new Building(map, 100, 5, Building.APARTMENT);
+            // buildings[4] = new Building(map, 180, 120, Building.CAFE);
+            // buildings[5] = new Building(map, 20, 10, Building.CAFE);
+            // buildings[6] = new Building(map, 20, 10, Building.CAFE);
+            // buildings[7] = new Building(map, 20, 10, Building.CAFE);
+            
         } catch (Exception e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
+        
+        Person aPerson = new Person(false, false, false, -1, new Point(0, 0));
+        updateManager.addUpdatable(aPerson);
+        drawManager.addDrawable(aPerson);
+        aPerson.travelToBuilding(buildings[0]);
+        // pathManager.requestPath(aPerson, map.getNodeAtRowColumn(new Point (0,0)),  b.getEnterNode());
+
+        Person bPerson = new Person(false, false, false, -1, new Point(10,10));
+        updateManager.addUpdatable(bPerson);
+        drawManager.addDrawable(bPerson);
+        pathManager.requestPath(bPerson,  map.getNodeAtRowColumn(new Point (5,0)),  map.getNodeAtRowColumn(new Point (30,35)));
+       
 
 
         while (true) {

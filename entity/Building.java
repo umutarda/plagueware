@@ -25,6 +25,7 @@ public class Building {
         this.buildingType = buildingType;
         this.position = new Point(x, y);
         this.map = map;
+        persons = new ArrayList<Person>();
         nodes = new ImpassibleNode[getNodeHeight()][getNodeWidth()];
         if(x + getNodeWidth() > map.getNodeWidth() || x < 0 ||
                 y + getNodeHeight() > map.getNodeHeight() || y < 0 || getEnterNode() == null) {
