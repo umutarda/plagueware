@@ -7,6 +7,7 @@ import java.util.Random;
 import java.util.function.UnaryOperator;
 
 import main.Drawable;
+import main.GameData;
 import main.Main;
 import main.Map;
 import main.Updatable;
@@ -67,8 +68,10 @@ public class Person implements Updatable, Drawable{
         {
             if (location == null || currentPercentage == 1 )
             {
+                ((PathfindNode)path[pathIndex]).removePerson(this);
+                ((PathfindNode)path[++pathIndex]).addPerson(this);
                 currentPercentage = 0;
-                currentNodePosition = Main.gameData.map.getPositionOfNode((Node)path[++pathIndex]);
+                currentNodePosition = Main.gameData.map.getPositionOfNode((Node)path[pathIndex]);
                 
                 if (pathIndex < path.length - 1)
                     nextNodePosition = Main.gameData.map.getPositionOfNode((Node)path[pathIndex+1]);
@@ -127,6 +130,38 @@ public class Person implements Updatable, Drawable{
     public void reset() {
         penalty = -1;
         updated = false;
+    }
+
+    public void spread(Person p2)
+    {
+        if(condition || p2.condition)
+        {
+            this.condition = true;
+            p2.condition = true;
+        }
+    }
+    public void outsideContact()
+    {
+        Node[] contact = GameData.map.getNeighboursOf(GameData.map.getNodeAtPosition(location));
+        for(Node x : contact)
+        { 
+            if( x instanceof PathfindNode)
+            {
+                PathfindNode A = (PathfindNode) x ;
+                for (Person p : A.getPersons()) {
+                    if(!p.condition)
+                    {
+                        double otherPenalty= p.getSpreadPenalty();
+
+                        int die = random.nextInt(21);
+
+                        if (die <= otherPenalty)
+                        p.condition = true;
+                    }
+                    
+                }
+            }
+        }
     }
 
     @Override
