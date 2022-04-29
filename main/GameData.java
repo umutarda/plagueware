@@ -54,7 +54,7 @@ public class GameData {
 
     static void chooseBuilding(Person p){
         int hour = time.hour;
-        Map = Main.gameData.map;
+        Map  map = Main.gameData.map;
         if(hour>24 || hour<8)
             pathManager.requestPath(p,  map.getNodeAtPosition(p.location) , p.house.getEnterNode());
 
