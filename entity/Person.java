@@ -10,6 +10,7 @@ import main.Drawable;
 import main.Main;
 import main.Map;
 import main.Updatable;
+import main.GameData;
 public class Person implements Updatable, Drawable{
 
     //variables
@@ -68,10 +69,10 @@ public class Person implements Updatable, Drawable{
             if (location == null || currentPercentage == 1 )
             {
                 currentPercentage = 0;
-                currentNodePosition = Main.gameData.map.getPositionOfNode((Node)path[++pathIndex]);
+                currentNodePosition = GameData.map.getPositionOfNode((Node)path[++pathIndex]);
                 
                 if (pathIndex < path.length - 1)
-                    nextNodePosition = Main.gameData.map.getPositionOfNode((Node)path[pathIndex+1]);
+                    nextNodePosition = GameData.map.getPositionOfNode((Node)path[pathIndex+1]);
                 else 
                     nextNodePosition = null;
                 
@@ -82,7 +83,7 @@ public class Person implements Updatable, Drawable{
             
             if (nextNodePosition != null) 
             {
-                currentPercentage = Math.min(currentPercentage += 20 * Main.gameData.updateManager.deltaTime(), 1);
+                currentPercentage = Math.min(currentPercentage += 20 * GameData.updateManager.deltaTime(), 1);
                 location.setLocation(currentNodePosition.x + (nextNodePosition.x - currentNodePosition.x) * currentPercentage,
                 currentNodePosition.y + (nextNodePosition.y - currentNodePosition.y) * currentPercentage );
             }

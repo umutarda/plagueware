@@ -8,21 +8,20 @@ import entity.Person;
 
 public class Main {
     
-    public static GameData gameData;
     public static void main(String[] args)  throws InterruptedException  {
         
         DrawManager drawManager = new DrawManager();
-        gameData.drawManager = drawManager;
+        GameData.drawManager = drawManager;
 
         Map map = new Map(50, 50, 4, 3, "0".repeat(50*5) + "1".repeat(49) + "0".repeat(50*44 + 1));  
-        gameData.map = map;
+        GameData.map = map;
         drawManager.addDrawable(map);
 
         PathManager pathManager = new PathManager(map);
-        gameData.pathManager = pathManager;
+        GameData.pathManager = pathManager;
 
         UpdateManager updateManager = new UpdateManager(drawManager);
-        gameData.updateManager = updateManager;
+        GameData.updateManager = updateManager;
         updateManager.addUpdatable(pathManager); 
 
         JFrame frame = new JFrame();                                        
