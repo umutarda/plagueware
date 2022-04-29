@@ -13,26 +13,26 @@ import main.Updatable;
 public class Person implements Updatable, Drawable{
 
     //variables
-    boolean condition;
-    boolean mask = true;
-    boolean vaccinated;
-    boolean updated;
-    int age; // 0-100
+    public boolean condition;
+    public boolean mask = true;
+    public boolean vaccinated;
+    public boolean updated;
+    public int age; // 0-100
     
-    Point location;
-    Point currentNodePosition;
-    Point nextNodePosition;
-    double currentPercentage;
+    public Point location;
+    public Point currentNodePosition;
+    public Point nextNodePosition;
+    public double currentPercentage;
 
-    Building house;
-    int stress;//(discontent) 0-100 
-    int awareness; // 0-100
-    double penalty; //0-20
+    public Building house;
+    public int stress;//(discontent) 0-100 
+    public int awareness; // 0-100
+    public double penalty; //0-20
 
-    Object[] path;
-    int pathIndex;
+    public Object[] path;
+    public int pathIndex;
 
-    Random random;
+    public Random random;
     public Person(boolean condition, boolean mask, boolean vaccinated, int age){
         this.condition = condition;
         this.mask = mask;
