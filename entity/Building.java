@@ -39,12 +39,8 @@ public class Building {
                     throw new Exception("Invalid Building Placement");
                 }
                 map.setNodeImpassible(node.getPosition());
-<<<<<<< Updated upstream
                 nodes[i][j] = (ImpassibleNode) map.getNodeAtRowColumn(new Point(x + j, y + i));
-=======
                 map.getNodeAtPosition(node.getPosition()).setColor(getColor());
-                nodes[i][j] = (ImpassibleNode) map.getNodeAtPosition(new Point(x + j, y + i));
->>>>>>> Stashed changes
             }
         }
         enterNode = getEnterNode();
