@@ -2,11 +2,17 @@ package pathfinder;
 
 import java.awt.Color;
 import java.awt.Point;
+import java.util.ArrayList;
 
 import javax.crypto.spec.GCMParameterSpec;
 
+import entity.Person;
+
 public class PathfindNode extends Node implements IHeapItem<PathfindNode> {
     
+
+    public ArrayList<Person> personOnNode;
+    public int umut;
     public enum State 
     {
         NORMAL,
@@ -94,5 +100,20 @@ public class PathfindNode extends Node implements IHeapItem<PathfindNode> {
     @Override
     public Color getColor() {
         return Color.WHITE;
+    }
+
+
+    public void addPerson(Person p)
+    {
+        personOnNode.add(p);
+    }
+
+    public void removePerson(Person p)
+    {
+        personOnNode.remove(p);
+    }
+    public ArrayList<Person> getPersons()
+    {
+        return personOnNode;
     }
 }
