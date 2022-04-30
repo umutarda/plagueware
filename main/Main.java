@@ -60,14 +60,10 @@ public class Main {
         }
         
         Person aPerson = new Person(false, false, false, -1, new Point(0, 0));
-        updateManager.addUpdatable(aPerson);
-        drawManager.addDrawable(aPerson);
         aPerson.travelToBuilding(buildings[0]);
         // pathManager.requestPath(aPerson, map.getNodeAtRowColumn(new Point (0,0)),  b.getEnterNode());
 
         Person bPerson = new Person(false, false, false, -1, map.getPositionOfNode(map.getNodeAtRowColumn(new Point(0, 0))));
-        updateManager.addUpdatable(bPerson);
-        drawManager.addDrawable(bPerson);
         bPerson.travelToBuilding(buildings[1]);
        
 
