@@ -111,7 +111,7 @@ public class GameData {
         map = newMap;
         pathManager = new PathManager(map);
         drawManager = new DrawManager();
-        updateManager = new UpdateManager(drawManager);
+        updateManager = new UpdateManager();
         buildings = new ArrayList<Building>();
         people = new ArrayList<Person>();
         time = new Time();
