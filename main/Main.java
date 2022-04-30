@@ -22,7 +22,7 @@ public class Main {
         Map map = new Map(300, 100, 10, 1, "0".repeat(100*300));  
         GameData.setUp(map);
         GameData.drawManager.addDrawable(map);
-
+        map.setWindowSize();
 
         GameData.time = new Time();
 
@@ -114,7 +114,7 @@ public class Main {
         // });
 
         while (true) {
-            updateManager.update();
+            GameData.updateManager.update();
             
         }
 
