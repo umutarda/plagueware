@@ -90,13 +90,14 @@ public class Person implements Updatable, Drawable{
                     nextNodePosition = null;
                     location = null;
                     
-                    pathIndex = -1;
+                    
                     if(currentBuilding != null) {
                         currentBuilding.enter(this);
                         ((PathfindNode)path[pathIndex]).removePerson(this);
                     }
 
                     path = null;
+                    pathIndex = -1;
                 }
                 
             }
