@@ -6,13 +6,10 @@ public class UpdateManager{
     public final long UPDATE_TIME = 33333333;
     private ArrayList<Updatable> updatables;
     private ArrayList<Updatable> requestedUpdatables;
-    private DrawManager drawManager;
-
     private double deltaTime;
 
-    public UpdateManager(DrawManager drawManager) 
+    public UpdateManager() 
     {
-        this.drawManager = drawManager;
         updatables = new ArrayList<Updatable>();
         requestedUpdatables = new ArrayList<Updatable>();
     }
