@@ -22,8 +22,6 @@ public class Map implements Drawable
         this.blockSize = blockSize;
         this.gap = gap;
 
-        GameData.drawManager.setBackground(Color.BLACK);
-        GameData.drawManager.setPreferredSize(new Dimension (blockSize + (width-1) * (blockSize+gap), blockSize + (height-1) * (blockSize+gap)));
         
         nodes = new Node[width * height];
         for (int j = 0; j < height; j++) {
@@ -47,6 +45,12 @@ public class Map implements Drawable
         }
     }
 
+    public void setWindowSize() 
+    {
+        GameData.drawManager.setBackground(Color.BLACK);
+        GameData.drawManager.setPreferredSize(new Dimension (blockSize + (width-1) * (blockSize+gap), blockSize + (height-1) * (blockSize+gap)));
+        
+    }
     public Node getNodeAtRowColumn (Point rowColumn) 
     {
         if (rowColumn.x < 0 || rowColumn.x >= width)
