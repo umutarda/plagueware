@@ -46,7 +46,10 @@ public class Person implements Updatable, Drawable{
         this.currentBuilding = null;
         this.pathIndex = -1;
         this.location = position;
+
         GameData.people.add(this);
+        GameData.updateManager.addUpdatable(this);
+        GameData.drawManager.addDrawable(this);
     }
     public double getSpreadPenalty(){
          
@@ -98,6 +101,7 @@ public class Person implements Updatable, Drawable{
 
                     path = null;
                     pathIndex = -1;
+
                 }
                 
             }
@@ -109,41 +113,22 @@ public class Person implements Updatable, Drawable{
                 currentNodePosition.y + (nextNodePosition.y - currentNodePosition.y) * currentPercentage );
             }
 
+            outsideContact();
         }
 
-       
-      
-        /*Map map = Main.gameData.map;
-        
-        if(condition) 
+        else 
         {
-            Node[] neighbourNodes =  map.getNeighboursOf(map.getNodeAtPosition(coordinate));
-            for (int i = 0; i < neighbourNodes.length; i++) {
-                    
-                if (neighbourNodes[i] == null)
-                    continue;
-
-                Person p = map.getPersonAtNode(neighbourNodes[i]);
-                double otherPenalty= p.getSpreadPenalty();
-
-                int die = random.nextInt(21);
-
-                if (die <= otherPenalty)
-                    p.condition = true;
-            
-            }
-        }*/
-        
-       // pathManager.requestPath(this, startPosition, targetPosition);
-
+            //TODO fix the problem of calling random building func every other frame while random building is being null
+            travelToBuilding(GameData.randomBuildingForPerson(this));
+            insideContact();
+        }
 
        updated = true;
     }
     public void travelToBuilding(Building b) {
 
-        // if (location == null)
-        //     location = new Point (0,0);
-
+        if (b == null)
+            return;
        
         currentBuilding = b;
         GameData.pathManager.requestPath(this, GameData.map.getNodeAtPosition(location), b.getEnterNode());
@@ -163,11 +148,13 @@ public class Person implements Updatable, Drawable{
 
     public void spread(Person p2)
     {
-        if(condition || p2.condition)
-        {
-            this.condition = true;
-            p2.condition = true;
-        }
+        double otherPenalty= p2.getSpreadPenalty();
+
+        int spreadChance = random.nextInt(21);
+
+        if (spreadChance <= otherPenalty)
+            p2.condition = true;   
+               
     }
     public void outsideContact()
     {
@@ -177,16 +164,10 @@ public class Person implements Updatable, Drawable{
             if( x instanceof PathfindNode)
             {
                 PathfindNode A = (PathfindNode) x ;
-                for (Person p : A.getPersons()) {
-                    if(!p.condition)
-                    {
-                        double otherPenalty= p.getSpreadPenalty();
-
-                        int dice = random.nextInt(21);
-
-                        if (dice <= otherPenalty)
-                        p.condition = true;
-                    }
+                for (Person person : A.getPersons()) {
+                    
+                    if(!person.condition)
+                        spread(person);
                     
                 }
             }
@@ -198,15 +179,7 @@ public class Person implements Updatable, Drawable{
         
         for (Person person : current.getPeople()) {
             if(!person.condition)
-            {
-                double otherPenalty= person.getSpreadPenalty();
-
-                int dice = random.nextInt(21);
-
-                if (dice <= otherPenalty)
-                   person.condition = true;
-            }
-            
+                spread(person);
             
         }
     }
