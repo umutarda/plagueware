@@ -3,6 +3,7 @@ package entity;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
+import main.GameData;
 import main.Updatable;
 
 /**
@@ -10,11 +11,15 @@ import main.Updatable;
  */
 public class Time implements Updatable{
 
+    public int day;
     public int hour; 
     public int minute;
     long lasttime = System.currentTimeMillis()/41;
     long now;
     long delta;
+    public Time() {
+        GameData.updateManager.addUpdatable(this);
+    }
 
 
     public static void main(String[] args) {
@@ -60,6 +65,7 @@ public class Time implements Updatable{
             if(hour>23)
             {
                 hour = 0; 
+                day++;
                 
             }
                 

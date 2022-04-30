@@ -46,6 +46,7 @@ public class Person implements Updatable, Drawable{
         this.currentBuilding = null;
         this.pathIndex = -1;
         this.location = position;
+        GameData.people.add(this);
     }
     public double getSpreadPenalty(){
          
@@ -75,7 +76,9 @@ public class Person implements Updatable, Drawable{
         {
             if (pathIndex == -1 || currentPercentage == 1 )
             {
-                ((PathfindNode)path[pathIndex]).removePerson(this);
+                if(pathIndex != -1) {
+                    ((PathfindNode)path[pathIndex]).removePerson(this);
+                }
                 ((PathfindNode)path[++pathIndex]).addPerson(this);
                 currentPercentage = 0;
                 currentNodePosition = GameData.map.getPositionOfNode((Node)path[pathIndex]);
@@ -88,7 +91,9 @@ public class Person implements Updatable, Drawable{
                     location = null;
                     path = null;
                     pathIndex = -1;
-                    currentBuilding.enter(this);
+                    if(currentBuilding != null) {
+                        currentBuilding.enter(this);
+                    }
                 }
                 
             }

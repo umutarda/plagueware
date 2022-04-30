@@ -29,6 +29,7 @@ public class PathfindNode extends Node implements IHeapItem<PathfindNode> {
     public PathfindNode(Point position, State state) {
         super(position);
         this.state = state;
+        personOnNode = new ArrayList<Person>();
     }
 
 
@@ -99,7 +100,11 @@ public class PathfindNode extends Node implements IHeapItem<PathfindNode> {
 
     @Override
     public Color getColor() {
-        return Color.WHITE;
+        // return Color.WHITE;
+        if(color == null) {
+            return Color.WHITE;
+        }
+        return color;
     }
 
 

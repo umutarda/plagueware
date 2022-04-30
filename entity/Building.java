@@ -1,5 +1,6 @@
 package entity;
 import java.awt.Point;
+import java.nio.channels.Pipe;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -8,11 +9,9 @@ import pathfinder.*;
 import java.awt.Color;
 import java.awt.*;
 
-public class Building {
-    public final static int CAFE = 0;
-    public final static int APARTMENT = 1;
-    public final static int HOSPITAL = 2;
-    public final static int HOUSE = 3;
+public abstract class Building {
+    
+    
     
     private Point position;
     private ImpassibleNode[][] nodes;
@@ -21,10 +20,9 @@ public class Building {
     private int buildingType;
     
     ArrayList<Person> persons;
-    public Building(Map map, int x, int y, int buildingType) throws Exception {
-        this.buildingType = buildingType;
+    public Building(int x, int y) throws Exception {
         this.position = new Point(x, y);
-        this.map = map;
+        this.map = GameData.map;
         persons = new ArrayList<Person>();
         nodes = new ImpassibleNode[getNodeHeight()][getNodeWidth()];
         if(x + getNodeWidth() > map.getNodeWidth() || x < 0 ||
@@ -48,28 +46,31 @@ public class Building {
             }
         }
         enterNode = getEnterNode();
+        GameData.buildings.add(this);
 
     }
-    public int getNodeWidth() {
-        switch(buildingType) {
-            case CAFE: return 3;
-            case APARTMENT: return 2; 
-            case HOSPITAL: return 8;
-            case HOUSE: return 1;
-        }
-        return -1;
-    }
-    public int getNodeHeight() {
-        switch(buildingType) {
-            case CAFE: return 2;
-            case APARTMENT: return 2; 
-            case HOSPITAL: return 5;
-            case HOUSE: return 1;
-        }
-        return -1;
-    }
+    public abstract int getNodeWidth(); 
+    // {
+    //     switch(buildingType) {
+    //         case CAFE: return 3;
+    //         case APARTMENT: return 2; 
+    //         case HOSPITAL: return 8;
+    //         case HOUSE: return 1;
+    //     }
+    //     return -1;
+    // }
+    public abstract int getNodeHeight();
+    //  {
+    //     switch(buildingType) {
+    //         case CAFE: return 2;
+    //         case APARTMENT: return 2; 
+    //         case HOSPITAL: return 5;
+    //         case HOUSE: return 1;
+    //     }
+    //     return -1;
+    // }
     public Node getEnterNode() {
-        Node pos = map.getNodeAtPosition(position);
+        Node pos = map.getNodeAtRowColumn(position);
         int x = pos.getPosition().x + getNodeWidth() / 2;
         int y = pos.getPosition().y - 1;
         Node node = map.getNodeAtRowColumn(new Point(x, y));
@@ -95,6 +96,9 @@ public class Building {
 
         return null;
     }
+    // public int getBuildingType() {
+    //     return buildingType;
+    // }
     public void enter(Person p) {
         persons.add(p);
         p.location = null;
@@ -107,13 +111,15 @@ public class Building {
     public Person[] getPeople() {
         return (Person[])persons.toArray();
     }
-    public Color getColor() {
-        switch(buildingType) {
-            case CAFE: return Color.BLUE;
-            case APARTMENT: return Color.GRAY;
-            case HOSPITAL: return Color.RED;
-            case HOUSE: return Color.ORANGE;
-        }
-        return null;
-    }
+    public abstract Color getColor();
+    //  {
+    //     switch(buildingType) {
+    //         case CAFE: return Color.BLUE;
+    //         case APARTMENT: return Color.GRAY;
+    //         case HOSPITAL: return Color.RED;
+    //         case HOUSE: return Color.ORANGE;
+    //     }
+    //     return null;
+    // }
+    public abstract int getBuildingType();
 }
