@@ -1,16 +1,12 @@
 package entity;
-import pathfinder.PathManager;
 import pathfinder.PathfindNode;
 import pathfinder.Node;
 import java.awt.*;
-import java.util.ArrayList;
 import java.util.Random;
-import java.util.function.UnaryOperator;
+
 
 import main.Drawable;
 import main.GameData;
-import main.Main;
-import main.Map;
 import main.Updatable;
 public class Person implements Updatable, Drawable{
 
