@@ -19,26 +19,15 @@ public class Main {
     
     public static void main(String[] args)  throws InterruptedException  {
         
-        DrawManager drawManager = new DrawManager();
-        GameData.drawManager = drawManager;
-
         Map map = new Map(300, 100, 10, 1, "0".repeat(100*300));  
-        GameData.map = map;
-        drawManager.addDrawable(map);
+        GameData.setUp(map);
+        GameData.drawManager.addDrawable(map);
 
-        PathManager pathManager = new PathManager(map);
-        GameData.pathManager = pathManager;
-
-        UpdateManager updateManager = new UpdateManager(drawManager);
-        GameData.updateManager = updateManager;
-        updateManager.addUpdatable(pathManager); 
-        GameData.people = new ArrayList<Person>();
-        GameData.buildings = new ArrayList<Building>();
 
         GameData.time = new Time();
 
         JFrame frame = new JFrame();
-        frame.setContentPane(drawManager);
+        frame.setContentPane(GameData.drawManager);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setBackground(Color.BLACK);
         frame.pack();
