@@ -16,11 +16,11 @@ public class Person implements Updatable, Drawable{
     public boolean vaccinated;
     public boolean updated;
     public int age; // 0-100
-    public int umut;
+
     public Point location;
     public Point currentNodePosition;
     public Point nextNodePosition;
-    public double currentPercentage;
+    public double currentPathIntervalPercentage;
 
     public Building house;
     public int stress;//(discontent) 0-100 
@@ -40,6 +40,7 @@ public class Person implements Updatable, Drawable{
         this.age = age;
         this.currentBuilding = null;
         this.pathIndex = -1;
+        this.currentPathIntervalPercentage = 1;
         this.location = position;
 
         GameData.people.add(this);
@@ -66,36 +67,56 @@ public class Person implements Updatable, Drawable{
             penalty += 5;
         penalty += age * 0.03 + stress * 0.03 + (100-awareness) * 0.04;
    }
+    
+    private boolean pathIntervalIsDone() 
+    {
+        return currentPathIntervalPercentage == 1;
+    }
+    
+    private boolean pathTravelIsNotStarted() 
+    {
+        return pathIndex == -1;
+    }
+
+    private boolean pathTravelIsNotFinished() 
+    {
+        return pathIndex < path.length - 1;
+    }
 
     @Override
     public void run() {
 
         if (path != null) 
         {
-            if (pathIndex == -1 || currentPercentage == 1 )
+            if (pathIntervalIsDone())
             {
-                if(pathIndex != -1) {
+                if(pathTravelIsNotStarted()) {
+                    location = new Point();
+                }
+
+                else 
+                {
                     ((PathfindNode)path[pathIndex]).removePerson(this);
                 }
+
+
                 ((PathfindNode)path[++pathIndex]).addPerson(this);
-                currentPercentage = 0;
+                currentPathIntervalPercentage = 0;
                 currentNodePosition = GameData.map.getPositionOfNode((Node)path[pathIndex]);
                 
-                if (pathIndex < path.length - 1)
+                if (pathTravelIsNotFinished())
                     nextNodePosition = GameData.map.getPositionOfNode((Node)path[pathIndex+1]);
                 else 
                 {
                     nextNodePosition = null;
                     location = null;
                     
+                    currentBuilding.enter(this);
+                    ((PathfindNode)path[pathIndex]).removePerson(this);
                     
-                    if(currentBuilding != null) {
-                        currentBuilding.enter(this);
-                        ((PathfindNode)path[pathIndex]).removePerson(this);
-                    }
-
                     path = null;
                     pathIndex = -1;
+                    currentPathIntervalPercentage = 1;
 
                 }
                 
@@ -103,9 +124,9 @@ public class Person implements Updatable, Drawable{
 
             if (nextNodePosition != null) 
             {
-                currentPercentage = Math.min(currentPercentage + 2 * GameData.updateManager.deltaTime(), 1);
-                location.setLocation(currentNodePosition.x + (nextNodePosition.x - currentNodePosition.x) * currentPercentage,
-                currentNodePosition.y + (nextNodePosition.y - currentNodePosition.y) * currentPercentage );
+                currentPathIntervalPercentage = Math.min(currentPathIntervalPercentage + 20 * GameData.updateManager.deltaTime(), 1);
+                location.setLocation(currentNodePosition.x + (nextNodePosition.x - currentNodePosition.x) * currentPathIntervalPercentage,
+                currentNodePosition.y + (nextNodePosition.y - currentNodePosition.y) * currentPathIntervalPercentage );
             }
 
             if (condition)
@@ -114,17 +135,15 @@ public class Person implements Updatable, Drawable{
 
         else 
         {
-            if (currentBuilding == null) 
-            {
-                 //TODO fix the problem of calling random building func every other frame while random building is being null
-                travelToBuilding(GameData.randomBuildingForPerson(this));
-            }
-
-            else 
+            if (currentBuilding != null) 
             {
                 if (condition)
                     insideContact();
+                
             }
+
+            //TODO fix the problem of calling random building func every other frame while random building is being null
+            travelToBuilding(GameData.randomBuildingForPerson(this));
             
         }
 
@@ -134,9 +153,21 @@ public class Person implements Updatable, Drawable{
 
         if (b == null)
             return;
+
+        Node startNode;
+        if (currentBuilding != null) 
+        {
+            startNode = currentBuilding.getEnterNode();
+            currentBuilding.exit(this);
+            currentBuilding = null;
+        }
+            
        
+        else
+            startNode = GameData.map.getNodeAtPosition(location);
+
         currentBuilding = b;
-        GameData.pathManager.requestPath(this, GameData.map.getNodeAtPosition(location), b.getEnterNode());
+        GameData.pathManager.requestPath(this, startNode, b.getEnterNode());
 
     }
 
