@@ -23,7 +23,6 @@ public class Person implements Updatable, Drawable{
     public double currentPercentage;
 
     public Building house;
-    public Building current;
     public int stress;//(discontent) 0-100 
     public int awareness; // 0-100
     public double penalty; //0-20
@@ -109,14 +108,17 @@ public class Person implements Updatable, Drawable{
                 currentNodePosition.y + (nextNodePosition.y - currentNodePosition.y) * currentPercentage );
             }
 
-            outsideContact();
+            if (condition)
+                outsideContact();
         }
 
         else 
         {
             //TODO fix the problem of calling random building func every other frame while random building is being null
             travelToBuilding(GameData.randomBuildingForPerson(this));
-            insideContact();
+            
+            if (condition)
+                insideContact();
         }
 
        updated = true;
@@ -172,8 +174,11 @@ public class Person implements Updatable, Drawable{
 
     public void insideContact()
     {
-        
-        for (Person person : current.getPeople()) {
+     
+        if (currentBuilding == null)
+            return;
+            
+        for (Person person : currentBuilding.getPeople()) {
             if(!person.condition)
                 spread(person);
             
