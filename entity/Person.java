@@ -103,7 +103,7 @@ public class Person implements Updatable, Drawable{
 
             if (nextNodePosition != null) 
             {
-                currentPercentage = Math.min(currentPercentage += 2 * GameData.updateManager.deltaTime(), 1);
+                currentPercentage = Math.min(currentPercentage + 2 * GameData.updateManager.deltaTime(), 1);
                 location.setLocation(currentNodePosition.x + (nextNodePosition.x - currentNodePosition.x) * currentPercentage,
                 currentNodePosition.y + (nextNodePosition.y - currentNodePosition.y) * currentPercentage );
             }
@@ -114,11 +114,18 @@ public class Person implements Updatable, Drawable{
 
         else 
         {
-            //TODO fix the problem of calling random building func every other frame while random building is being null
-            travelToBuilding(GameData.randomBuildingForPerson(this));
+            if (currentBuilding == null) 
+            {
+                 //TODO fix the problem of calling random building func every other frame while random building is being null
+                travelToBuilding(GameData.randomBuildingForPerson(this));
+            }
+
+            else 
+            {
+                if (condition)
+                    insideContact();
+            }
             
-            if (condition)
-                insideContact();
         }
 
        updated = true;
@@ -175,9 +182,6 @@ public class Person implements Updatable, Drawable{
     public void insideContact()
     {
      
-        if (currentBuilding == null)
-            return;
-            
         for (Person person : currentBuilding.getPeople()) {
             if(!person.condition)
                 spread(person);

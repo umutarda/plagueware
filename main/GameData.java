@@ -108,10 +108,11 @@ public class GameData {
 
     }
     public static void setUp(Map newMap) {
+        
         map = newMap;
-        pathManager = new PathManager(map);
         drawManager = new DrawManager();
         updateManager = new UpdateManager();
+        pathManager = new PathManager(map);
         buildings = new ArrayList<Building>();
         people = new ArrayList<Person>();
         time = new Time();

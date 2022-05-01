@@ -24,8 +24,6 @@ public class Main {
         GameData.drawManager.addDrawable(map);
         map.setWindowSize();
 
-        GameData.time = new Time();
-
         JFrame frame = new JFrame();
         frame.setContentPane(GameData.drawManager);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -62,7 +60,7 @@ public class Main {
             public void run() {
                 // System.out.println("a: " + aPerson.location + ", b: " + bPerson.location);
                 // System.out.println("a: " + aPerson.currentNodePosition + ", b: " + bPerson.currentNodePosition);
-                System.out.println("Day " + GameData.time.day + ", " + GameData.time.hour + ":" + GameData.time.minute);
+               // System.out.println("Day " + GameData.time.day + ", " + GameData.time.hour + ":" + GameData.time.minute);
             }
             
         }, 0, 1000);

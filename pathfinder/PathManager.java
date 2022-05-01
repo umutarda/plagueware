@@ -1,6 +1,7 @@
 package pathfinder;
 
 import main.Updatable;
+import main.GameData;
 import main.Map;
 
 import java.awt.Point;
@@ -30,6 +31,7 @@ public class PathManager implements Updatable {
     {
         this.map = map;
         requestedPaths = new ArrayList<PathRequest>();
+        GameData.updateManager.addUpdatable(this);
     }
 
     public void requestPath(Object requester, Node startNode, Node targetNode)
