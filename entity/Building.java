@@ -101,11 +101,10 @@ public abstract class Building {
     // }
     public void enter(Person p) {
         persons.add(p);
-        p.location = null;
     }
     public void exit(Person p) {
         persons.remove(p);
-        p.location = map.getPositionOfNode(getEnterNode());
+        //p.location = map.getPositionOfNode(getEnterNode());
         //p.chooseBuilding();
     }
     public Person[] getPeople() {
