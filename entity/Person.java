@@ -1,16 +1,12 @@
 package entity;
-import pathfinder.PathManager;
 import pathfinder.PathfindNode;
 import pathfinder.Node;
 import java.awt.*;
-import java.util.ArrayList;
 import java.util.Random;
-import java.util.function.UnaryOperator;
+
 
 import main.Drawable;
 import main.GameData;
-import main.Main;
-import main.Map;
 import main.Updatable;
 public class Person implements Updatable, Drawable{
 
@@ -20,11 +16,11 @@ public class Person implements Updatable, Drawable{
     public boolean vaccinated;
     public boolean updated;
     public int age; // 0-100
-    public int umut;
+
     public Point location;
     public Point currentNodePosition;
     public Point nextNodePosition;
-    public double currentPercentage;
+    public double currentPathIntervalPercentage;
 
     public Building home;
     public Building currentBuilding;
@@ -46,9 +42,14 @@ public class Person implements Updatable, Drawable{
         this.age = age;
         this.currentBuilding = null;
         this.pathIndex = -1;
-        GameData.people.add(this);
+        
         this.home = home;
         this.currentBuilding = home;
+        this.currentPathIntervalPercentage = 1;
+
+        GameData.people.add(this);
+        GameData.updateManager.addUpdatable(this);
+        GameData.drawManager.addDrawable(this);
     }
     public double getSpreadPenalty(){
          
@@ -73,86 +74,106 @@ public class Person implements Updatable, Drawable{
             penalty += 5;
         penalty += age * 0.03 + stress * 0.03 + (100-awareness) * 0.04;
    }
+    
+    private boolean pathIntervalIsDone() 
+    {
+        return currentPathIntervalPercentage == 1;
+    }
+    
+    private boolean pathTravelIsNotStarted() 
+    {
+        return pathIndex == -1;
+    }
+
+    private boolean pathTravelIsNotFinished() 
+    {
+        return pathIndex < path.length - 1;
+    }
 
     @Override
     public void run() {
 
         if (path != null) 
         {
-            if (pathIndex == -1 || currentPercentage == 1 )
+            if (pathIntervalIsDone())
             {
-                if(pathIndex != -1) {
+                if(pathTravelIsNotStarted()) {
+                    location = new Point();
+                }
+
+                else 
+                {
                     ((PathfindNode)path[pathIndex]).removePerson(this);
                 }
+
+
                 ((PathfindNode)path[++pathIndex]).addPerson(this);
-                currentPercentage = 0;
+                currentPathIntervalPercentage = 0;
                 currentNodePosition = GameData.map.getPositionOfNode((Node)path[pathIndex]);
                 
-                if (pathIndex < path.length - 1)
+                if (pathTravelIsNotFinished())
                     nextNodePosition = GameData.map.getPositionOfNode((Node)path[pathIndex+1]);
                 else 
                 {
                     nextNodePosition = null;
                     location = null;
+                    
+                    currentBuilding.enter(this);
+                    ((PathfindNode)path[pathIndex]).removePerson(this);
+                    
                     path = null;
                     pathIndex = -1;
-                    if(currentBuilding != null) {
-                        currentBuilding.enter(this);
-                    }
+                    currentPathIntervalPercentage = 1;
+
                 }
                 
             }
 
             if (nextNodePosition != null) 
             {
-                currentPercentage = Math.min(currentPercentage += 2 * GameData.updateManager.deltaTime(), 1);
-                location.setLocation(currentNodePosition.x + (nextNodePosition.x - currentNodePosition.x) * currentPercentage,
-                currentNodePosition.y + (nextNodePosition.y - currentNodePosition.y) * currentPercentage );
+                currentPathIntervalPercentage = Math.min(currentPathIntervalPercentage + 20 * GameData.updateManager.deltaTime(), 1);
+                location.setLocation(currentNodePosition.x + (nextNodePosition.x - currentNodePosition.x) * currentPathIntervalPercentage,
+                currentNodePosition.y + (nextNodePosition.y - currentNodePosition.y) * currentPathIntervalPercentage );
             }
 
+            if (isSick)
+                outsideContact();
         }
         else {
+            if (currentBuilding != null) 
+            {
+                if (isSick)
+                    insideContact();
+                
+            }
             if(GameData.time.getTotalMinutes() >= leaveMinute) {
                 currentBuilding.exit(this);
             }
         }
 
-       
-      
-        /*Map map = Main.gameData.map;
         
-        if(condition) 
-        {
-            Node[] neighbourNodes =  map.getNeighboursOf(map.getNodeAtPosition(coordinate));
-            for (int i = 0; i < neighbourNodes.length; i++) {
-                    
-                if (neighbourNodes[i] == null)
-                    continue;
-
-                Person p = map.getPersonAtNode(neighbourNodes[i]);
-                double otherPenalty= p.getSpreadPenalty();
-
-                int die = random.nextInt(21);
-
-                if (die <= otherPenalty)
-                    p.condition = true;
-            
-            }
-        }*/
-        
-       // pathManager.requestPath(this, startPosition, targetPosition);
-
 
        updated = true;
     }
     public void travelToBuilding(Building b) {
 
-        // if (location == null)
-        //     location = new Point (0,0);
+        if (b == null)
+            return;
 
+        Node startNode;
+        if (currentBuilding != null) 
+        {
+            startNode = currentBuilding.getEnterNode();
+            currentBuilding.exit(this);
+            currentBuilding = null;
+        }
+            
        
+        else
+            startNode = GameData.map.getNodeAtPosition(location);
+
         currentBuilding = b;
-        GameData.pathManager.requestPath(this, GameData.map.getNodeAtPosition(location), b.getEnterNode());
+        GameData.pathManager.requestPath(this, startNode, b.getEnterNode());
 
     }
 

@@ -52,9 +52,10 @@ public class GameData {
             boolean mask = (rand.nextDouble()-0.5+averMask)>0.5;
             boolean vaccinated = (rand.nextDouble()-0.5+averVacc)>0.5;
             int age =  Math.abs((int)((rand.nextGaussian()+1)*averAge));  
-            Person p = new Person(false, mask, vaccinated, age, homes.get(rand.nextInt(homes.size()))); //fix position
-            updateManager.addUpdatable(p);
-            drawManager.addDrawable(p);
+
+            //adds to the people list in constructor
+            new Person(false, mask, vaccinated, age, homes.get(rand.nextInt(homes.size()))); //fix position
+
         }
 
 
@@ -63,9 +64,10 @@ public class GameData {
             boolean mask = (rand.nextDouble()-0.5+averMask)>0.5;
             boolean vaccinated = (rand.nextDouble()-0.5+averMask)>0.5;
             int age = Math.abs((int)((rand.nextGaussian()+1)*averAge));
-            Person p = new Person(true, mask, vaccinated, age, homes.get(rand.nextInt(homes.size()))); //fix position
-            updateManager.addUpdatable(p);
-            drawManager.addDrawable(p);
+
+            //adds to the people list in constructor
+            new Person(true, mask, vaccinated, age, homes.get(rand.nextInt(homes.size()))); //fix position
+
         }
     }
 
@@ -79,9 +81,6 @@ public class GameData {
         people = null;
         hospital = null;
         time = null;
-
-        
-        
     }
 
     public static void chooseBuilding(Person p){
@@ -96,14 +95,36 @@ public class GameData {
         
         else if(hour>16 && hour<24)
             p.travelToBuilding(entertainmentBuilding.get(rand.nextInt(entertainmentBuilding.size())));
+    }
+
+    public static Building randomBuildingForPerson(Person p){
+        int hour = time.hour;
+        ArrayList<Building> entertainmentBuilding = getEntertainmentBuildings();
+
+        boolean stay = rand.nextBoolean();
+        
+        if (stay)
+            return null;
+
+        if(hour<=8)
+            return p.home;
+
+        else if(hour>8 && hour<=16)
+            return entertainmentBuilding.get(rand.nextInt(entertainmentBuilding.size()));
+        
+        else if(hour>16)
+            return entertainmentBuilding.get(rand.nextInt(entertainmentBuilding.size()));
+
+        return null;
 
 
     }
     public static void setUp(Map newMap) {
+        
         map = newMap;
-        pathManager = new PathManager(map);
         drawManager = new DrawManager();
-        updateManager = new UpdateManager(drawManager);
+        updateManager = new UpdateManager();
+        pathManager = new PathManager(map);
         buildings = new ArrayList<Building>();
         people = new ArrayList<Person>();
         time = new Time();
