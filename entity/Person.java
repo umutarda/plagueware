@@ -13,6 +13,7 @@ public class Person implements Updatable, Drawable{
 
     //variables
     public boolean isSick;
+    public boolean isDead;
     public boolean mask = true;
     public boolean vaccinated;
     public boolean updated;
@@ -37,6 +38,7 @@ public class Person implements Updatable, Drawable{
     private long leaveMinute; // the time at which the person will leave the building it is in
     
     public Person(boolean condition, boolean mask, boolean vaccinated, int age, Building home){
+        this.isDead = false;
         this.isSick = condition;
         this.mask = mask;
         this.vaccinated = vaccinated;
@@ -216,7 +218,7 @@ public class Person implements Updatable, Drawable{
                         int dice = random.nextInt(21);
 
                         if (dice <= otherPenalty)
-                        p.isSick = true;
+                        spread(p);
                     }
                     
                 }
@@ -235,7 +237,7 @@ public class Person implements Updatable, Drawable{
                 int dice = random.nextInt(21);
 
                 if (dice <= otherPenalty)
-                   person.isSick = true;
+                   spread(person);
             }
             
             

@@ -70,6 +70,27 @@ public class GameData {
 
         }
     }
+    public static int getPersonAmount() {
+        return people.size();
+    }
+    public static int getDeadAmount() {
+        int deadAmount = 0;
+        for (Person p : people) {
+            if(p.isDead) {
+                deadAmount++;
+            }
+        }
+        return deadAmount;
+    }
+    public static int getVirusAmount() {
+        int virusAmount = 0;
+        for (Person p : people) {
+            if(p.isSick) {
+                virusAmount++;
+            }
+        }
+        return virusAmount;
+    }
 
     public static void resetAll() 
     {

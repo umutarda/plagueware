@@ -7,6 +7,8 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.Border;
 import javax.swing.event.MouseInputListener;
 
 import entity.Building;
@@ -25,11 +27,20 @@ public class Main {
         map.setWindowSize();
 
         JFrame frame = new JFrame();
-        frame.setContentPane(GameData.drawManager);
+        frame.setTitle("PLAGUEWARE");
+
+        JPanel gamePanel = new JPanel(new BorderLayout());
+        frame.add(gamePanel);
+
+        gamePanel.add(GameData.drawManager, BorderLayout.CENTER);
+        gamePanel.add(new InfoPanel(), BorderLayout.NORTH);
+        // frame.setContentPane(GameData.drawManager);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setBackground(Color.BLACK);
         frame.pack();
         frame.setVisible(true);
+
+        // frame.add(new InfoPanel());
 
         Building[] buildings = new Building[10];
         try {
@@ -62,7 +73,7 @@ public class Main {
         // updateManager.addUpdatable(bPerson);
         // drawManager.addDrawable(bPerson);
         // bPerson.travelToBuilding(buildings[1]);
-        GameData.generatePeople(20, 5, 50, 0, 20);
+        GameData.generatePeople(50, 5, 50, 0, 20);
 
 
        

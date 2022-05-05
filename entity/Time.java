@@ -17,7 +17,7 @@ public class Time implements Updatable{
 
     public static final int TIME_FACTOR = 41;
 
-    long lasttime = System.currentTimeMillis()/41;
+    long lasttime = System.currentTimeMillis() / TIME_FACTOR;
     long now;
     long delta;
     public Time() {
@@ -25,39 +25,12 @@ public class Time implements Updatable{
     }
 
 
-    public static void main(String[] args) {
-        
-        Time a = new Time();
-        a.setMinute();
-    }
-    public void setMinute() {
-        while(true){
-            if(minute<10)
-                System.out.println((hour + ": 0" + minute));
-            else
-                System.out.println((hour + ": " + minute));
-            now = System.currentTimeMillis()/41;
-            delta = now - lasttime;
-            minute += delta;
-            if(minute>59)
-            {
-                minute = 0; 
-                hour++;
-            }
-            if(hour>23)
-            {
-                hour = 0; 
-                
-            }
-                
-            lasttime = now;
-            
-        }
-    }
+    
+    
     @Override
     public void run() {
 
-            now = System.currentTimeMillis()/41;
+            now = System.currentTimeMillis()/TIME_FACTOR;
             delta = now - lasttime;
             minute += delta;
             if(minute>59)
@@ -82,7 +55,7 @@ public class Time implements Updatable{
     }
     @Override
     public void reset() {
-        now = System.currentTimeMillis()/41;
+        now = System.currentTimeMillis()/TIME_FACTOR;
         delta = now - lasttime;
         minute += delta;
         if(minute>59)
@@ -93,6 +66,7 @@ public class Time implements Updatable{
         if(hour>23)
         {
             hour = 0; 
+            day++;
             
         }
             
