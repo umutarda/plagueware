@@ -48,7 +48,11 @@ public class Main {
         try {
             buildings[0] = new Buildings.Hospital(2, 10);
             buildings[1] = new Buildings.House(20, 10);
+            buildings[1] = new Buildings.House(30, 10);
+            buildings[1] = new Buildings.House(30, 30);
             buildings[2] = new Buildings.Cafe(50, 10);
+            buildings[2] = new Buildings.Cafe(50, 20);
+            buildings[2] = new Buildings.Cafe(60, 10);
             // buildings[3] = new Building(map, 100, 5, Building.APARTMENT);
             // buildings[4] = new Building(map, 180, 120, Building.CAFE);
             // buildings[5] = new Building(map, 20, 10, Building.CAFE);
@@ -59,16 +63,21 @@ public class Main {
             e.printStackTrace();
         }
         
-        Person aPerson = new Person(false, false, false, -1, new Point(0, 0));
-        updateManager.addUpdatable(aPerson);
-        drawManager.addDrawable(aPerson);
-        aPerson.travelToBuilding(buildings[0]);
-        // pathManager.requestPath(aPerson, map.getNodeAtRowColumn(new Point (0,0)),  b.getEnterNode());
+        // Person aPerson = new Person(false, false, false, -1, new Point(0, 0));
+        // aPerson.house = buildings[1];
+        // updateManager.addUpdatable(aPerson);
+        // drawManager.addDrawable(aPerson);
+        // aPerson.travelToBuilding(buildings[0]);
+        // // pathManager.requestPath(aPerson, map.getNodeAtRowColumn(new Point (0,0)),  b.getEnterNode());
 
-        Person bPerson = new Person(false, false, false, -1, map.getPositionOfNode(map.getNodeAtRowColumn(new Point(0, 0))));
-        updateManager.addUpdatable(bPerson);
-        drawManager.addDrawable(bPerson);
-        bPerson.travelToBuilding(buildings[1]);
+        // Person bPerson = new Person(false, false, false, -1, new Point(0, 0));
+        // bPerson.house = buildings[1];
+        // updateManager.addUpdatable(bPerson);
+        // drawManager.addDrawable(bPerson);
+        // bPerson.travelToBuilding(buildings[1]);
+        GameData.generatePeople(20, 5, 50, 0, 20);
+
+
        
 
         new Timer().scheduleAtFixedRate(new TimerTask() {
@@ -77,7 +86,7 @@ public class Main {
             public void run() {
                 // System.out.println("a: " + aPerson.location + ", b: " + bPerson.location);
                 // System.out.println("a: " + aPerson.currentNodePosition + ", b: " + bPerson.currentNodePosition);
-                System.out.println("Day " + GameData.time.day + ", " + GameData.time.hour + ":" + GameData.time.minute);
+                // System.out.println("Day " + GameData.time.day + ", " + GameData.time.hour + ":" + GameData.time.minute);
             }
             
         }, 0, 1000);

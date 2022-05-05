@@ -99,14 +99,17 @@ public abstract class Building {
     // public int getBuildingType() {
     //     return buildingType;
     // }
+
     public void enter(Person p) {
         persons.add(p);
         p.location = null;
+        // System.out.println("Day " + GameData.time.day + ", " + GameData.time.hour + ":" + GameData.time.minute + " " + GameData.time.getTotalMinutes());
+        p.setLeaveMinute(GameData.time.getTotalMinutes() + 60 * 5 + new Random().nextInt(120) - 60);//leave in 4-6 hours
     }
     public void exit(Person p) {
         persons.remove(p);
         p.location = map.getPositionOfNode(getEnterNode());
-        //p.chooseBuilding();
+        GameData.chooseBuilding(p);
     }
     public Person[] getPeople() {
         return (Person[])persons.toArray();

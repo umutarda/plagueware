@@ -15,7 +15,7 @@ import main.Updatable;
 public class Person implements Updatable, Drawable{
 
     //variables
-    public boolean condition;
+    public boolean isSick;
     public boolean mask = true;
     public boolean vaccinated;
     public boolean updated;
@@ -26,27 +26,29 @@ public class Person implements Updatable, Drawable{
     public Point nextNodePosition;
     public double currentPercentage;
 
-    public Building house;
-    public Building current;
+    public Building home;
+    public Building currentBuilding;
     public int stress;//(discontent) 0-100 
     public int awareness; // 0-100
     public double penalty; //0-20
-    private Building currentBuilding;
 
     public Object[] path;
     public int pathIndex;
 
     public Random random;
+
+    private long leaveMinute; // the time at which the person will leave the building it is in
     
-    public Person(boolean condition, boolean mask, boolean vaccinated, int age, Point position){
-        this.condition = condition;
+    public Person(boolean condition, boolean mask, boolean vaccinated, int age, Building home){
+        this.isSick = condition;
         this.mask = mask;
         this.vaccinated = vaccinated;
         this.age = age;
         this.currentBuilding = null;
         this.pathIndex = -1;
-        this.location = position;
         GameData.people.add(this);
+        this.home = home;
+        this.currentBuilding = home;
     }
     public double getSpreadPenalty(){
          
@@ -59,6 +61,9 @@ public class Person implements Updatable, Drawable{
     public void setPath (Object[] path) 
     {
         this.path = path;
+    }
+    public void setLeaveMinute(long minute) {
+        leaveMinute = minute;
     }
     private void calculateSpreadPenalty(){
         penalty = 0;
@@ -105,6 +110,11 @@ public class Person implements Updatable, Drawable{
                 currentNodePosition.y + (nextNodePosition.y - currentNodePosition.y) * currentPercentage );
             }
 
+        }
+        else {
+            if(GameData.time.getTotalMinutes() >= leaveMinute) {
+                currentBuilding.exit(this);
+            }
         }
 
        
@@ -159,29 +169,29 @@ public class Person implements Updatable, Drawable{
 
     public void spread(Person p2)
     {
-        if(condition || p2.condition)
+        if(isSick || p2.isSick)
         {
-            this.condition = true;
-            p2.condition = true;
+            this.isSick = true;
+            p2.isSick = true;
         }
     }
     public void outsideContact()
     {
         Node[] contact = GameData.map.getNeighboursOf(GameData.map.getNodeAtPosition(location));
-        for(Node x : contact)
+        for(Node node : contact)
         { 
-            if( x instanceof PathfindNode)
+            if( node instanceof PathfindNode)
             {
-                PathfindNode A = (PathfindNode) x ;
-                for (Person p : A.getPersons()) {
-                    if(!p.condition)
+                PathfindNode pfNode = (PathfindNode) node;
+                for (Person p : pfNode.getPersons()) {
+                    if(!p.isSick)
                     {
                         double otherPenalty= p.getSpreadPenalty();
 
                         int dice = random.nextInt(21);
 
                         if (dice <= otherPenalty)
-                        p.condition = true;
+                        p.isSick = true;
                     }
                     
                 }
@@ -192,15 +202,15 @@ public class Person implements Updatable, Drawable{
     public void insideContact()
     {
         
-        for (Person person : current.getPeople()) {
-            if(!person.condition)
+        for (Person person : currentBuilding.getPeople()) {
+            if(!person.isSick)
             {
                 double otherPenalty= person.getSpreadPenalty();
 
                 int dice = random.nextInt(21);
 
                 if (dice <= otherPenalty)
-                   person.condition = true;
+                   person.isSick = true;
             }
             
             
@@ -213,7 +223,7 @@ public class Person implements Updatable, Drawable{
         
         if (location == null)
             return;
-        if(condition) {
+        if(isSick) {
             g.setColor(Color.RED);
         }
         else {

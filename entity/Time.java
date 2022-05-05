@@ -14,6 +14,9 @@ public class Time implements Updatable{
     public int day;
     public int hour; 
     public int minute;
+
+    public static final int TIME_FACTOR = 41;
+
     long lasttime = System.currentTimeMillis()/41;
     long now;
     long delta;
@@ -75,7 +78,6 @@ public class Time implements Updatable{
         
     @Override
     public boolean hasFullyUpdated() {
-        // TODO Auto-generated method stub
         return true;
     }
     @Override
@@ -97,5 +99,12 @@ public class Time implements Updatable{
         lasttime = now;
         
     }
+    public long getTotalMinutes() {
+        return day * 24 * 60 + hour * 60 + minute;
+    }
+    public long getTotalHours() {
+        return day * 24 + hour;
+    }
+
 
 }
