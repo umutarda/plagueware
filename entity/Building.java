@@ -111,8 +111,8 @@ public abstract class Building {
         p.location = map.getPositionOfNode(getEnterNode());
         GameData.chooseBuilding(p);
     }
-    public Person[] getPeople() {
-        return (Person[])persons.toArray();
+    public ArrayList<Person> getPeople() {
+        return (ArrayList<Person>)persons.clone();
     }
     public abstract Color getColor();
     //  {

@@ -4,6 +4,7 @@ import pathfinder.Node;
 import java.awt.*;
 import java.util.Random;
 
+import javax.swing.text.Position;
 
 import main.Drawable;
 import main.GameData;
@@ -46,6 +47,8 @@ public class Person implements Updatable, Drawable{
         this.home = home;
         this.currentBuilding = home;
         this.currentPathIntervalPercentage = 1;
+
+        random = new Random();
 
         GameData.people.add(this);
         GameData.updateManager.addUpdatable(this);
@@ -131,12 +134,12 @@ public class Person implements Updatable, Drawable{
 
             if (nextNodePosition != null) 
             {
-                currentPathIntervalPercentage = Math.min(currentPathIntervalPercentage + 20 * GameData.updateManager.deltaTime(), 1);
+                currentPathIntervalPercentage = Math.min(currentPathIntervalPercentage + 2 * GameData.updateManager.deltaTime(), 1);
                 location.setLocation(currentNodePosition.x + (nextNodePosition.x - currentNodePosition.x) * currentPathIntervalPercentage,
                 currentNodePosition.y + (nextNodePosition.y - currentNodePosition.y) * currentPathIntervalPercentage );
             }
 
-            if (isSick)
+            if (isSick && location != null)
                 outsideContact();
         }
         else {
@@ -157,23 +160,24 @@ public class Person implements Updatable, Drawable{
     }
     public void travelToBuilding(Building b) {
 
-        if (b == null)
-            return;
+        // if (b == null)
+        //     return;
 
-        Node startNode;
-        if (currentBuilding != null) 
-        {
-            startNode = currentBuilding.getEnterNode();
-            currentBuilding.exit(this);
-            currentBuilding = null;
-        }
+        // Node startNode;
+        // if (currentBuilding != null) 
+        // {
+        //     startNode = currentBuilding.getEnterNode();
+        //     currentBuilding.exit(this);
+        //     currentBuilding = null;
+        // }
             
        
-        else
-            startNode = GameData.map.getNodeAtPosition(location);
+        // else
+        //     startNode = GameData.map.getNodeAtPosition(location);
 
         currentBuilding = b;
-        GameData.pathManager.requestPath(this, startNode, b.getEnterNode());
+        GameData.pathManager.requestPath(this, GameData.map.getNodeAtPosition(location), b.getEnterNode());
+        // GameData.pathManager.requestPath(this, startNode, b.getEnterNode());
 
     }
 
