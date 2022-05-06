@@ -77,7 +77,7 @@ public abstract class Building {
         if(node instanceof PathfindNode) {
             return node;
         }
-        y = pos.getPosition().y - getNodeHeight() + 1;
+        y = pos.getPosition().y + getNodeHeight();
         node = map.getNodeAtRowColumn(new Point(x, y));
         if(node instanceof PathfindNode) {
             return node;
@@ -88,7 +88,7 @@ public abstract class Building {
         if(node instanceof PathfindNode) {
             return node;
         }
-        x = pos.getPosition().x + getNodeWidth() + 1;
+        x = pos.getPosition().x + getNodeWidth();
         node = map.getNodeAtRowColumn(new Point(x, y));
         if(node instanceof PathfindNode) {
             return node;
