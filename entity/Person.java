@@ -172,6 +172,9 @@ public class Person implements Updatable, Drawable{
             double destiny = random.nextDouble();
             isSick = destiny < .6f;
             isDead = destiny > .9f;
+
+            if(isDead)
+                isSick = false;
         }                
 
     }

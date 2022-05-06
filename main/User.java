@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class User {
     
-    int time;
+    long time;
     String nickname;
     boolean istimeset = false;
 
@@ -22,13 +22,13 @@ public class User {
     public String getNickname() {
         return nickname;
     }
-    public int getTime() {
+    public long getTime() {
         if(istimeset){
             return time;
         }
         return -1;
     }
-    public void setTime(int time) {
+    public void setTime(long time) {
 
         if(!istimeset){
             this.time = time;
