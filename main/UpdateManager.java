@@ -55,6 +55,10 @@ public class UpdateManager{
         requestedUpdatables.clear();
 
         deltaTime = (1.0 * (System.nanoTime() - startTime)) / Math.pow(10, 9);
+
+        /*double fps = 1.0/deltaTime;
+        if (fps < 29 )
+            System.out.println (fps);*/
     }
 
 }
