@@ -29,7 +29,7 @@ public class Postgres {
             }
             rs.close();
             st.close();
-            }
+        }
         catch (java.sql.SQLException e) {
             System.out.println(e.getMessage());
         }

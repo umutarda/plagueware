@@ -115,14 +115,5 @@ public abstract class Building {
         return (ArrayList<Person>)persons.clone();
     }
     public abstract Color getColor();
-    //  {
-    //     switch(buildingType) {
-    //         case CAFE: return Color.BLUE;
-    //         case APARTMENT: return Color.GRAY;
-    //         case HOSPITAL: return Color.RED;
-    //         case HOUSE: return Color.ORANGE;
-    //     }
-    //     return null;
-    // }
     public abstract int getBuildingType();
 }
