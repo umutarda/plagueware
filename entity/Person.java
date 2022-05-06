@@ -1,6 +1,8 @@
 package entity;
 import pathfinder.PathfindNode;
 import pathfinder.Node;
+import pathfinder.PathManager;
+
 import java.awt.*;
 import java.util.Random;
 
@@ -119,7 +121,6 @@ public class Person implements Updatable, Drawable{
         // else
         //     startNode = GameData.map.getNodeAtPosition(location);
 
-
         currentBuilding = b;
         GameData.pathManager.requestPath(this, GameData.map.getNodeAtPosition(location), b.getEnterNode());
         // GameData.pathManager.requestPath(this, startNode, b.getEnterNode());
@@ -128,62 +129,52 @@ public class Person implements Updatable, Drawable{
 
     
 
-    private void travelOnPath() 
+    private void updateTravelValues() 
     {
-        if (pathIntervalIsDone())
-            {
-                
-                if(pathTravelIsNotStarted()) {
+        if (pathIndex != -1 && path.length == 1 && ((Node)path[0]).getPosition().getX() == 91 && ((Node)path[0]).getPosition().getY() == 9)
+                System.out.println();
 
-                    location = new Point();
-                }
+        if(!pathTravelIsNotStarted()) 
+            ((PathfindNode)path[pathIndex]).removePerson(this);
+    
+        pathIndex++;
 
-                else 
-                {
-                    ((PathfindNode)path[pathIndex]).removePerson(this);
-                }
+        ((PathfindNode)path[pathIndex]).addPerson(this);        
+        currentNodePosition = GameData.map.getPositionOfNode((Node)path[pathIndex]);
+        
+        if (pathTravelIsNotFinished()) 
+        {
+            currentPathIntervalPercentage = 0;
+            nextNodePosition = GameData.map.getPositionOfNode((Node)path[pathIndex+1]);
+        }
 
-                ((PathfindNode)path[++pathIndex]).addPerson(this); 
-                currentNodePosition = GameData.map.getPositionOfNode((Node)path[pathIndex]);
-                
-                if (pathTravelIsNotFinished()) 
-                {
-                    currentPathIntervalPercentage = 0;
-                    nextNodePosition = GameData.map.getPositionOfNode((Node)path[pathIndex+1]);
-                }
-                    
-                else 
-                {
-                    currentNodePosition = null;
-                    nextNodePosition = null;
-                    location = null;
+        else
+            finishPathTravel();
+                             
+    }  
 
-                    currentBuilding.enter(this);
-                    ((PathfindNode)path[pathIndex]).removePerson(this);
-                    
-                    path = null;
-                    pathIndex = -1;
-                    currentPathIntervalPercentage = 1;
 
-                    if (currentBuilding == GameData.hospital) 
-                    {
-                        double destiny = random.nextDouble();
-                        isSick = destiny < .6f;
-                        isDead = destiny > .9f;
-                    }
+    private void finishPathTravel() 
+    {
+        currentNodePosition = null;
+        nextNodePosition = null;
+        location = null;
 
-                }
-                
-            }
+        currentBuilding.enter(this);
+        ((PathfindNode)path[pathIndex]).removePerson(this);
+        
+        path = null;
+        pathIndex = -1;
+        currentPathIntervalPercentage = 1;
 
-            if (nextNodePosition != null) 
-            {
-                currentPathIntervalPercentage = Math.min(currentPathIntervalPercentage + GameData.PERSON_SPEED * GameData.updateManager.deltaTime(), 1);
-                location.setLocation(currentNodePosition.x + (nextNodePosition.x - currentNodePosition.x) * currentPathIntervalPercentage,
-                currentNodePosition.y + (nextNodePosition.y - currentNodePosition.y) * currentPathIntervalPercentage );
-            }
+        if (currentBuilding == GameData.hospital) 
+        {
+            double destiny = random.nextDouble();
+            isSick = destiny < .6f;
+            isDead = destiny > .9f;
+        }                
+
     }
-
 
     private void contact() 
     {
@@ -251,16 +242,29 @@ public class Person implements Updatable, Drawable{
 
         if (isDead)
             return;
+
         if (path != null) 
         {
-            travelOnPath();
+            if (pathIntervalIsDone())
+                updateTravelValues();
+
+            if (path != null) 
+            {
+                currentPathIntervalPercentage = Math.min(currentPathIntervalPercentage + GameData.PERSON_SPEED * GameData.updateManager.deltaTime(), 1);
+                location.setLocation(currentNodePosition.x + (nextNodePosition.x - currentNodePosition.x) * currentPathIntervalPercentage,
+                currentNodePosition.y + (nextNodePosition.y - currentNodePosition.y) * currentPathIntervalPercentage );
+            }
         }
 
-        else 
+        else // path == null
         {
-            if(GameData.time.getTotalMinutes() >= leaveMinute) {
+            if(GameData.time.getTotalMinutes() >= leaveMinute) 
+            {
+                leaveMinute = Long.MAX_VALUE;
                 currentBuilding.exit(this);
             }
+                
+            
         }
 
         
