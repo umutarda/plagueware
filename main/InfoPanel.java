@@ -11,6 +11,8 @@ public class InfoPanel extends JPanel implements Updatable{
     JLabel livingAmount;
     JLabel deadAmount;
     JLabel virusAmount;
+    JLabel fps;
+
     public InfoPanel() {
         this.setBorder(new BevelBorder(BevelBorder.LOWERED));
 
@@ -27,6 +29,9 @@ public class InfoPanel extends JPanel implements Updatable{
         time = new JLabel();
         this.add(time);
 
+        fps = new JLabel();
+        this.add(fps);
+
 
         this.setVisible(true);
         GameData.updateManager.addUpdatable(this);
@@ -39,6 +44,8 @@ public class InfoPanel extends JPanel implements Updatable{
         deadAmount.setText("Dead: " + GameData.getDeadAmount());
 
         virusAmount.setText("Virus Amount: " + GameData.getVirusAmount());
+
+        fps.setText( "FPS: " +String.format("%.2f", UpdateManager.getFps())); 
 
         String timeStr = "Day " + GameData.time.day + ", ";
         int hour = GameData.time.hour;

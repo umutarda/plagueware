@@ -7,6 +7,7 @@ public class UpdateManager{
     private ArrayList<Updatable> updatables;
     private ArrayList<Updatable> requestedUpdatables;
     private double deltaTime;
+    private static double fps;
 
     public UpdateManager() 
     {
@@ -55,10 +56,13 @@ public class UpdateManager{
         requestedUpdatables.clear();
 
         deltaTime = (1.0 * (System.nanoTime() - startTime)) / Math.pow(10, 9);
+        
+        fps = 1.0/deltaTime;
+      
+    }
 
-        /*double fps = 1.0/deltaTime;
-        if (fps < 29 )
-            System.out.println (fps);*/
+    public static double getFps() {
+        return fps;
     }
 
 }
