@@ -49,20 +49,23 @@ public class Main {
 
         // frame.add(new InfoPanel());
 
-        Building[] buildings = new Building[10];
         try {
-            buildings[0] = new Buildings.Hospital(2, 10);
-            buildings[1] = new Buildings.House(20, 10);
-            buildings[1] = new Buildings.House(30, 10);
-            buildings[1] = new Buildings.House(30, 30);
-            buildings[2] = new Buildings.Cafe(50, 10);
-            buildings[2] = new Buildings.Cafe(50, 20);
-            buildings[2] = new Buildings.Cafe(60, 10);
-            // buildings[3] = new Building(map, 100, 5, Building.APARTMENT);
-            // buildings[4] = new Building(map, 180, 120, Building.CAFE);
-            // buildings[5] = new Building(map, 20, 10, Building.CAFE);
-            // buildings[6] = new Building(map, 20, 10, Building.CAFE);
-            // buildings[7] = new Building(map, 20, 10, Building.CAFE);
+            new Buildings.Hospital(2, 10);
+            new Buildings.House(20, 10);
+            new Buildings.House(30, 10);
+            new Buildings.House(30, 30);
+            new Buildings.House(40, 10);
+            new Buildings.House(50, 10);
+            new Buildings.House(60, 30);
+            new Buildings.House(70, 10);
+            new Buildings.House(80, 10);
+            new Buildings.House(90, 30);
+            new Buildings.House(100, 10);
+            new Buildings.House(30, 60);
+            new Buildings.House(30, 40);
+            new Buildings.Cafe(80, 20);
+            new Buildings.Cafe(80, 30);
+            new Buildings.Cafe(90, 10);
             
         } catch (Exception e) {
             e.printStackTrace();
@@ -80,7 +83,7 @@ public class Main {
         // updateManager.addUpdatable(bPerson);
         // drawManager.addDrawable(bPerson);
         // bPerson.travelToBuilding(buildings[1]);
-        GameData.generatePeople(50, 5, 50, 0, 20);
+        GameData.generatePeople(20, 5, 50, 0, 20);
 
 
        
