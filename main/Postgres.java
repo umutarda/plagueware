@@ -3,7 +3,7 @@ import java.sql.*;
 
 public class Postgres {
 
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
         try {
             Class.forName("org.postgresql.Driver");
         }
@@ -33,6 +33,6 @@ public class Postgres {
         catch (java.sql.SQLException e) {
             System.out.println(e.getMessage());
         }
-    }
+    }*/
 
 }
