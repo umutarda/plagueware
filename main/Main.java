@@ -147,6 +147,7 @@ try {
             
         // });
 
+        GameData.updateManager.addUpdatable(GameData.pathManager);
         while (true) {
             GameData.updateManager.update();
             

@@ -11,13 +11,12 @@ import java.util.Collections;
 import entity.Person;
 
 public class PathManager implements Updatable {
-    
+
     private Map map;
     private ArrayList<PathRequest> requestedPaths;
-    class PathRequest 
-    {
-        PathRequest(Object requester, Node startNode, Node targetNode) 
-        {
+
+    class PathRequest {
+        PathRequest(Object requester, Node startNode, Node targetNode) {
             this.requester = requester;
             this.startNode = startNode;
             this.targetNode = targetNode;
@@ -27,43 +26,37 @@ public class PathManager implements Updatable {
         Node startNode, targetNode;
     }
 
-    public PathManager (Map map) 
-    {
+    public PathManager(Map map) {
         this.map = map;
         requestedPaths = new ArrayList<PathRequest>();
-        GameData.updateManager.addUpdatable(this);
-    }
-
-    public void requestPath(Object requester, Node startNode, Node targetNode)
-    {
-        requestedPaths.add(new PathRequest(requester,startNode,targetNode));
-    }
-
-    private void processFirstPath() 
-    {
-        PathRequest req = requestedPaths.get(0);
-        if(req.requester instanceof Person)
-            ((Person)req.requester).setPath(findPath(req.startNode, req.targetNode));
-            
-        requestedPaths.remove(0);
         
     }
 
-    private Object[] findPath (Node _startNode, Node _targetNode)
-    {
+    public void requestPath(Object requester, Node startNode, Node targetNode) {
+        requestedPaths.add(new PathRequest(requester, startNode, targetNode));
+    }
+
+    private void processFirstPath() {
+        PathRequest req = requestedPaths.get(0);
+        if (req.requester instanceof Person)
+            ((Person) req.requester).setPath(findPath(req.startNode, req.targetNode));
+
+        requestedPaths.remove(0);
+
+    }
+
+    private Object[] findPath(Node _startNode, Node _targetNode) {
         PathfindNode startNode = (PathfindNode) _startNode;
         PathfindNode targetNode = (PathfindNode) _targetNode;
 
-        startNode.set_H_Cost((int)(10*startNode.getPosition().distance(targetNode.getPosition())));
-        
+        startNode.set_H_Cost((int) (10 * startNode.getPosition().distance(targetNode.getPosition())));
 
         Heap<PathfindNode> openNodes = new Heap<PathfindNode>();
         ArrayList<PathfindNode> closedNodes = new ArrayList<PathfindNode>();
 
-        openNodes.add (startNode);
+        openNodes.add(startNode);
 
-        while (true) 
-        {
+        while (true) {
             PathfindNode current = openNodes.get(0);
 
             openNodes.remove(0);
@@ -75,7 +68,7 @@ public class PathManager implements Updatable {
             Node[] neighbourNodes = map.getNeighboursOf(current);
 
             for (int i = 0; i < neighbourNodes.length; i++) {
-                
+
                 if (neighbourNodes[i] == null)
                     continue;
 
@@ -83,43 +76,37 @@ public class PathManager implements Updatable {
                     continue;
 
                 PathfindNode neighbour = (PathfindNode) neighbourNodes[i];
-                int distance = i == 0 || i == 2 || i == 5 || i == 7 ? 14 : 10; //012
-                                                                               //3x4 where x is current node
-                                                                               //567
+                int distance = i == 0 || i == 2 || i == 5 || i == 7 ? 14 : 10; // 012
+                                                                               // 3x4 where x is current node
+                                                                               // 567
                 boolean isOpen = openNodes.contains(neighbour);
-                if (neighbour.get_G_Cost() > current.get_G_Cost() + distance || !isOpen) 
-                {
+                if (neighbour.get_G_Cost() > current.get_G_Cost() + distance || !isOpen) {
                     if (isOpen)
-                        openNodes.remove (neighbour.getHeapIndex());
-                   
-                    else 
-                    {
-                        neighbour.set_H_Cost((int)(10*neighbour.getPosition().distance(targetNode.getPosition())));
+                        openNodes.remove(neighbour.getHeapIndex());
+
+                    else {
+                        neighbour.set_H_Cost((int) (10 * neighbour.getPosition().distance(targetNode.getPosition())));
                         neighbour.state = PathfindNode.State.OPEN;
                     }
-                    
+
                     neighbour.setParent(current, distance);
                     openNodes.add(neighbour);
-                        
 
                 }
 
-                
             }
 
         }
 
-
         ArrayList<PathfindNode> path = new ArrayList<PathfindNode>();
         PathfindNode traceBackNode = targetNode;
-        while (traceBackNode != null) 
-        {
+        while (traceBackNode != null) {
             path.add(traceBackNode);
             traceBackNode = traceBackNode.getParent();
         }
 
         openNodes.clear();
-        closedNodes.forEach(n->n.resetPathfindNodeValues());
+        closedNodes.forEach(n -> n.resetPathfindNodeValues());
         Collections.reverse(path);
         return path.toArray();
     }
@@ -137,8 +124,6 @@ public class PathManager implements Updatable {
     @Override
     public void reset() {
         // TODO Auto-generated method stub
-        
+
     }
 }
-
-
