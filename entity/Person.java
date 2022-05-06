@@ -37,6 +37,8 @@ public class Person implements Updatable, Drawable{
 
     private long leaveMinute; // the time at which the person will leave the building it is in
     
+    private double secondTimer;
+
     public Person(boolean condition, boolean mask, boolean vaccinated, int age, Building home){
         this.isDead = false;
         this.isSick = condition;
@@ -100,7 +102,65 @@ public class Person implements Updatable, Drawable{
 
         if (path != null) 
         {
-            if (pathIntervalIsDone())
+            travelOnPath();
+        }
+
+        else 
+        {
+            if(GameData.time.getTotalMinutes() >= leaveMinute) {
+                currentBuilding.exit(this);
+            }
+        }
+
+        
+        if (secondTimer >= 1) 
+        {
+            if (isSick)
+                contact();
+
+            secondTimer = 0;
+        }
+
+        secondTimer += GameData.updateManager.deltaTime();
+       updated = true;
+    }
+    public void travelToBuilding(Building b) {
+
+        // if (b == null)
+        //     return;
+
+        // Node startNode;
+        // if (currentBuilding != null) 
+        // {
+        //     startNode = currentBuilding.getEnterNode();
+        //     currentBuilding.exit(this);
+        //     currentBuilding = null;
+        // }
+            
+       
+        // else
+        //     startNode = GameData.map.getNodeAtPosition(location);
+
+        currentBuilding = b;
+        GameData.pathManager.requestPath(this, GameData.map.getNodeAtPosition(location), b.getEnterNode());
+        // GameData.pathManager.requestPath(this, startNode, b.getEnterNode());
+
+    }
+
+    @Override
+    public boolean hasFullyUpdated() {
+        // TODO Auto-generated method stub
+        return updated;
+    }
+    @Override
+    public void reset() {
+        penalty = -1;
+        updated = false;
+    }
+
+    private void travelOnPath() 
+    {
+        if (pathIntervalIsDone())
             {
                 if(pathTravelIsNotStarted()) {
                     location = new Point();
@@ -140,69 +200,31 @@ public class Person implements Updatable, Drawable{
                 location.setLocation(currentNodePosition.x + (nextNodePosition.x - currentNodePosition.x) * currentPathIntervalPercentage,
                 currentNodePosition.y + (nextNodePosition.y - currentNodePosition.y) * currentPathIntervalPercentage );
             }
-
-            if (isSick && location != null)
-                outsideContact();
-        }
-        else {
-            if (currentBuilding != null) 
-            {
-                if (isSick)
-                    insideContact();
-                
-            }
-            if(GameData.time.getTotalMinutes() >= leaveMinute) {
-                currentBuilding.exit(this);
-            }
-        }
-
-        
-
-       updated = true;
-    }
-    public void travelToBuilding(Building b) {
-
-        // if (b == null)
-        //     return;
-
-        // Node startNode;
-        // if (currentBuilding != null) 
-        // {
-        //     startNode = currentBuilding.getEnterNode();
-        //     currentBuilding.exit(this);
-        //     currentBuilding = null;
-        // }
-            
-       
-        // else
-        //     startNode = GameData.map.getNodeAtPosition(location);
-
-        currentBuilding = b;
-        GameData.pathManager.requestPath(this, GameData.map.getNodeAtPosition(location), b.getEnterNode());
-        // GameData.pathManager.requestPath(this, startNode, b.getEnterNode());
-
     }
 
-    @Override
-    public boolean hasFullyUpdated() {
-        // TODO Auto-generated method stub
-        return updated;
-    }
-    @Override
-    public void reset() {
-        penalty = -1;
-        updated = false;
-    }
-
-    public void spread(Person p2)
+    private void contact() 
     {
-        if(isSick || p2.isSick)
+        if (path != null)
+            if (location != null)
+                outsideContact();
+
+        else 
         {
-            this.isSick = true;
-            p2.isSick = true;
+            if (currentBuilding != null) 
+                insideContact();
+            
         }
     }
-    public void outsideContact()
+
+    public void spreadToOther(Person p)
+    {
+        double otherPenalty= p.getSpreadPenalty();
+        int dice = random.nextInt(21);
+
+        if (dice <= otherPenalty)
+            p.isSick = true;
+    }
+    private void outsideContact()
     {
         Node[] contact = GameData.map.getNeighboursOf(GameData.map.getNodeAtPosition(location));
         for(Node node : contact)
@@ -213,12 +235,7 @@ public class Person implements Updatable, Drawable{
                 for (Person p : pfNode.getPersons()) {
                     if(!p.isSick)
                     {
-                        double otherPenalty= p.getSpreadPenalty();
-
-                        int dice = random.nextInt(21);
-
-                        if (dice <= otherPenalty)
-                        spread(p);
+                        spreadToOther(p);
                     }
                     
                 }
@@ -226,7 +243,7 @@ public class Person implements Updatable, Drawable{
         }
     }
 
-    public void insideContact()
+    private void insideContact()
     {
         
         for (Person person : currentBuilding.getPeople()) {
@@ -237,7 +254,7 @@ public class Person implements Updatable, Drawable{
                 int dice = random.nextInt(21);
 
                 if (dice <= otherPenalty)
-                   spread(person);
+                    spreadToOther(person);
             }
             
             
