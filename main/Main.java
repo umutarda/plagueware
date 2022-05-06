@@ -3,6 +3,7 @@ import pathfinder.PathManager;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.Scanner;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -17,10 +18,16 @@ import entity.Person;
 import entity.Time;
 
 
+
 public class Main {
     
     public static void main(String[] args)  throws InterruptedException  {
         
+        System.out.println(" Enter the username: ");
+        Scanner in = new Scanner(System.in);
+        String a = in.nextLine();
+        User user = new User(a);
+
         Map map = new Map(300, 100, 10, 1, "0".repeat(100*300));  
         GameData.setUp(map);
         GameData.drawManager.addDrawable(map);
