@@ -11,6 +11,7 @@ import main.Drawable;
 import main.Game;
 import main.GameData;
 import main.Updatable;
+import main.UpdateManager;
 public class Person implements Updatable, Drawable{
 
     //variables
@@ -40,6 +41,7 @@ public class Person implements Updatable, Drawable{
     private long leaveMinute; // the time at which the person will leave the building it is in
     
     private double secondTimer;
+
 
     public Person(boolean condition, boolean mask, boolean vaccinated, int age, Building home){
         this.isDead = false;
@@ -117,6 +119,7 @@ public class Person implements Updatable, Drawable{
         // else
         //     startNode = GameData.map.getNodeAtPosition(location);
 
+
         currentBuilding = b;
         GameData.pathManager.requestPath(this, GameData.map.getNodeAtPosition(location), b.getEnterNode());
         // GameData.pathManager.requestPath(this, startNode, b.getEnterNode());
@@ -129,7 +132,9 @@ public class Person implements Updatable, Drawable{
     {
         if (pathIntervalIsDone())
             {
+                
                 if(pathTravelIsNotStarted()) {
+
                     location = new Point();
                 }
 
@@ -139,7 +144,10 @@ public class Person implements Updatable, Drawable{
                 }
 
 
-                ((PathfindNode)path[++pathIndex]).addPerson(this);
+
+                ((PathfindNode)path[++pathIndex]).addPerson(this); 
+
+
                 currentPathIntervalPercentage = 0;
                 currentNodePosition = GameData.map.getPositionOfNode((Node)path[pathIndex]);
                 
@@ -147,9 +155,10 @@ public class Person implements Updatable, Drawable{
                     nextNodePosition = GameData.map.getPositionOfNode((Node)path[pathIndex+1]);
                 else 
                 {
+                    currentNodePosition = null;
                     nextNodePosition = null;
                     location = null;
-                    
+
                     currentBuilding.enter(this);
                     ((PathfindNode)path[pathIndex]).removePerson(this);
                     
@@ -157,9 +166,18 @@ public class Person implements Updatable, Drawable{
                     pathIndex = -1;
                     currentPathIntervalPercentage = 1;
 
+                    if (currentBuilding == GameData.hospital) 
+                    {
+                        double destiny = random.nextDouble();
+                        isSick = destiny < .6f;
+                        isDead = destiny > .9f;
+                    }
+
                 }
                 
             }
+
+            
 
             if (nextNodePosition != null) 
             {
@@ -168,6 +186,7 @@ public class Person implements Updatable, Drawable{
                 currentNodePosition.y + (nextNodePosition.y - currentNodePosition.y) * currentPathIntervalPercentage );
             }
     }
+
 
     private void contact() 
     {
@@ -186,7 +205,7 @@ public class Person implements Updatable, Drawable{
     private void spreadToOther(Person p)
     {
         double otherPenalty= p.getSpreadPenalty();
-        int dice = random.nextInt(100);
+        int dice = random.nextInt(21);
 
         if (dice <= otherPenalty)
             p.isSick = true;
@@ -228,9 +247,13 @@ public class Person implements Updatable, Drawable{
         }
     }
 
+    //private 
+
     @Override
     public void run() {
 
+        if (isDead)
+            return;
         if (path != null) 
         {
             travelOnPath();
@@ -270,6 +293,9 @@ public class Person implements Updatable, Drawable{
     @Override
     public void paint(Graphics g) {
         
+        if (isDead)
+            return;
+
         if (location == null)
             return;
         if(isSick) {
