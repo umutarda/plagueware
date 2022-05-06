@@ -21,6 +21,8 @@ public class GameData {
     static Random rand = new Random();
     public static Time time;
 
+    public static final int PERSON_SPEED = 20;
+    public static final int TIME_FACTOR = 8;
     
     //static Time time = new Time();
     public static ArrayList<Building> getEntertainmentBuildings() {
