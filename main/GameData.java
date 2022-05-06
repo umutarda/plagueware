@@ -108,16 +108,24 @@ public class GameData {
 
     public static void chooseBuilding(Person p){
         int hour = time.hour;
-        ArrayList<Building> entertainmentBuilding = getEntertainmentBuildings();
-        if(hour>24 || hour<8){
-            p.travelToBuilding(p.home);
-        }
-
-        else if(hour>8 && hour<16)
-            p.travelToBuilding(entertainmentBuilding.get(rand.nextInt(entertainmentBuilding.size())));
         
-        else if(hour>16 && hour<24)
-            p.travelToBuilding(entertainmentBuilding.get(rand.nextInt(entertainmentBuilding.size())));
+        if (p.isSick && rand.nextBoolean()) 
+        {
+            p.travelToBuilding(hospital);
+        
+        }
+        else 
+        {
+            ArrayList<Building> entertainmentBuilding = getEntertainmentBuildings();
+            if(hour<8){
+                p.travelToBuilding(p.home);
+            }
+
+            else
+                p.travelToBuilding(entertainmentBuilding.get(rand.nextInt(entertainmentBuilding.size())));
+        }
+        
+        
     }
 
     public static Building randomBuildingForPerson(Person p){
