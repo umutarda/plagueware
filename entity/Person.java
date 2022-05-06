@@ -4,9 +4,11 @@ import pathfinder.Node;
 import java.awt.*;
 import java.util.Random;
 
+import javax.swing.plaf.synth.SynthToolTipUI;
 import javax.swing.text.Position;
 
 import main.Drawable;
+import main.Game;
 import main.GameData;
 import main.Updatable;
 public class Person implements Updatable, Drawable{
@@ -97,33 +99,7 @@ public class Person implements Updatable, Drawable{
         return pathIndex < path.length - 1;
     }
 
-    @Override
-    public void run() {
-
-        if (path != null) 
-        {
-            travelOnPath();
-        }
-
-        else 
-        {
-            if(GameData.time.getTotalMinutes() >= leaveMinute) {
-                currentBuilding.exit(this);
-            }
-        }
-
-        
-        if (secondTimer >= 1) 
-        {
-            if (isSick)
-                contact();
-
-            secondTimer = 0;
-        }
-
-        secondTimer += GameData.updateManager.deltaTime();
-       updated = true;
-    }
+   
     public void travelToBuilding(Building b) {
 
         // if (b == null)
@@ -147,16 +123,7 @@ public class Person implements Updatable, Drawable{
 
     }
 
-    @Override
-    public boolean hasFullyUpdated() {
-        // TODO Auto-generated method stub
-        return updated;
-    }
-    @Override
-    public void reset() {
-        penalty = -1;
-        updated = false;
-    }
+    
 
     private void travelOnPath() 
     {
@@ -196,7 +163,7 @@ public class Person implements Updatable, Drawable{
 
             if (nextNodePosition != null) 
             {
-                currentPathIntervalPercentage = Math.min(currentPathIntervalPercentage + 2 * GameData.updateManager.deltaTime(), 1);
+                currentPathIntervalPercentage = Math.min(currentPathIntervalPercentage + GameData.PERSON_SPEED * GameData.updateManager.deltaTime(), 1);
                 location.setLocation(currentNodePosition.x + (nextNodePosition.x - currentNodePosition.x) * currentPathIntervalPercentage,
                 currentNodePosition.y + (nextNodePosition.y - currentNodePosition.y) * currentPathIntervalPercentage );
             }
@@ -216,10 +183,10 @@ public class Person implements Updatable, Drawable{
         }
     }
 
-    public void spreadToOther(Person p)
+    private void spreadToOther(Person p)
     {
         double otherPenalty= p.getSpreadPenalty();
-        int dice = random.nextInt(21);
+        int dice = random.nextInt(100);
 
         if (dice <= otherPenalty)
             p.isSick = true;
@@ -261,6 +228,44 @@ public class Person implements Updatable, Drawable{
         }
     }
 
+    @Override
+    public void run() {
+
+        if (path != null) 
+        {
+            travelOnPath();
+        }
+
+        else 
+        {
+            if(GameData.time.getTotalMinutes() >= leaveMinute) {
+                currentBuilding.exit(this);
+            }
+        }
+
+        
+        if (secondTimer >= 1) 
+        {
+            if (isSick)
+                contact();
+
+            secondTimer = 0;
+        }
+
+        secondTimer += GameData.updateManager.deltaTime();
+       updated = true;
+    }
+
+    @Override
+    public boolean hasFullyUpdated() {
+        // TODO Auto-generated method stub
+        return updated;
+    }
+    @Override
+    public void reset() {
+        penalty = -1;
+        updated = false;
+    }
 
     @Override
     public void paint(Graphics g) {
