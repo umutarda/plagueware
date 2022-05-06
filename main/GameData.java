@@ -73,7 +73,7 @@ public class GameData {
         }
     }
     public static int getPersonAmount() {
-        return people.size();
+        return people.size() - getDeadAmount();
     }
     public static int getDeadAmount() {
         int deadAmount = 0;
