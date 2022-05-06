@@ -48,8 +48,7 @@ public class Main {
         frame.setVisible(true);
 
         // frame.add(new InfoPanel());
-
-        try {
+try {
             new Buildings.Hospital(2, 10);
             new Buildings.House(20, 10);
             new Buildings.House(30, 10);
@@ -61,12 +60,15 @@ public class Main {
             new Buildings.House(80, 10);
             new Buildings.House(90, 30);
             new Buildings.House(100, 10);
+            for (int i = 0; i < 10; i++) {
+                new Buildings.House(0, 6 * i);
+            }
             new Buildings.House(30, 60);
             new Buildings.House(30, 40);
             new Buildings.Cafe(80, 20);
             new Buildings.Cafe(80, 30);
             new Buildings.Cafe(90, 10);
-            
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -83,7 +85,7 @@ public class Main {
         // updateManager.addUpdatable(bPerson);
         // drawManager.addDrawable(bPerson);
         // bPerson.travelToBuilding(buildings[1]);
-        GameData.generatePeople(20, 5, 50, 0, 20);
+        GameData.generatePeople(50, 5, 50, 0, 20);
 
 
        

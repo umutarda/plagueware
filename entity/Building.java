@@ -102,9 +102,9 @@ public abstract class Building {
 
     public void enter(Person p) {
         persons.add(p);
-        p.location = null;
+        //p.location = null;
         // System.out.println("Day " + GameData.time.day + ", " + GameData.time.hour + ":" + GameData.time.minute + " " + GameData.time.getTotalMinutes());
-        p.setLeaveMinute(GameData.time.getTotalMinutes() + 5 + new Random().nextInt(10) - 5);//leave in 0-10 minutes
+        p.setLeaveMinute(GameData.time.getTotalMinutes() + 300); //5 + new Random().nextInt(10) - 5);//leave in 0-10 minutes
     }
     public void exit(Person p) {
         persons.remove(p);

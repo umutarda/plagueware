@@ -143,16 +143,15 @@ public class Person implements Updatable, Drawable{
                     ((PathfindNode)path[pathIndex]).removePerson(this);
                 }
 
-
-
                 ((PathfindNode)path[++pathIndex]).addPerson(this); 
-
-
-                currentPathIntervalPercentage = 0;
                 currentNodePosition = GameData.map.getPositionOfNode((Node)path[pathIndex]);
                 
-                if (pathTravelIsNotFinished())
+                if (pathTravelIsNotFinished()) 
+                {
+                    currentPathIntervalPercentage = 0;
                     nextNodePosition = GameData.map.getPositionOfNode((Node)path[pathIndex+1]);
+                }
+                    
                 else 
                 {
                     currentNodePosition = null;
@@ -176,8 +175,6 @@ public class Person implements Updatable, Drawable{
                 }
                 
             }
-
-            
 
             if (nextNodePosition != null) 
             {
