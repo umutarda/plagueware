@@ -30,8 +30,8 @@ public class Main {
 
         Map map = new Map(300, 100, 10, 1, "0".repeat(100*300));  
         GameData.setUp(map);
-        GameData.drawManager.addDrawable(map);
-        map.setWindowSize();
+        // GameData.drawManager.addDrawable(map);
+        // map.setWindowSize();
 
         JFrame frame = new JFrame();
         frame.setTitle("PLAGUEWARE");
@@ -147,7 +147,7 @@ try {
             
         // });
 
-        GameData.updateManager.addUpdatable(GameData.pathManager);
+        // GameData.updateManager.addUpdatable(GameData.pathManager);
         while (true) {
             GameData.updateManager.update();
             

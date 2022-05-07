@@ -159,6 +159,9 @@ public class GameData {
         buildings = new ArrayList<Building>();
         people = new ArrayList<Person>();
         time = new Time();
+        drawManager.addDrawable(map);
+        map.setWindowSize();
+        updateManager.addUpdatable(pathManager);
     }
 
     // public static void main(String[] args) {

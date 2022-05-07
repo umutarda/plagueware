@@ -43,6 +43,7 @@ public class Map implements Drawable
             }
 
         }
+        
     }
 
     public void setWindowSize() 
