@@ -1,5 +1,7 @@
 package main;
 
+import javax.swing.JTextField;
+
 import entity.SkillTree;
 import entity.SkillTreeNode;
 
@@ -63,6 +65,8 @@ public class Savior extends Player implements Updatable{
     protected void getPaid() {
         budget += GameData.getPersonAmount() * 5;
         budgetLabel.setText("Budget: " + budget);
+        
+        // skillPanel.add(new JTextField(""));
         
     }
     

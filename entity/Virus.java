@@ -1,9 +1,9 @@
 package entity;
 
 public class Virus {
-    private int contagiousness;
-    private int asymptomaticRate;
-    private int mortality;
+    private double contagiousness;
+    private double asymptomaticRate;
+    private double mortality;
 
     public Virus(int contagiousness, int asymptomaticRate, int mortality) {
         this.contagiousness = contagiousness;
@@ -11,27 +11,27 @@ public class Virus {
         this.mortality = mortality;
     }
 
-    public int getContagiousness() {
+    public double getContagiousness() {
         return this.contagiousness;
     }
 
-    public void setContagiousness(int contagiousness) {
-        this.contagiousness = contagiousness;
+    public void setContagiousness(double d) {
+        this.contagiousness = d;
     }
 
-    public int getAsymptomaticRate() {
+    public double getAsymptomaticRate() {
         return this.asymptomaticRate;
     }
 
-    public void setAsymptomaticRate(int asymptomaticRate) {
+    public void setAsymptomaticRate(double asymptomaticRate) {
         this.asymptomaticRate = asymptomaticRate;
     }
 
-    public int getMortality() {
+    public double getMortality() {
         return this.mortality;
     }
 
-    public void setMortality(int mortality) {
+    public void setMortality(Double mortality) {
         this.mortality = mortality;
     }
     

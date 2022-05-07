@@ -1,10 +1,17 @@
 package main;
 
+import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JTextField;
+
 import entity.*;
 
 public class EndBringer extends Player implements Updatable{
     private int lastPersonAmount = GameData.getPersonAmount();
     private int lastDay = 0;
+    private JTextField contagiousness;
 
     public EndBringer(int initialBudget) {
         super(initialBudget);
@@ -45,6 +52,38 @@ public class EndBringer extends Player implements Updatable{
         budget += (lastPersonAmount - currentPersonAmount) * 300;
         budgetLabel.setText("Budget: " + budget);
         lastPersonAmount = currentPersonAmount;
+
+        if(contagiousness == null) {
+            contagiousness = new JTextField("contagiousness");
+            contagiousness.setMaximumSize(new Dimension(skillPanel.getWidth(), skillPanel.getHeight() / 20));
+            contagiousness.addActionListener(new ActionListener() {
+
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    try {
+                        int spent = Integer.parseInt(contagiousness.getText());
+                        if(spent <= budget) {
+                            budget -= spent;
+                            if(GameData.virus.getContagiousness() + spent / 50.0 <= 100) {
+                                GameData.virus.setContagiousness(GameData.virus.getContagiousness() + spent / 50.0);
+                            }
+                            else {
+                                GameData.virus.setContagiousness(100);
+                            }
+                            budgetLabel.setText("Budget: " + budget);
+                            skillPanel.remove(contagiousness);
+                            contagiousness = null;
+                        }
+                    } catch (Exception ex) {
+                    }
+                    
+                    
+                }
+                
+            });
+
+            skillPanel.add(contagiousness);
+        }
     }
 
     @Override

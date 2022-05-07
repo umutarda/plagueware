@@ -172,13 +172,13 @@ public class InfoPanel extends JPanel implements Updatable{
         }
 
         if(contagiousness != null) {
-            contagiousness.setText("Contagiousness: " + GameData.virus.getContagiousness());
+            contagiousness.setText(String.format("Contagiousness: %.1f", GameData.virus.getContagiousness()));
         }
         if(asymptomaticRate != null) {
-            asymptomaticRate.setText("asymptomatic Rate " + GameData.virus.getAsymptomaticRate());
+            asymptomaticRate.setText(String.format("Asymptomatic Rate: %.1f", GameData.virus.getAsymptomaticRate()));
         }
         if(mortality != null) {
-            mortality.setText("mortality: " + GameData.virus.getMortality());
+            mortality.setText(String.format("Mortality: %.1f", GameData.virus.getMortality()));
         }
     }
 
