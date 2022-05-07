@@ -88,7 +88,7 @@ try {
         // updateManager.addUpdatable(bPerson);
         // drawManager.addDrawable(bPerson);
         // bPerson.travelToBuilding(buildings[1]);
-        GameData.generatePeople(50, 5, 50, 0, 20);
+        GameData.generatePeople(50, 5, 50, 0, 20, 50);
 
 
        

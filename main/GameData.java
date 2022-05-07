@@ -43,30 +43,23 @@ public class GameData {
     }
 
 
-    public static void generatePeople(int peopleCount, int illCount, double averMask, double averVacc, double averAge){//avermask 0-1  avervacc 0-1 average 0-100
+    public static void generatePeople(int peopleCount, int illCount, double averMask, double averVacc, double averAge, double averAwareness){//avermask 0-1  avervacc 0-1 average 0-100
         ArrayList<Building> homes = getHomeBuildings();
     
         
 
-        for (int i = 0; i < peopleCount-illCount; i++) {
-            boolean mask = (rand.nextDouble()-0.5+averMask)>0.5;
-            boolean vaccinated = (rand.nextDouble()-0.5+averVacc)>0.5;
-            int age =  Math.abs((int)((rand.nextGaussian()+1)*averAge));  
+        for (int i = 0; i < peopleCount; i++) {
+            boolean condition = false;
+            if(i < illCount) {
+                condition = true;
+            }
+            boolean mask = (rand.nextDouble() - 0.5 + averMask) > 0.5;
+            boolean vaccinated = (rand.nextDouble() - 0.5 + averVacc) > 0.5;
+            int age =  Math.abs((int)((rand.nextGaussian() + 1) * averAge));
+            int awareness =  Math.abs((int)((rand.nextGaussian() + 1) * averAge));  
 
             //adds to the people list in constructor
-            new Person(false, mask, vaccinated, age, homes.get(rand.nextInt(homes.size()))); //fix position
-
-        }
-
-
-
-        for (int i = 0; i < illCount; i++) {
-            boolean mask = (rand.nextDouble()-0.5+averMask)>0.5;
-            boolean vaccinated = (rand.nextDouble()-0.5+averMask)>0.5;
-            int age = Math.abs((int)((rand.nextGaussian()+1)*averAge));
-
-            //adds to the people list in constructor
-            new Person(true, mask, vaccinated, age, homes.get(rand.nextInt(homes.size()))); //fix position
+            new Person(condition, mask, vaccinated, age, homes.get(rand.nextInt(homes.size())), awareness);
 
         }
     }
@@ -107,7 +100,7 @@ public class GameData {
     public static void chooseBuilding(Person p){
         int hour = time.hour;
         
-        if (p.isSick && rand.nextBoolean()) 
+        if (p.isSick && p.awareness > rand.nextGaussian(50, 20)) 
         {
             p.travelToBuilding(hospital);
         
@@ -116,6 +109,7 @@ public class GameData {
         {
             ArrayList<Building> entertainmentBuilding = getEntertainmentBuildings();
             if(hour<8){
+                
                 p.travelToBuilding(p.home);
             }
 
@@ -124,6 +118,33 @@ public class GameData {
         }
         
         
+    }
+    public static double getAvgAge() {
+        int ageSum = 0;
+        for (Person person : people) {
+            if(!person.isDead){
+                ageSum += person.age;
+            } 
+        }
+        return (double) ageSum / getPersonAmount();
+    }
+    public static double getAvgAwareness() {
+        int awarenessSum = 0;
+        for (Person person : people) {
+            if(!person.isDead){
+                awarenessSum += person.awareness;
+            } 
+        }
+        return (double) awarenessSum / getPersonAmount();
+    }
+    public static double getVaccinatedRatio() {
+        int vaccSum = 0;
+        for (Person person : people) {
+            if(!person.isDead && person.vaccinated){
+                vaccSum += 1;
+            } 
+        }
+        return (double) vaccSum / getPersonAmount();
     }
 
     public static Building randomBuildingForPerson(Person p){

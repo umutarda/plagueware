@@ -17,7 +17,7 @@ public class Game extends JPanel {
         GameData.setUp(new Map(200, 70, 10, 1, "0".repeat(70*200)),
             new Virus(50, 50, 100));
         setUpBuildings();
-        GameData.generatePeople(50, 5, 50, 0, 20);
+        GameData.generatePeople(50, 5, 50, 0, 20, 50);
         add(GameData.drawManager, BorderLayout.CENTER);
         add(new InfoPanel(), BorderLayout.NORTH);
         setBackground(Color.BLACK);

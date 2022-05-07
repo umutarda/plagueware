@@ -45,12 +45,13 @@ public class Person implements Updatable, Drawable{
     private double secondTimer;
 
 
-    public Person(boolean condition, boolean mask, boolean vaccinated, int age, Building home){
+    public Person(boolean condition, boolean mask, boolean vaccinated, int age, Building home, int awareness){
         this.isDead = false;
         this.isSick = condition;
         this.mask = mask;
         this.vaccinated = vaccinated;
         this.age = age;
+        this.awareness = awareness;
         this.currentBuilding = null;
         this.pathIndex = -1;
         
