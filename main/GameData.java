@@ -5,10 +5,7 @@ import pathfinder.PathManager;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Random;
-import entity.Building;
-import entity.Buildings;
-import entity.Person;
-import entity.Time;
+import entity.*;
 
 public class GameData {
     public static Map map;
@@ -20,6 +17,7 @@ public class GameData {
     public static Buildings.Hospital hospital;
     static Random rand = new Random();
     public static Time time;
+    public static Virus virus;
 
     public static final int PERSON_SPEED = 20;
     public static final int TIME_FACTOR = 8;
@@ -150,9 +148,10 @@ public class GameData {
 
 
     }
-    public static void setUp(Map newMap) {
+    public static void setUp(Map newMap, Virus newVirus) {
         
         map = newMap;
+        virus = newVirus;
         drawManager = new DrawManager();
         updateManager = new UpdateManager();
         pathManager = new PathManager(map);

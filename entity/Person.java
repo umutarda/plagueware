@@ -169,14 +169,33 @@ public class Person implements Updatable, Drawable{
 
         if (currentBuilding == GameData.hospital) 
         {
-            double destiny = random.nextDouble();
-            isSick = destiny < .6f;
-            isDead = destiny > .9f;
-
-            if(isDead)
+            // double destiny = random.nextDouble();
+            // isSick = destiny < .6f;
+            // isDead = destiny > .9f;
+            if(random.nextDouble() < getDeathChance()) {
+                isDead = true;
+            }
+            else if(random.nextDouble() < getRecoveryChance()) {
                 isSick = false;
+            }
+
+            if(isDead) {
+                isSick = false;
+            }
         }                
 
+    }
+    private double getDeathChance() {
+        double chance = GameData.virus.getMortality() / 100.0;
+        chance += (age - 40) / 500.0;
+        if(vaccinated) {
+            chance -= 0.2;
+        }
+
+        return chance;
+    }
+    private double getRecoveryChance() {
+        return 1 - getDeathChance() - 0.9;
     }
 
     private void contact() 
@@ -198,8 +217,9 @@ public class Person implements Updatable, Drawable{
         double otherPenalty= p.getSpreadPenalty();
         int dice = random.nextInt(21);
 
-        if (dice <= otherPenalty)
+        if (dice <= otherPenalty) {
             p.isSick = true;
+        }
     }
     private void outsideContact()
     {

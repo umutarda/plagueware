@@ -16,6 +16,7 @@ import entity.Building;
 import entity.Buildings;
 import entity.Person;
 import entity.Time;
+import entity.Virus;
 
 
 
@@ -31,7 +32,7 @@ public class Main {
         User user = new User(a);
 
         Map map = new Map(300, 100, 10, 1, "0".repeat(100*300));  
-        GameData.setUp(map);
+        GameData.setUp(map, new Virus(50, 50, 5));
         // GameData.drawManager.addDrawable(map);
         // map.setWindowSize();
 

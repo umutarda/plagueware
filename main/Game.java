@@ -14,7 +14,8 @@ public class Game extends JPanel {
     public Game(User user) {
         this.setLayout(new BorderLayout());
         this.user = user;
-        GameData.setUp(new Map(200, 70, 10, 1, "0".repeat(70*200)));
+        GameData.setUp(new Map(200, 70, 10, 1, "0".repeat(70*200)),
+            new Virus(50, 50, 100));
         setUpBuildings();
         GameData.generatePeople(50, 5, 50, 0, 20);
         add(GameData.drawManager, BorderLayout.CENTER);
@@ -57,7 +58,7 @@ public class Game extends JPanel {
         }
     }
     private boolean isOver() {
-        return GameData.getPersonAmount() == 0 || GameData.people.size() == GameData.getDeadAmount();
+        return GameData.getPersonAmount() == 0 || GameData.getVirusAmount() == 0;
     }
 
     private void endGame() {
