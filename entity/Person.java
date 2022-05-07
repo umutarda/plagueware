@@ -170,18 +170,22 @@ public class Person implements Updatable, Drawable{
 
         if (currentBuilding == GameData.hospital) 
         {
-            // double destiny = random.nextDouble();
-            // isSick = destiny < .6f;
-            // isDead = destiny > .9f;
-            if(random.nextDouble() < getDeathChance()) {
-                isDead = true;
-            }
-            else if(random.nextDouble() < getRecoveryChance()) {
-                isSick = false;
-            }
+            if(isSick) {
+                if(random.nextDouble() < getDeathChance()) {
+                    isDead = true;
+                }
+                else if(random.nextDouble() < getRecoveryChance()) {
+                    isSick = false;
+                }
 
-            if(isDead) {
-                isSick = false;
+                if(isDead) {
+                    isSick = false;
+                }
+            }
+            else {
+                if(GameData.hospital.hasVaccine && random.nextInt(100) < awareness) {
+                    vaccinated = true;
+                }
             }
         }                
 

@@ -1,7 +1,5 @@
 package entity;
 
-import javax.swing.JFrame;
-import javax.swing.JLabel;
 
 import main.GameData;
 import main.Updatable;

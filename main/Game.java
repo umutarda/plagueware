@@ -23,6 +23,7 @@ public class Game extends JPanel {
         setBackground(Color.BLACK);
         setVisible(true);
 
+
     }
     public void start() {
         while(!isOver()) {
@@ -57,11 +58,11 @@ public class Game extends JPanel {
             e.printStackTrace();
         }
     }
-    private boolean isOver() {
+    protected boolean isOver() {
         return GameData.getPersonAmount() == 0 || GameData.getVirusAmount() == 0;
     }
 
-    private void endGame() {
+    protected void endGame() {
         GameData.resetAll();
 
     }
@@ -74,6 +75,7 @@ public class Game extends JPanel {
         Game game = new Game(new User("kerem"));
         frame.add(game);
         frame.pack();
+        game.add(new EndBringer(100).skillPanel, BorderLayout.EAST);
         game.start();
 
     }

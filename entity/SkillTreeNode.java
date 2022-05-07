@@ -33,5 +33,6 @@ public abstract class SkillTreeNode {
         }
     }
     protected abstract void activateEvent();
+    public abstract int getCost();
     public abstract String toString();
 }

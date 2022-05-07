@@ -1,10 +1,8 @@
 package entity;
 
 import java.awt.Color;
-import java.util.ArrayList;
 
 import main.GameData;
-import main.Map;
 
 public final class Buildings {
     public static final int ENTERTAINMENT = 0;
@@ -63,6 +61,7 @@ public final class Buildings {
         
     }
     public static class Hospital extends Building {
+        public boolean hasVaccine = false;
 
         public Hospital(int x, int y) throws Exception {
             super(x, y);
