@@ -132,8 +132,6 @@ public class Person implements Updatable, Drawable{
 
     private void updateTravelValues() 
     {
-        if (pathIndex != -1 && path.length == 1 && ((Node)path[0]).getPosition().getX() == 91 && ((Node)path[0]).getPosition().getY() == 9)
-                System.out.println();
 
         if(!pathTravelIsNotStarted()) 
             ((PathfindNode)path[pathIndex]).removePerson(this);
