@@ -171,9 +171,11 @@ public class plaguwareMenu
             panelCont.add(credits, "5");
             panelCont.add(leaderboard, "6");
 
-            Game theGame = new Game(new User("nickname"),0);
-            panelCont.add(theGame,"7");
+            /**/
             
+            
+
+           /**/
 
             
             cl.show(panelCont,"1");
@@ -248,17 +250,57 @@ public class plaguwareMenu
                     cl.show(panelCont, "2");
                 }
             });
-            chooseSimulation.addActionListener(new ActionListener(){
+
+            chooseEndBringer.addActionListener(new ActionListener(){
                 @Override
                 public void actionPerformed(ActionEvent arg0)
                 {
-                    
+                    Game endBringer = new Game(new User("nickname"),1);
+                    panelCont.add(endBringer,"7");
                     cl.show(panelCont, "7");
                     new Timer().schedule(new TimerTask() {
 
                         @Override
                         public void run() {
-                            theGame.start();
+                            endBringer.start();
+                            
+                        }
+                        
+                    }, 1000);
+                }
+            });
+            chooseSimulation.addActionListener(new ActionListener(){
+                @Override
+                public void actionPerformed(ActionEvent arg0)
+                {
+                    Game simulation = new Game(new User("nickname"),0);
+                panelCont.add(simulation,"8");
+                    
+                    cl.show(panelCont, "8");
+                    new Timer().schedule(new TimerTask() {
+
+                        @Override
+                        public void run() {
+                            simulation.start();
+                            
+                        }
+                        
+                    }, 1000);
+                }
+            });
+
+            chooseSaviour.addActionListener(new ActionListener(){
+                @Override
+                public void actionPerformed(ActionEvent arg0)
+                {
+                    Game saviour = new Game(new User("nickname"),2);
+                    panelCont.add(saviour,"9");
+                    cl.show(panelCont, "9");
+                    new Timer().schedule(new TimerTask() {
+
+                        @Override
+                        public void run() {
+                            saviour.start();
                             
                         }
                         
