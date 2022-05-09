@@ -31,7 +31,6 @@ public class Savior extends Player implements Updatable{
     @Override
     public void reset() {
         // TODO Auto-generated method stub
-        
     }
 
     @Override

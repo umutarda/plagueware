@@ -56,11 +56,15 @@ public class EndBringer extends Player implements Updatable{
             changeVirusPanel.add(asymptomaticRadio);
             group.add(contagiousnessRadio); group.add(mortalityRadio); group.add(asymptomaticRadio);
 
-            JButton changeVirusButton = new JButton("Change the Virus");
+            int changeVirusCost = 300;
+            JButton changeVirusButton = new JButton("Change the Virus (Cost:" + changeVirusCost + ")");
             changeVirusButton.addActionListener(new ActionListener() {
 
                 @Override
                 public void actionPerformed(ActionEvent e) {
+                    if(budget < changeVirusCost) {
+                        return;
+                    }
                     if(contagiousnessRadio.isSelected()) {
                         GameData.virus.setContagiousness(GameData.virus.getContagiousness() + 1);
                         GameData.virus.setAsymptomaticRate(GameData.virus.getAsymptomaticRate() - 0.5);
@@ -81,6 +85,8 @@ public class EndBringer extends Player implements Updatable{
                     }
                     skillPanel.remove(changeVirusPanel);
                     changeVirusPanel = null;
+                    budget -= changeVirusCost;
+                    budgetLabel.setText("Budget: " + budget);
                     
                 }
                 

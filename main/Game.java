@@ -83,7 +83,7 @@ public class Game extends JPanel {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setBackground(Color.BLACK);
         frame.setVisible(true);
-        Game game = new Game(new User("kerem"), SIMULATION);
+        Game game = new Game(new User("kerem"), END_BRINGER);
         frame.add(game);
         frame.pack();
         // game.add(new EndBringer(100).skillPanel, BorderLayout.EAST);
