@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.swing.SwingUtilities;
+import javax.swing.border.Border;
 import javax.swing.text.JTextComponent;
 
 import java.awt.*;
@@ -105,7 +106,7 @@ public class plaguwareMenu
             mainTOInfo.setPreferredSize(new Dimension(330,120));
             mainTOInfo.setBackground(Color.BLACK);
             mainTOLead.setPreferredSize(new Dimension(570,120));
-            mainTOlets.setPreferredSize(new Dimension(130,120));
+            mainTOlets.setPreferredSize(new Dimension(95,95));
             mainMenu.add(mainTOplayLogin);
             mainMenu.add(mainTOCredits);
             mainMenu.add(mainTOInfo);
@@ -123,7 +124,7 @@ public class plaguwareMenu
             chooseSimulation.setBackground(Color.BLACK);
             chooseSaviour.setPreferredSize(new Dimension(550,120));
             chooseSaviour.setBackground(Color.BLACK);
-            chooseTOmain.setPreferredSize(new Dimension(120,120));
+            chooseTOmain.setPreferredSize(new Dimension(95,95));
             chooseMode.add(chooseEndBringer);
             chooseMode.add(chooseSimulation);
             chooseMode.add(chooseSaviour);
@@ -134,16 +135,16 @@ public class plaguwareMenu
             chooseMode.setBackground(Color.BLACK);
 
             
-            infoTOmain.setPreferredSize(new Dimension(800,120));
-            infoTOmain.setBackground(Color.BLACK);
-            information.add(infoTOmain);
+            infoTOmain.setPreferredSize(new Dimension(95,95));
+            infoTOmain.setBackground(Color.WHITE);
+            information.add(infoTOmain,BorderLayout.EAST);
             BufferedImage myPicture4 = ImageIO.read(new File("main/pngFile/info.png"));
             JLabel picLabel4 = new JLabel(new ImageIcon(myPicture4));
             information.add(picLabel4);
-            information.setBackground(Color.BLACK);
+            information.setBackground(Color.WHITE);
 
             
-            creditTOmain.setPreferredSize(new Dimension(800,120));
+            creditTOmain.setPreferredSize(new Dimension(95,95));
             creditTOmain.setBackground(Color.BLACK);
             credits.add(creditTOmain);
             BufferedImage myPicture5 = ImageIO.read(new File("main/pngFile/creditLast.png"));
@@ -152,7 +153,7 @@ public class plaguwareMenu
             credits.setBackground(Color.BLACK);
 
 
-            leaderTOmain.setPreferredSize(new Dimension(800,120));
+            leaderTOmain.setPreferredSize(new Dimension(95,95));
             leaderTOmain.setBackground(Color.BLACK);
             leaderboard.add(leaderTOmain);
             BufferedImage myPicture6 = ImageIO.read(new File("main/pngFile/leaderboard.png"));
@@ -173,7 +174,7 @@ public class plaguwareMenu
             playLogin.add(userName);
             playLogin.add(tfUser);
             playLogin.add(playLoginToChooseMode);
-            logTOmain.setPreferredSize(new Dimension(120,120));
+            logTOmain.setPreferredSize(new Dimension(95,95));
             playLogin.add(logTOmain);
             playLogin.setBackground(Color.BLACK);
             BufferedImage myPicture7 = ImageIO.read(new File("main/pngFile/login.png"));
