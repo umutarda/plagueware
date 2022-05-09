@@ -11,7 +11,11 @@ public class Game extends JPanel {
     private User user;
 
 
-    public Game(User user) {
+    public static final int SIMULATION = 0;
+    public static final int END_BRINGER = 1;
+    public static final int SAVIOR = 2;
+
+    public Game(User user, int gameMode) {
         this.setLayout(new BorderLayout());
         this.user = user;
         GameData.setUp(new Map(200, 70, 10, 1, "0".repeat(70*200)),
@@ -22,6 +26,12 @@ public class Game extends JPanel {
         add(new InfoPanel(), BorderLayout.NORTH);
         setBackground(Color.BLACK);
         setVisible(true);
+        if(gameMode == END_BRINGER) {
+            this.add(new EndBringer(100).skillPanel, BorderLayout.EAST);
+        }
+        else if(gameMode == SAVIOR) {
+            this.add(new Savior(100).skillPanel, BorderLayout.EAST);
+        }
 
 
     }
@@ -72,10 +82,10 @@ public class Game extends JPanel {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setBackground(Color.BLACK);
         frame.setVisible(true);
-        Game game = new Game(new User("kerem"));
+        Game game = new Game(new User("kerem"), SIMULATION);
         frame.add(game);
         frame.pack();
-        game.add(new EndBringer(100).skillPanel, BorderLayout.EAST);
+        // game.add(new EndBringer(100).skillPanel, BorderLayout.EAST);
         game.start();
 
     }
