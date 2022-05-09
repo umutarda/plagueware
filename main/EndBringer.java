@@ -4,14 +4,22 @@ import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.ButtonGroup;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JTextField;
+import javax.swing.border.BevelBorder;
 
 import entity.*;
+import java.awt.*;
 
 public class EndBringer extends Player implements Updatable{
     private int lastPersonAmount = GameData.getPersonAmount();
     private int lastDay = 0;
-    private JTextField contagiousness;
+
+    private JPanel changeVirusPanel;
 
     public EndBringer(int initialBudget) {
         super(initialBudget);
@@ -22,25 +30,6 @@ public class EndBringer extends Player implements Updatable{
     @Override
     protected SkillTree getSkillTree() {
         SkillTreeNode[] roots = {
-            new SkillTreeNode() {
-
-                @Override
-                protected void activateEvent() {
-                    GameData.hospital.hasVaccine = true;
-                    
-                }
-
-                @Override
-                public int getCost() {
-                    return 500;
-                }
-
-                @Override
-                public String toString() {
-                    return "Find vaccination. Cost: " + getCost();
-                }
-                
-            }
         };
         SkillTree tree = new SkillTree(roots);
         return tree;
@@ -53,36 +42,53 @@ public class EndBringer extends Player implements Updatable{
         budgetLabel.setText("Budget: " + budget);
         lastPersonAmount = currentPersonAmount;
 
-        if(contagiousness == null) {
-            contagiousness = new JTextField("contagiousness");
-            contagiousness.setMaximumSize(new Dimension(skillPanel.getWidth(), skillPanel.getHeight() / 20));
-            contagiousness.addActionListener(new ActionListener() {
+        
+        if(changeVirusPanel == null) {
+            changeVirusPanel = new JPanel();
+            changeVirusPanel.setLayout(new GridLayout(4,1));
+            changeVirusPanel.setBorder(new BevelBorder(BevelBorder.RAISED));
+            ButtonGroup group = new ButtonGroup();
+            JRadioButton contagiousnessRadio = new JRadioButton("Contagiousness +1");
+            changeVirusPanel.add(contagiousnessRadio);
+            JRadioButton mortalityRadio = new JRadioButton("Mortality +1");
+            changeVirusPanel.add(mortalityRadio);
+            JRadioButton asymptomaticRadio = new JRadioButton("Asymptomatic Rate +1");
+            changeVirusPanel.add(asymptomaticRadio);
+            group.add(contagiousnessRadio); group.add(mortalityRadio); group.add(asymptomaticRadio);
+
+            JButton changeVirusButton = new JButton("Change the Virus");
+            changeVirusButton.addActionListener(new ActionListener() {
 
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    try {
-                        int spent = Integer.parseInt(contagiousness.getText());
-                        if(spent <= budget) {
-                            budget -= spent;
-                            if(GameData.virus.getContagiousness() + spent / 50.0 <= 100) {
-                                GameData.virus.setContagiousness(GameData.virus.getContagiousness() + spent / 50.0);
-                            }
-                            else {
-                                GameData.virus.setContagiousness(100);
-                            }
-                            budgetLabel.setText("Budget: " + budget);
-                            skillPanel.remove(contagiousness);
-                            contagiousness = null;
-                        }
-                    } catch (Exception ex) {
+                    if(contagiousnessRadio.isSelected()) {
+                        GameData.virus.setContagiousness(GameData.virus.getContagiousness() + 1);
+                        GameData.virus.setAsymptomaticRate(GameData.virus.getAsymptomaticRate() - 0.5);
+                        GameData.virus.setMortality(GameData.virus.getMortality() - 0.5);
                     }
-                    
+                    else if(mortalityRadio.isSelected()) {
+                        GameData.virus.setContagiousness(GameData.virus.getContagiousness() - 0.5);
+                        GameData.virus.setAsymptomaticRate(GameData.virus.getAsymptomaticRate() - 0.5);
+                        GameData.virus.setMortality(GameData.virus.getMortality() + 1);
+                    }
+                    else if(asymptomaticRadio.isSelected()) {
+                        GameData.virus.setContagiousness(GameData.virus.getContagiousness() - 0.5);
+                        GameData.virus.setAsymptomaticRate(GameData.virus.getAsymptomaticRate() + 1);
+                        GameData.virus.setMortality(GameData.virus.getMortality() - 0.5);
+                    }
+                    else {
+                        return;
+                    }
+                    skillPanel.remove(changeVirusPanel);
+                    changeVirusPanel = null;
                     
                 }
                 
             });
+            changeVirusPanel.add(changeVirusButton);
 
-            skillPanel.add(contagiousness);
+            skillPanel.add(changeVirusPanel);
+            changeVirusPanel.setMaximumSize(changeVirusPanel.getMinimumSize());
         }
     }
 

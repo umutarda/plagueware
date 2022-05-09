@@ -10,17 +10,31 @@ import java.awt.*;
 public class Game extends JPanel {
     private User user;
     public Game(User user) {
+
+
+    public static final int SIMULATION = 0;
+    public static final int END_BRINGER = 1;
+    public static final int SAVIOR = 2;
+
+    public Game(User user, int gameMode) {
         this.setLayout(new BorderLayout());
         this.user = user;
-        GameData.setUp(new Map(200, 100, 10, 1, "0".repeat(100*200)),
-            new Virus(50, 50, 100));
+        GameData.setUp(new Map(200, 70, 10, 1, "0".repeat(70*200)),
+            new Virus(50, 50, 10));
         setUpBuildings();
         GameData.generatePeople(50, 5, 50, 0, 20, 50);
         add(GameData.drawManager, BorderLayout.CENTER);
         add(new InfoPanel(), BorderLayout.NORTH);
         setBackground(Color.BLACK);
         setVisible(true);
-        
+        if(gameMode == END_BRINGER) {
+            this.add(new EndBringer(100).skillPanel, BorderLayout.EAST);
+        }
+        else if(gameMode == SAVIOR) {
+            this.add(new Savior(100).skillPanel, BorderLayout.EAST);
+        }
+
+
     }
     public void start() {
         
@@ -64,9 +78,20 @@ public class Game extends JPanel {
         GameData.resetAll();
 
     }
+    public static void main(String[] args) {
+        JFrame frame = new JFrame();
+        frame.setTitle("PLAGUEWARE");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setBackground(Color.BLACK);
+        frame.setVisible(true);
+        Game game = new Game(new User("kerem"), SIMULATION);
+        frame.add(game);
+        frame.pack();
+        // game.add(new EndBringer(100).skillPanel, BorderLayout.EAST);
+        game.start();
 
 
-
+    }
 
     
 }

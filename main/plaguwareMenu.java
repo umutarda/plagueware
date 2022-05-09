@@ -151,7 +151,7 @@ public class plaguwareMenu
             panelCont.add(credits, "5");
             panelCont.add(leaderboard, "6");
 
-            Game theGame = new Game(new User("nickname"));
+            Game theGame = new Game(new User("nickname"),0);
             panelCont.add(theGame,"7");
             
 

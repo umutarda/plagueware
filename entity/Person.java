@@ -65,6 +65,7 @@ public class Person implements Updatable, Drawable{
         GameData.updateManager.addUpdatable(this);
         GameData.drawManager.addDrawable(this);
     }
+    
     public double getSpreadPenalty(){
          
         if(penalty == -1)
@@ -80,13 +81,14 @@ public class Person implements Updatable, Drawable{
     public void setLeaveMinute(long minute) {
         leaveMinute = minute;
     }
+    private static final int PENALTY_BOUND = 31;
     private void calculateSpreadPenalty(){
         penalty = 0;
         if(!vaccinated)
             penalty += 5;
         if(!mask)
             penalty += 5;
-        penalty += age * 0.03 + stress * 0.03 + (100-awareness) * 0.04;
+        penalty += age * 0.03 + stress * 0.03 + (100-awareness) * 0.04 + GameData.virus.getContagiousness() * 0.1;
    }
     
     private boolean pathIntervalIsDone() 
@@ -218,7 +220,7 @@ public class Person implements Updatable, Drawable{
     private void spreadToOther(Person p)
     {
         double otherPenalty= p.getSpreadPenalty();
-        int dice = random.nextInt(21);
+        int dice = random.nextInt(PENALTY_BOUND);
 
         if (dice <= otherPenalty) {
             p.isSick = true;
@@ -251,7 +253,7 @@ public class Person implements Updatable, Drawable{
             {
                 double otherPenalty= person.getSpreadPenalty();
 
-                int dice = random.nextInt(21);
+                int dice = random.nextInt(PENALTY_BOUND);
 
                 if (dice <= otherPenalty)
                     spreadToOther(person);
