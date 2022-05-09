@@ -9,7 +9,6 @@ import java.awt.*;
 
 public class Game extends JPanel {
     private User user;
-    public Game(User user) {
 
 
     public static final int SIMULATION = 0;
