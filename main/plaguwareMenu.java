@@ -8,9 +8,16 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import java.io.IOException;
-import javax.swing.SwingUtilities;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.JTextPane;
 
+import java.io.IOException;
+import java.util.ArrayList;
+
+import javax.swing.SwingUtilities;
+import javax.swing.text.JTextComponent;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -34,6 +41,8 @@ public class plaguwareMenu
     JPanel information = new JPanel();
     JPanel credits = new JPanel();
     JPanel leaderboard = new JPanel();
+    JTextArea leaderboardText = new JTextArea();
+    ArrayList<User> x = User.LeaderboardToArray();
 
 
     
@@ -138,8 +147,19 @@ public class plaguwareMenu
             leaderboard.add(leaderTOmain);
             BufferedImage myPicture6 = ImageIO.read(new File("main/pngFile/leaderboard.png"));
             JLabel picLabel6 = new JLabel(new ImageIcon(myPicture6));
-            leaderboard.add(picLabel6);
-            leaderboard.setBackground(Color.BLACK);
+
+            for (User user : x) {
+                if(user.toString().length()>0)
+                    leaderboardText.append(user.toString());
+            }
+            leaderboardText.setForeground(Color.RED);
+            leaderboardText.setBackground(Color.black);
+            leaderboardText.setSize(700, 700);
+            leaderboardText.setFont(new Font("Serif", Font.ITALIC, 26));
+            JScrollPane j = new JScrollPane(leaderboardText); //might be removed
+            leaderboard.add(j);
+            //leaderboard.add(picLabel6);
+            //leaderboard.setBackground(Color.BLACK);
 
 
             panelCont.add(letsRoll, "1");

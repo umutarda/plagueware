@@ -158,8 +158,6 @@ try {
         user.setTime(GameData.time.getTotalHours());
         User.insertIntoDatabase(user);
 
-        System.out.println(User.LeaderboardToArray());
-
     }
 
 }
