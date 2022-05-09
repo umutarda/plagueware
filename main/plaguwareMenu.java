@@ -19,6 +19,8 @@ import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.File;
 
+import java.util.Timer;
+import java.util.TimerTask;
 
 
 public class plaguwareMenu
@@ -149,6 +151,9 @@ public class plaguwareMenu
             panelCont.add(credits, "5");
             panelCont.add(leaderboard, "6");
 
+            Game theGame = new Game(new User("nickname"));
+            panelCont.add(theGame,"7");
+            
 
             
             cl.show(panelCont,"1");
@@ -227,36 +232,36 @@ public class plaguwareMenu
                 @Override
                 public void actionPerformed(ActionEvent arg0)
                 {
-                    try {
-                        new Main().main(new String[0]);
-                    } catch (InterruptedException e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
-                    }
+                    
+                    cl.show(panelCont, "7");
+                    new Timer().schedule(new TimerTask() {
+
+                        @Override
+                        public void run() {
+                            theGame.start();
+                            
+                        }
+                        
+                    }, 1000);
                 }
             });
             
             
             frame.add(panelCont);
-            frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frame.pack();
             frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
             frame.setResizable(false); 
             frame.setVisible(true);
         } 
         catch (IOException e) {
-             System.out.println();}
-        
-
-        
-
-
+             System.err.println("Images are not found!"); }
     }
 
 
 
     public static void main(String[] args) {
-    
+        
         new plaguwareMenu();
 
     }

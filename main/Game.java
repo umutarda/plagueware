@@ -9,12 +9,10 @@ import java.awt.*;
 
 public class Game extends JPanel {
     private User user;
-
-
     public Game(User user) {
         this.setLayout(new BorderLayout());
         this.user = user;
-        GameData.setUp(new Map(200, 70, 10, 1, "0".repeat(70*200)),
+        GameData.setUp(new Map(200, 100, 10, 1, "0".repeat(100*200)),
             new Virus(50, 50, 100));
         setUpBuildings();
         GameData.generatePeople(50, 5, 50, 0, 20, 50);
@@ -22,10 +20,10 @@ public class Game extends JPanel {
         add(new InfoPanel(), BorderLayout.NORTH);
         setBackground(Color.BLACK);
         setVisible(true);
-
-
+        
     }
     public void start() {
+        
         while(!isOver()) {
             GameData.updateManager.update();
         }
@@ -66,19 +64,8 @@ public class Game extends JPanel {
         GameData.resetAll();
 
     }
-    public static void main(String[] args) {
-        JFrame frame = new JFrame();
-        frame.setTitle("PLAGUEWARE");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setBackground(Color.BLACK);
-        frame.setVisible(true);
-        Game game = new Game(new User("kerem"));
-        frame.add(game);
-        frame.pack();
-        game.add(new EndBringer(100).skillPanel, BorderLayout.EAST);
-        game.start();
 
-    }
+
 
 
     

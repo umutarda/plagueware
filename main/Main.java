@@ -22,7 +22,7 @@ import entity.Virus;
 
 public class Main {
     
-    public void main(String[] args)  throws InterruptedException  {
+    public void main() {
         
         //System.out.println(" Enter the username: ");
         //Scanner in = new Scanner(System.in);

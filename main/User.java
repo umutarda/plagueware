@@ -136,13 +136,13 @@ public class User {
         return res;
         
     }
-   /* public static void main(String[] args) {
+    public static void main(String[] args) {
 
         User x = new User("Java", 13231);
         //insertIntoDatabase(x);
         printLeaderboard();
 
         System.out.println(LeaderboardToArray().toString());
-    }*/
+    }
 
 }
