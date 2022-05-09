@@ -15,8 +15,16 @@ public class Virus {
         return this.contagiousness;
     }
 
-    public void setContagiousness(double d) {
-        this.contagiousness = d;
+    public void setContagiousness(double conatgiosness) {
+        if(conatgiosness > 100) {
+            this.contagiousness = 100;
+        }
+        else if(conatgiosness < 0) {
+            this.contagiousness = 0;
+        }
+        else {
+            this.contagiousness = conatgiosness;
+        }
     }
 
     public double getAsymptomaticRate() {
@@ -24,15 +32,31 @@ public class Virus {
     }
 
     public void setAsymptomaticRate(double asymptomaticRate) {
-        this.asymptomaticRate = asymptomaticRate;
+        if(asymptomaticRate > 100) {
+            this.asymptomaticRate = 100;
+        }
+        else if( asymptomaticRate < 0) {
+            this.asymptomaticRate = 0;
+        }
+        else {
+            this.asymptomaticRate = asymptomaticRate;
+        }
     }
 
     public double getMortality() {
         return this.mortality;
     }
 
-    public void setMortality(Double mortality) {
-        this.mortality = mortality;
+    public void setMortality(double mortality) {
+        if(mortality > 100) {
+            this.mortality = 100;
+        }
+        else if(mortality < 0) {
+            this.mortality = 0;
+        }
+        else {
+            this.mortality = mortality;
+        }
     }
     
     
