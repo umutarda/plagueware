@@ -18,6 +18,7 @@ public class Person implements Updatable, Drawable{
 
     //variables
     public boolean isSick;
+    public boolean isAsymptomatic;
     public boolean isDead;
     public boolean mask = true;
     public boolean vaccinated;
@@ -48,6 +49,7 @@ public class Person implements Updatable, Drawable{
     public Person(boolean condition, boolean mask, boolean vaccinated, int age, Building home, int awareness){
         this.isDead = false;
         this.isSick = condition;
+        this.isAsymptomatic = false;
         this.mask = mask;
         this.vaccinated = vaccinated;
         this.age = age;
@@ -176,10 +178,12 @@ public class Person implements Updatable, Drawable{
                 }
                 else if(random.nextDouble() < getRecoveryChance()) {
                     isSick = false;
+                    isAsymptomatic = false;
                 }
 
                 if(isDead) {
                     isSick = false;
+                    isAsymptomatic = false;
                 }
             }
             else {
@@ -224,6 +228,7 @@ public class Person implements Updatable, Drawable{
 
         if (dice <= otherPenalty) {
             p.isSick = true;
+            p.isAsymptomatic = random.nextDouble() < GameData.virus.getAsymptomaticRate() / 100.0;
         }
     }
     private void outsideContact()

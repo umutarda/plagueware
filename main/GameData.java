@@ -1,8 +1,6 @@
 package main;
 
 import pathfinder.PathManager;
-
-import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Random;
 import entity.*;
@@ -84,6 +82,15 @@ public class GameData {
         }
         return virusAmount;
     }
+    public static int getAsymptomaticAmount() {
+        int asymptomaticAmount = 0;
+        for (Person p : people) {
+            if(p.isAsymptomatic) {
+                asymptomaticAmount++;
+            }
+        }
+        return asymptomaticAmount;
+    }
 
     public static void resetAll() 
     {
@@ -100,7 +107,7 @@ public class GameData {
     public static void chooseBuilding(Person p){
         int hour = time.hour;
         
-        if (rand.nextInt(20) == 0 || (p.isSick && p.awareness > rand.nextGaussian(50, 20))) 
+        if (rand.nextInt(20) == 0 || (p.isSick && !p.isAsymptomatic && p.awareness > rand.nextGaussian(50, 20))) 
         {
             p.travelToBuilding(hospital);
         

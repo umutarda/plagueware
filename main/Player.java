@@ -59,6 +59,14 @@ public abstract class Player {
             skillPanel.add(skills.get(i));
         }
     }
+    protected void addBudget(int addedBudget) {
+        if(budget + addedBudget < 0) {
+            budget = 0;
+        }
+        else {
+            budget += addedBudget;
+        }
+    }
     
     protected abstract SkillTree getSkillTree();
     protected abstract void getPaid();

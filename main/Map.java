@@ -3,9 +3,6 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Point;
-import javax.swing.JPanel;
-import javax.swing.text.Position;
-
 import pathfinder.Node;
 import pathfinder.PathfindNode;
 import pathfinder.PathfindNode.State;

@@ -1,7 +1,5 @@
 package main;
 
-import javax.swing.JTextField;
-
 import entity.SkillTree;
 import entity.SkillTreeNode;
 

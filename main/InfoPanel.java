@@ -7,12 +7,11 @@ import javax.swing.border.BevelBorder;
 import java.awt.*;
 import java.awt.event.*;
 
-import entity.Time;
-
 public class InfoPanel extends JPanel implements Updatable{
     JLabel time;
     JLabel livingAmount;
     JLabel deadAmount;
+    JLabel asymptomaticAmount;
     JLabel virusAmount;
     JLabel fps;
 
@@ -40,6 +39,9 @@ public class InfoPanel extends JPanel implements Updatable{
 
         deadAmount = new JLabel();
         generalInfo.add(deadAmount, BorderLayout.CENTER);
+
+        asymptomaticAmount = new JLabel();
+        generalInfo.add(asymptomaticAmount, BorderLayout.CENTER);
 
         virusAmount = new JLabel();
         generalInfo.add(virusAmount, BorderLayout.CENTER);
@@ -145,6 +147,8 @@ public class InfoPanel extends JPanel implements Updatable{
 
         virusAmount.setText("Virus Amount: " + GameData.getVirusAmount());
 
+        asymptomaticAmount.setText("Asymptomatic Amount: " + GameData.getAsymptomaticAmount());
+
         fps.setText( "FPS: " +String.format("%.2f", UpdateManager.getFps())); 
 
         String timeStr = "Day " + GameData.time.day + ", ";
@@ -184,13 +188,11 @@ public class InfoPanel extends JPanel implements Updatable{
 
     @Override
     public boolean hasFullyUpdated() {
-        // TODO Auto-generated method stub
         return false;
     }
 
     @Override
     public void reset() {
-        // TODO Auto-generated method stub
         
     }
     

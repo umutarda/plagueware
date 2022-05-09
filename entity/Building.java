@@ -1,13 +1,10 @@
 package entity;
 import java.awt.Point;
-import java.nio.channels.Pipe;
 import java.util.ArrayList;
-import java.util.Random;
 
 import main.*;
 import pathfinder.*;
 import java.awt.Color;
-import java.awt.*;
 
 public abstract class Building {
     
@@ -17,7 +14,6 @@ public abstract class Building {
     private ImpassibleNode[][] nodes;
     private Map map;
     private Node enterNode;
-    private int buildingType;
     
     ArrayList<Person> persons;
     public Building(int x, int y) throws Exception {
