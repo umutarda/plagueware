@@ -33,6 +33,60 @@ public final class Buildings {
         
         
     }
+    public static class Mall extends Building {
+
+        public Mall(int x, int y) throws Exception {
+            super(x, y);
+        }
+
+        @Override
+        public int getNodeWidth() {
+            return 6;
+        }
+
+        @Override
+        public int getNodeHeight() {
+            return 5;
+        }
+
+        @Override
+        public Color getColor() {
+            return Color.DARK_GRAY;
+        }
+
+        @Override
+        public int getBuildingType() {
+            return ENTERTAINMENT;
+        }
+        
+    }
+    public static class Shop extends Building{
+
+        public Shop(int x, int y) throws Exception {
+            super(x, y);
+        }
+
+        @Override
+        public int getNodeWidth() {
+            return 3;
+        }
+
+        @Override
+        public int getNodeHeight() {
+            return 4;
+        }
+
+        @Override
+        public Color getColor() {
+            return Color.MAGENTA;
+        }
+
+        @Override
+        public int getBuildingType() {
+            return ENTERTAINMENT;
+        }
+
+    }
     public static class Apartment extends Building {
 
         public Apartment(int x, int y) throws Exception {

@@ -36,27 +36,26 @@ public class Savior extends Player implements Updatable{
 
     @Override
     protected SkillTree getSkillTree() {
-        SkillTreeNode[] roots = {
-            new SkillTreeNode() {
+        SkillTreeNode vac = new SkillTreeNode() {
 
-                @Override
-                protected void activateEvent() {
-                    GameData.hospital.hasVaccine = true;
-                    
-                }
-
-                @Override
-                public int getCost() {
-                    return 500;
-                }
-
-                @Override
-                public String toString() {
-                    return "Find vaccination.(Cost: " + getCost() + ")";
-                }
+            @Override
+            protected void activateEvent() {
+                GameData.hospital.hasVaccine = true;
                 
             }
+
+            @Override
+            public int getCost() {
+                return 500;
+            }
+
+            @Override
+            public String toString() {
+                return "Find vaccination.(Cost: " + getCost() + ")";
+            }
+            
         };
+        SkillTreeNode[] roots = {vac};
         SkillTreeNode freeVac = new SkillTreeNode() {
 
             @Override
@@ -71,7 +70,7 @@ public class Savior extends Player implements Updatable{
 
             @Override
             public String toString() {
-                return "Make vaccination free, (Cost: " + getCost() + ")";
+                return "Make vaccination free. (Cost: " + getCost() + ")";
             }
             
         };
@@ -90,7 +89,7 @@ public class Savior extends Player implements Updatable{
 
             @Override
             public String toString() {
-                return "Make vaccination paid, (Cost: " + getCost() + ")";
+                return "Make vaccination paid. (Cost: " + getCost() + ")";
             }
             
         };

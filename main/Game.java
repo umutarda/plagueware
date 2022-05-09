@@ -45,25 +45,27 @@ public class Game extends JPanel {
 
     private void setUpBuildings() {
         try {
-            new Buildings.Hospital(2, 10);
-            new Buildings.House(20, 10);
-            new Buildings.House(30, 10);
-            new Buildings.House(30, 30);
-            new Buildings.House(40, 10);
-            new Buildings.House(50, 10);
-            new Buildings.House(60, 30);
-            new Buildings.House(70, 10);
-            new Buildings.House(80, 10);
-            new Buildings.House(90, 30);
-            new Buildings.House(100, 10);
-            for (int i = 0; i < 10; i++) {
-                new Buildings.House(0, 6 * i);
+            for (int i = 0; i < 5; i++) {
+                for (int j = 0; j < 5; j++) {
+                    new Buildings.House(1 + 2 * i, 1 + 2 * j + i % 2);
+                }
             }
-            new Buildings.House(30, 60);
-            new Buildings.House(30, 40);
-            new Buildings.Cafe(80, 20);
-            new Buildings.Cafe(80, 30);
-            new Buildings.Cafe(90, 10);
+            for (int i = 0; i < 5; i++) {
+                new Buildings.Apartment(1, 50 + i * 3);
+            }
+            for (int i = 0; i < 10; i++) {
+                new Buildings.House(90, 10 + 4 * i);
+            }
+            
+            new Buildings.Cafe(30, 30);
+            new Buildings.Mall(35, 30);
+            new Buildings.Shop(50, 30);
+            new Buildings.Cafe(55, 30);
+            new Buildings.Cafe(30, 20);
+            new Buildings.Mall(35, 17);
+            new Buildings.Shop(50, 18);
+            new Buildings.Cafe(55, 20);
+            new Buildings.Hospital(60, 50);
 
         } catch (Exception e) {
             e.printStackTrace();
