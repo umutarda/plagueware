@@ -3,7 +3,7 @@ import java.util.ArrayList;
 
 public class UpdateManager{
     
-    public final long UPDATE_TIME = 33333333;
+    public final long UPDATE_TIME = 16666666;
     private ArrayList<Updatable> updatables;
     private ArrayList<Updatable> requestedUpdatables;
     private double deltaTime;
