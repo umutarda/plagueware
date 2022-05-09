@@ -62,6 +62,7 @@ public final class Buildings {
     }
     public static class Hospital extends Building {
         public boolean hasVaccine = false;
+        public boolean isVaccineFree = true;
 
         public Hospital(int x, int y) throws Exception {
             super(x, y);

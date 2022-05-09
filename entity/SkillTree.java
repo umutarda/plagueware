@@ -12,7 +12,7 @@ public class SkillTree {
     public SkillTreeNode[] getActivatable() {
         ArrayList<SkillTreeNode> activatable = new ArrayList<SkillTreeNode>();
         for (SkillTreeNode root : roots) {
-            if(!root.isActive()) {
+            if(root.isActivatable()) {
                 activatable.add(root);
             }
             else {
@@ -25,7 +25,7 @@ public class SkillTree {
         if(root == null) {
             return;
         }
-        if(!root.isActive()) {
+        if(root.isActivatable()) {
             activatable.add(root);
         }
         else {

@@ -188,7 +188,9 @@ public class Person implements Updatable, Drawable{
             }
             else {
                 if(GameData.hospital.hasVaccine && random.nextInt(100) < awareness) {
-                    vaccinated = true;
+                    if(GameData.hospital.isVaccineFree || random.nextBoolean()) {
+                        vaccinated = true;
+                    }
                 }
             }
         }                

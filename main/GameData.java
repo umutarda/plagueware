@@ -91,6 +91,15 @@ public class GameData {
         }
         return asymptomaticAmount;
     }
+    public static int getVaccinationAmount() {
+        int vaccinationAmount = 0;
+        for (Person p : people) {
+            if(p.vaccinated) {
+                vaccinationAmount++;
+            }
+        }
+        return vaccinationAmount;
+    }
 
     public static void resetAll() 
     {

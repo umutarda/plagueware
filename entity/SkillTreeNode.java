@@ -4,10 +4,13 @@ public abstract class SkillTreeNode {
     private SkillTreeNode[] nextNodes;
     private int nextNodeAmount;
     private boolean isActive;
+    private boolean isActivatable;
+    private SkillTreeNode mutuallyExclusive;
 
     public SkillTreeNode() {
         nextNodes = new SkillTreeNode[2];
         isActive = false;
+        isActivatable = true;
     }
     public void addNextNode(SkillTreeNode node) {
         if(nextNodeAmount == nextNodes.length) {
@@ -26,11 +29,22 @@ public abstract class SkillTreeNode {
     public boolean isActive() {
         return isActive;
     }
+    public boolean isActivatable() {
+        return isActivatable;
+    }
     public void activate() {
-        if(!isActive) {
+        if(isActivatable) {
             activateEvent();
             isActive = true;
+            isActivatable = false;
+            if(mutuallyExclusive != null) {
+                mutuallyExclusive.isActivatable = false;
+            }
         }
+    }
+    public void setMutuallyExclusive(SkillTreeNode node) {
+        this.mutuallyExclusive = node;
+        node.mutuallyExclusive = this;
     }
     protected abstract void activateEvent();
     public abstract int getCost();
