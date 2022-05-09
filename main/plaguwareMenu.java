@@ -45,6 +45,7 @@ public class plaguwareMenu
     JPanel leaderboard = new JPanel();
     JTextArea leaderboardText = new JTextArea();
     ArrayList<User> x = User.LeaderboardToArray();
+    JPanel playLogin = new JPanel();
 
 
     
@@ -52,7 +53,7 @@ public class plaguwareMenu
     JButton letsTOmain = new JButton(letsrollicon);
 
     Icon playIcon = new ImageIcon("main/pngFile/mainmenuPLAY.png");
-    JButton mainTOchooseMode = new JButton(playIcon);
+    JButton mainTOplayLogin = new JButton(playIcon);
     Icon infoIcon = new ImageIcon("main/pngFile/mainmenuINFOv3.png");
     JButton mainTOInfo = new JButton(infoIcon);
     Icon creditIcon = new ImageIcon("main/pngFile/mainmenuCREDITSv2.png");
@@ -74,7 +75,14 @@ public class plaguwareMenu
     JButton creditTOmain = new JButton(backIcon);
     JButton leaderTOmain = new JButton(backIcon);
     JButton infoTOmain = new JButton(backIcon);
+    JButton logTOmain = new JButton(backIcon);
 
+    Icon logIcon = new ImageIcon("main/pngFile/log.png");
+    Icon userIcon = new ImageIcon("main/pngFile/username.png");
+    JButton playLoginToChooseMode = new JButton(logIcon);
+    JLabel userName = new JLabel(userIcon);
+    JTextField tfUser = new JTextField(20);
+    
 
     CardLayout cl = new CardLayout();
 
@@ -91,14 +99,14 @@ public class plaguwareMenu
             letsRoll.add(picLabel);
             letsRoll.setBackground(Color.BLACK);
             
-            mainTOchooseMode.setPreferredSize(new Dimension(350,120));
+            mainTOplayLogin.setPreferredSize(new Dimension(350,120));
             mainTOCredits.setPreferredSize(new Dimension(350,120));
             mainTOCredits.setBackground(Color.BLACK);
             mainTOInfo.setPreferredSize(new Dimension(330,120));
             mainTOInfo.setBackground(Color.BLACK);
             mainTOLead.setPreferredSize(new Dimension(570,120));
             mainTOlets.setPreferredSize(new Dimension(130,120));
-            mainMenu.add(mainTOchooseMode);
+            mainMenu.add(mainTOplayLogin);
             mainMenu.add(mainTOCredits);
             mainMenu.add(mainTOInfo);
             mainMenu.add(mainTOLead);
@@ -138,7 +146,7 @@ public class plaguwareMenu
             creditTOmain.setPreferredSize(new Dimension(800,120));
             creditTOmain.setBackground(Color.BLACK);
             credits.add(creditTOmain);
-            BufferedImage myPicture5 = ImageIO.read(new File("main/pngFile/credit.png"));
+            BufferedImage myPicture5 = ImageIO.read(new File("main/pngFile/creditLast.png"));
             JLabel picLabel5 = new JLabel(new ImageIcon(myPicture5));
             credits.add(picLabel5);
             credits.setBackground(Color.BLACK);
@@ -149,6 +157,30 @@ public class plaguwareMenu
             leaderboard.add(leaderTOmain);
             BufferedImage myPicture6 = ImageIO.read(new File("main/pngFile/leaderboard.png"));
             JLabel picLabel6 = new JLabel(new ImageIcon(myPicture6));
+
+
+
+
+            
+            playLogin.setBackground(Color.BLACK);
+            userName.setLabelFor(tfUser);
+            userName.setPreferredSize(new Dimension(600,120));
+            
+            userName.setForeground(Color.RED);
+            tfUser.setFont(new Font("Serif", Font.BOLD, 40));
+            tfUser.setBackground(Color.RED);
+            playLoginToChooseMode.setPreferredSize(new Dimension(300,120));
+            playLogin.add(userName);
+            playLogin.add(tfUser);
+            playLogin.add(playLoginToChooseMode);
+            logTOmain.setPreferredSize(new Dimension(120,120));
+            playLogin.add(logTOmain);
+            playLogin.setBackground(Color.BLACK);
+            BufferedImage myPicture7 = ImageIO.read(new File("main/pngFile/login.png"));
+            JLabel picLabel7 = new JLabel(new ImageIcon(myPicture7));
+            playLogin.add(picLabel7);
+
+
 
             for (User user : x) {
                 if(user.toString().length()>0)
@@ -166,6 +198,7 @@ public class plaguwareMenu
 
             panelCont.add(letsRoll, "1");
             panelCont.add(mainMenu, "2");
+            panelCont.add(playLogin, "0");
             panelCont.add(chooseMode, "3");
             panelCont.add(information, "4");
             panelCont.add(credits, "5");
@@ -187,7 +220,14 @@ public class plaguwareMenu
                 }
             });
             
-            mainTOchooseMode.addActionListener(new ActionListener(){
+            mainTOplayLogin.addActionListener(new ActionListener(){
+                @Override
+                public void actionPerformed(ActionEvent arg0)
+                {
+                    cl.show(panelCont, "0");
+                }
+            });
+            playLoginToChooseMode.addActionListener(new ActionListener(){
                 @Override
                 public void actionPerformed(ActionEvent arg0)
                 {
@@ -226,7 +266,7 @@ public class plaguwareMenu
                 @Override
                 public void actionPerformed(ActionEvent arg0)
                 {
-                    cl.show(panelCont, "2");
+                    cl.show(panelCont, "0");
                 }
             });
             creditTOmain.addActionListener(new ActionListener(){
@@ -244,6 +284,13 @@ public class plaguwareMenu
                 }
             });
             leaderTOmain.addActionListener(new ActionListener(){
+                @Override
+                public void actionPerformed(ActionEvent arg0)
+                {
+                    cl.show(panelCont, "2");
+                }
+            });
+            logTOmain.addActionListener(new ActionListener(){
                 @Override
                 public void actionPerformed(ActionEvent arg0)
                 {
