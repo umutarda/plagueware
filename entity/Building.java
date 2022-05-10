@@ -17,8 +17,14 @@ public abstract class Building {
     
     ArrayList<Person> persons;
     public Building(int x, int y) throws Exception {
+        this(x,y,GameData.map);
+        GameData.buildings.add(this);
+
+    }
+
+    public Building(int x, int y, Map map) throws Exception {
         this.position = new Point(x, y);
-        this.map = GameData.map;
+        this.map = map;
         persons = new ArrayList<Person>();
         nodes = new ImpassibleNode[getNodeHeight()][getNodeWidth()];
         if(x + getNodeWidth() > map.getNodeWidth() || x < 0 ||
@@ -42,9 +48,14 @@ public abstract class Building {
             }
         }
         enterNode = getEnterNode();
-        GameData.buildings.add(this);
+       
 
     }
+
+
+
+
+
     public abstract int getNodeWidth(); 
     // {
     //     switch(buildingType) {

@@ -3,6 +3,7 @@ package entity;
 import java.awt.Color;
 
 import main.GameData;
+import main.Map;
 
 public final class Buildings {
     public static final int ENTERTAINMENT = 0;
@@ -14,6 +15,11 @@ public final class Buildings {
         public Cafe(int x, int y) throws Exception {
             super(x, y);
         }
+
+        public Cafe(int x, int y, Map map) throws Exception {
+            super(x, y, map);
+        }
+
         @Override
         public int getNodeWidth() {
             return 3;
@@ -37,6 +43,10 @@ public final class Buildings {
 
         public Mall(int x, int y) throws Exception {
             super(x, y);
+        }
+        
+        public Mall(int x, int y, Map map) throws Exception {
+            super(x, y, map);
         }
 
         @Override
@@ -65,6 +75,9 @@ public final class Buildings {
         public Shop(int x, int y) throws Exception {
             super(x, y);
         }
+        public Shop(int x, int y, Map map) throws Exception {
+            super(x, y, map);
+        }
 
         @Override
         public int getNodeWidth() {
@@ -91,6 +104,10 @@ public final class Buildings {
 
         public Apartment(int x, int y) throws Exception {
             super(x, y);
+        }
+
+        public Apartment(int x, int y, Map map) throws Exception {
+            super(x, y, map);
         }
 
         @Override
@@ -123,6 +140,10 @@ public final class Buildings {
             GameData.hospital = this;
         }
 
+        public Hospital(int x, int y, Map map) throws Exception {
+            super(x, y, map);
+        }
+
         @Override
         public int getNodeWidth() {
             return 8;
@@ -148,6 +169,10 @@ public final class Buildings {
 
         public House(int x, int y) throws Exception {
             super(x, y);
+        }
+
+        public House(int x, int y, Map map) throws Exception {
+            super(x, y, map);
         }
 
         @Override
