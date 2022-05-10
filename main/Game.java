@@ -314,11 +314,12 @@ public class Game extends JPanel {
             }
             hasWon = false;
         }
-        // gameMode == SAVIOR
-        if(GameData.getVirusAmount() == 0) {
-            hasWon = true;
+        else {
+            if(GameData.getVirusAmount() == 0) {
+                hasWon = true;
+            }
+            hasWon = false;
         }
-        hasWon = false;
         
 
         if(!user.getNickname().equals("") && gameMode != Game.SIMULATION)

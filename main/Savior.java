@@ -163,6 +163,7 @@ public class Savior extends Player implements Updatable {
             }
             
         };
+
         SkillTreeNode paidVac = new SkillTreeNode() {
 
             @Override
@@ -224,8 +225,9 @@ public class Savior extends Player implements Updatable {
                 
             });
             setActivatables();
-
+        
         }
+
         if(spyInfaltration) {
             if(spyType == CONT) {
                 GameData.virus.setContagiousness(GameData.virus.getContagiousness() + 1 * spyLevel);
