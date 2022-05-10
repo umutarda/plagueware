@@ -62,7 +62,7 @@ public class Map implements Drawable
 
     public Node getNodeAtPosition (Point position) 
     {
-        return getNodeAtRowColumn(new Point((int) (position.getX() /  (blockSize + gap)), (int) (position.getY() /  (blockSize + gap))));
+        return getNodeAtRowColumn(new Point( ( (int)Math.round(position.getX() /  (blockSize + gap))-1),  ((int)(position.getY() /  (blockSize + gap)))));
     }
 
     public Point getPositionOfNode (Node node) 
