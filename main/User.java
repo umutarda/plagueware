@@ -3,7 +3,9 @@ import java.sql.*;
 import java.util.ArrayList;
 
 public class User {
-    
+    static String url = "jdbc:postgresql://hattie.db.elephantsql.com:5432/gqrbhzwp";
+    static String username = "gqrbhzwp";
+    static String password = "0ZaNcWqdxpFDgzlB7qvEuJM0ecXkepu4";
     long time;
     String nickname;
     boolean istimeset = false;
@@ -49,9 +51,6 @@ public class User {
             System.out.println(e.getMessage());
         }
 
-        String url = "jdbc:postgresql://hattie.db.elephantsql.com:5432/gqrbhzwp";
-        String username = "gqrbhzwp";
-        String password = "0ZaNcWqdxpFDgzlB7qvEuJM0ecXkepu4";
 
         try {
             Connection db = DriverManager.getConnection(url, username, password);
@@ -79,16 +78,13 @@ public class User {
             System.out.println(e.getMessage());
         }
 
-        String url = "jdbc:postgresql://hattie.db.elephantsql.com:5432/gqrbhzwp";
-        String username = "gqrbhzwp";
-        String password = "0ZaNcWqdxpFDgzlB7qvEuJM0ecXkepu4";
+
 
         try {
             Connection db = DriverManager.getConnection(url, username, password);
             Statement st = db.createStatement();
             //st.executeQuery ("create table elephant (id int, name varchar)");
             ResultSet rs = st.executeQuery("SELECT * FROM leaderboard ORDER BY time asc");
-            System.out.println("Users in ascending order: ");
             while (rs.next()) {
                 
                 System.out.println("User ID: " +rs.getString(1)+ " \nUser Nickname: " +rs.getString(2)+ " \nTime (in seconds): "+rs.getString(3));
@@ -111,9 +107,6 @@ public class User {
             System.out.println(e.getMessage());
         }
 
-        String url = "jdbc:postgresql://hattie.db.elephantsql.com:5432/gqrbhzwp";
-        String username = "gqrbhzwp";
-        String password = "0ZaNcWqdxpFDgzlB7qvEuJM0ecXkepu4";
 
         try {
             Connection db = DriverManager.getConnection(url, username, password);
@@ -136,13 +129,6 @@ public class User {
         return res;
         
     }
-    public static void main(String[] args) {
-
-        User x = new User("Java", 13231);
-        //insertIntoDatabase(x);
-        printLeaderboard();
-
-        System.out.println(LeaderboardToArray().toString());
-    }
+ 
 
 }
