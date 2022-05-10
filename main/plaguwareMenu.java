@@ -47,6 +47,12 @@ public class plaguwareMenu
     JTextArea leaderboardText = new JTextArea();
     ArrayList<User> x = User.LeaderboardToArray();
     JPanel playLogin = new JPanel();
+    JPanel endGameWinSaviour = new JPanel();
+    JPanel endGameLoseSaviour = new JPanel();
+    JPanel endGameWinEndBringer = new JPanel();
+    JPanel endGameLoseEndbringer = new JPanel();
+    JPanel endGameSimulation = new JPanel();
+
 
 
     
@@ -77,12 +83,23 @@ public class plaguwareMenu
     JButton leaderTOmain = new JButton(backIcon);
     JButton infoTOmain = new JButton(backIcon);
     JButton logTOmain = new JButton(backIcon);
+    JButton endGameToSIMMain = new JButton(backIcon);
+    JButton endGameToSWMain = new JButton(backIcon);
+    JButton endGameToSLMain = new JButton(backIcon);
+    JButton endGameToEWMain = new JButton(backIcon);
+    JButton endGameToELMain = new JButton(backIcon);
+    
+
 
     Icon logIcon = new ImageIcon("main/pngFile/log.png");
     Icon userIcon = new ImageIcon("main/pngFile/username.png");
     JButton playLoginToChooseMode = new JButton(logIcon);
     JLabel userName = new JLabel(userIcon);
     JTextField tfUser = new JTextField(20);
+
+
+
+    
     
 
     CardLayout cl = new CardLayout();
@@ -157,6 +174,7 @@ public class plaguwareMenu
             leaderTOmain.setBackground(Color.BLACK);
             leaderboard.add(leaderTOmain);
             BufferedImage myPicture6 = ImageIO.read(new File("main/pngFile/leaderboard.png"));
+            myPicture6 = myPicture6.getSubimage(0, 0, myPicture6.getWidth(), myPicture6.getHeight()/3);
             JLabel picLabel6 = new JLabel(new ImageIcon(myPicture6));
 
 
@@ -187,6 +205,42 @@ public class plaguwareMenu
             JLabel picLabel7 = new JLabel(new ImageIcon(myPicture7));
             playLogin.add(picLabel7);
 
+            endGameToSWMain.setPreferredSize(new Dimension(95,95));
+            endGameWinSaviour.setBackground(Color.WHITE);
+            BufferedImage myPicture8 = ImageIO.read(new File("main/pngFile/10.png"));///////////////////////
+            JLabel picLabel8 = new JLabel(new ImageIcon(myPicture8));/////////////////////////////////////
+            endGameWinSaviour.add(endGameToSWMain);
+            endGameWinSaviour.add(picLabel8);    
+            
+            endGameToSLMain.setPreferredSize(new Dimension(95,95));
+            endGameLoseSaviour.setBackground(Color.BLACK);
+            BufferedImage myPicture9 = ImageIO.read(new File("main/pngFile/11.png"));////////////////
+            JLabel picLabel9 = new JLabel(new ImageIcon(myPicture9));///////////////////////////////////////
+            endGameLoseSaviour.add(endGameToSLMain);
+            endGameLoseSaviour.add(picLabel9);
+
+
+            endGameToEWMain.setPreferredSize(new Dimension(95,95));
+            endGameWinEndBringer.setBackground(Color.BLACK);
+            BufferedImage myPicture10 = ImageIO.read(new File("main/pngFile/12.png"));////////////////
+            JLabel picLabel10 = new JLabel(new ImageIcon(myPicture10));///////////////////////////////////////
+            endGameWinEndBringer.add(endGameToEWMain);
+            endGameWinEndBringer.add(picLabel10);
+
+
+            endGameToELMain.setPreferredSize(new Dimension(95,95));
+            endGameLoseEndbringer.setBackground(Color.BLACK);
+            BufferedImage myPicture11 = ImageIO.read(new File("main/pngFile/13.png"));////////////////
+            JLabel picLabel11 = new JLabel(new ImageIcon(myPicture11));///////////////////////////////////////
+            endGameLoseEndbringer.add(endGameToELMain);
+            endGameLoseEndbringer.add(picLabel11);
+
+            endGameToSIMMain.setPreferredSize(new Dimension(95,95));
+            endGameSimulation.setBackground(Color.BLACK);
+            BufferedImage myPicture12 = ImageIO.read(new File("main/pngFile/14.png"));////////////////
+            JLabel picLabel12 = new JLabel(new ImageIcon(myPicture12));///////////////////////////////////////
+            endGameSimulation.add(endGameToSIMMain);
+            endGameSimulation.add(picLabel12);
 
 
             for (User user : x) {
@@ -198,9 +252,12 @@ public class plaguwareMenu
             leaderboardText.setSize(700, 700);
             leaderboardText.setFont(new Font("Serif", Font.ITALIC, 26));
             JScrollPane j = new JScrollPane(leaderboardText); //might be removed
+            leaderboard.add(picLabel6);
             leaderboard.add(j);
-            //leaderboard.add(picLabel6);
-            //leaderboard.setBackground(Color.BLACK);
+            
+            
+            
+            leaderboard.setBackground(Color.BLACK);
 
 
             panelCont.add(letsRoll, "1");
@@ -210,6 +267,11 @@ public class plaguwareMenu
             panelCont.add(information, "4");
             panelCont.add(credits, "5");
             panelCont.add(leaderboard, "6");
+            panelCont.add(endGameWinSaviour,"100");
+            panelCont.add(endGameLoseSaviour,"101");
+            panelCont.add(endGameWinEndBringer,"102");
+            panelCont.add(endGameLoseEndbringer,"103");
+            panelCont.add(endGameSimulation,"104");
 
             /**/
             
@@ -304,6 +366,41 @@ public class plaguwareMenu
                     cl.show(panelCont, "2");
                 }
             });
+            endGameToSIMMain.addActionListener(new ActionListener(){
+                @Override
+                public void actionPerformed(ActionEvent arg0)
+                {
+                    cl.show(panelCont, "2");
+                }
+            });
+            endGameToSLMain.addActionListener(new ActionListener(){
+                @Override
+                public void actionPerformed(ActionEvent arg0)
+                {
+                    cl.show(panelCont, "2");
+                }
+            });
+            endGameToSWMain.addActionListener(new ActionListener(){
+                @Override
+                public void actionPerformed(ActionEvent arg0)
+                {
+                    cl.show(panelCont, "2");
+                }
+            });
+            endGameToELMain.addActionListener(new ActionListener(){
+                @Override
+                public void actionPerformed(ActionEvent arg0)
+                {
+                    cl.show(panelCont, "2");
+                }
+            });
+            endGameToEWMain.addActionListener(new ActionListener(){
+                @Override
+                public void actionPerformed(ActionEvent arg0)
+                {
+                    cl.show(panelCont, "2");
+                }
+            });
 
             chooseEndBringer.addActionListener(new ActionListener(){
                 @Override
@@ -317,10 +414,17 @@ public class plaguwareMenu
                         @Override
                         public void run() {
                             endBringer.start();
-                            
+                            if(endBringer.hasWon())
+                                cl.show(panelCont, "100");
+                            else
+                            {
+                                cl.show(panelCont, "101");
+                            }
                         }
                         
                     }, 1000);
+                    
+                    
                 }
             });
             chooseSimulation.addActionListener(new ActionListener(){
@@ -336,6 +440,7 @@ public class plaguwareMenu
                         @Override
                         public void run() {
                             simulation.start();
+                            cl.show(panelCont, "104");
                             
                         }
                         
@@ -355,10 +460,20 @@ public class plaguwareMenu
                         @Override
                         public void run() {
                             saviour.start();
+                            if(saviour.hasWon())
+                                cl.show(panelCont, "102");
+                            else
+                            {
+                                cl.show(panelCont, "103");
+                            }
                             
                         }
                         
                     }, 1000);
+                    
+                            
+                    
+                    
                 }
             });
             
@@ -379,6 +494,7 @@ public class plaguwareMenu
     public static void main(String[] args) {
         
         new plaguwareMenu();
+        
 
     }
 }
