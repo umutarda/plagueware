@@ -415,10 +415,10 @@ public class plaguwareMenu
                         public void run() {
                             endBringer.start();
                             if(endBringer.hasWon())
-                                cl.show(panelCont, "100");
+                                cl.show(panelCont, "102");
                             else
                             {
-                                cl.show(panelCont, "101");
+                                cl.show(panelCont, "103");
                             }
                         }
                         
@@ -461,10 +461,10 @@ public class plaguwareMenu
                         public void run() {
                             saviour.start();
                             if(saviour.hasWon())
-                                cl.show(panelCont, "102");
+                                cl.show(panelCont, "100");
                             else
                             {
-                                cl.show(panelCont, "103");
+                                cl.show(panelCont, "101");
                             }
                             
                         }
