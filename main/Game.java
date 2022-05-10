@@ -26,7 +26,7 @@ public class Game extends JPanel {
         GameData.setUp(new Map(200, 70, 10, 1, "0".repeat(70*200)),
             new Virus(5, 15, 1000));
         setUpBuildings();
-        GameData.generatePeople(50, 50, 50, 0, 20, 50);
+        GameData.generatePeople(50, 5, 50, 0, 20, 50);
         add(GameData.drawManager, BorderLayout.CENTER);
         add(new InfoPanel(), BorderLayout.NORTH);
         setBackground(Color.BLACK);
@@ -101,8 +101,15 @@ public class Game extends JPanel {
         hasWon = false;
         
 
-        if(!user.getNickname().equals(""))
+        if(!user.getNickname().equals("") && gameMode != Game.SIMULATION)
         {
+            if(gameMode == Game.END_BRINGER)
+                user.setGamemode("End-Bringer");
+            if(gameMode == Game.SAVIOR)
+                user.setGamemode("Saviour");
+
+
+
             user.setTime(GameData.time.getTotalMinutes());
             User.insertIntoDatabase(user);
             System.out.println("Inserted");
