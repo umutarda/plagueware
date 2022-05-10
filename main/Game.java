@@ -17,6 +17,8 @@ public class Game extends JPanel {
 
     private int gameMode;
 
+    private boolean hasWon;
+
     public Game(User user, int gameMode) {
         this.setLayout(new BorderLayout());
         this.user = user;
@@ -78,24 +80,25 @@ public class Game extends JPanel {
         return GameData.getPersonAmount() == 0 || GameData.getVirusAmount() == 0;
     }
     public boolean hasWon() {
-        if(gameMode == SIMULATION) {
-            return true;
-        }
-        else if(gameMode == END_BRINGER) {
-            if(GameData.getPersonAmount() == 0) {
-                return true;
-            }
-            return false;
-        }
-        // gameMode == SAVIOR
-        if(GameData.getVirusAmount() == 0) {
-            return true;
-        }
-        return false;
+        return hasWon;
         
     }
 
     private void endGame() {
+        if(gameMode == SIMULATION) {
+            hasWon = true;
+        }
+        else if(gameMode == END_BRINGER) {
+            if(GameData.getPersonAmount() == 0) {
+                hasWon = true;
+            }
+            hasWon = false;
+        }
+        // gameMode == SAVIOR
+        if(GameData.getVirusAmount() == 0) {
+            hasWon = true;
+        }
+        hasWon = false;
         
 
         if(!user.getNickname().equals(""))
