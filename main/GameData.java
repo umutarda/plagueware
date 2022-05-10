@@ -3,6 +3,7 @@ package main;
 import pathfinder.PathManager;
 import java.util.ArrayList;
 import java.util.Random;
+import java.awt.Toolkit;
 import entity.*;
 
 public class GameData {
@@ -19,7 +20,8 @@ public class GameData {
 
     public static final int PERSON_SPEED = 20;
     public static final int TIME_FACTOR = 8;
-    
+    public static final double RESOLUTION_RATIO = Math.min(Toolkit.getDefaultToolkit().getScreenSize().getWidth()/1920,
+    Toolkit.getDefaultToolkit().getScreenSize().getHeight() /1080);
     //static Time time = new Time();
     public static ArrayList<Building> getEntertainmentBuildings() {
         ArrayList<Building> entertainment = new ArrayList<Building>();

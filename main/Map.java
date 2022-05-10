@@ -46,7 +46,7 @@ public class Map implements Drawable
     public void setWindowSize() 
     {
         GameData.drawManager.setBackground(Color.BLACK);
-        GameData.drawManager.setPreferredSize(new Dimension (blockSize + (width-1) * (blockSize+gap), blockSize + (height-1) * (blockSize+gap)));
+        GameData.drawManager.setPreferredSize(new Dimension ((int)((blockSize + (width-1) * (blockSize+gap))* GameData.RESOLUTION_RATIO),(int)( (blockSize + (height-1) * (blockSize+gap)) * GameData.RESOLUTION_RATIO)));
         
     }
     public Node getNodeAtRowColumn (Point rowColumn) 
@@ -62,12 +62,17 @@ public class Map implements Drawable
 
     public Node getNodeAtPosition (Point position) 
     {
-        return getNodeAtRowColumn(new Point( ( (int)Math.round(position.getX() /  (blockSize + gap))-1),  ((int)(position.getY() /  (blockSize + gap)))));
+        double xDouble = position.getX() / ( (blockSize + gap) * GameData.RESOLUTION_RATIO);
+        double yDouble = position.getY() / ( (blockSize + gap) * GameData.RESOLUTION_RATIO);
+
+        int xInt =  (int)Math.round(xDouble);
+        int yInt = (int)Math.round(yDouble);
+        return getNodeAtRowColumn(new Point(xInt,yInt));
     }
 
     public Point getPositionOfNode (Node node) 
     {
-        return new Point ((int)node.getPosition().getX() * (blockSize + gap), (int)node.getPosition().getY() * (blockSize + gap));
+        return new Point ((int)(node.getPosition().getX() * (blockSize + gap) * GameData.RESOLUTION_RATIO), (int) (node.getPosition().getY() * (blockSize + gap) * GameData.RESOLUTION_RATIO));
     }
 
     public Node[] getNeighboursOf (Node node) 
@@ -122,7 +127,7 @@ public class Map implements Drawable
             
             g.setColor (node.getColor());
             
-            g.fillRect ((int)node.getPosition().getX() * (blockSize + gap), (int)node.getPosition().getY() * (blockSize + gap), blockSize, blockSize);
+            g.fillRect ((int)(node.getPosition().getX() * (blockSize + gap) * GameData.RESOLUTION_RATIO), (int)(node.getPosition().getY() * (blockSize + gap)* GameData.RESOLUTION_RATIO), (int)(blockSize * GameData.RESOLUTION_RATIO), (int)(blockSize * GameData.RESOLUTION_RATIO));
         }
 
         

@@ -482,7 +482,7 @@ public class plaguwareMenu
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frame.pack();
             frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-            frame.setResizable(false); 
+            frame.setResizable(true); 
             frame.setVisible(true);
         } 
         catch (IOException e) {

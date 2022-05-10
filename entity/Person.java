@@ -345,7 +345,7 @@ public class Person implements Updatable, Drawable{
         else {
             g.setColor(Color.GREEN);
         }
-        g.fillOval(location.x, location.y, 10, 10);
+        g.fillOval(location.x, location.y, (int) (10* GameData.RESOLUTION_RATIO), (int) (10* GameData.RESOLUTION_RATIO));
     }
 
 }
