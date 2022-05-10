@@ -4,6 +4,9 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.BevelBorder;
+
+import entity.Buildings;
+
 import java.awt.*;
 import java.awt.event.*;
 
@@ -26,6 +29,10 @@ public class InfoPanel extends JPanel implements Updatable{
     JLabel contagiousness;
     JLabel mortality;
     JLabel asymptomaticRate;
+
+    //buildings
+    JPanel buildingPanel;
+    JLabel cafe, mall, shop, apartment, house, hospital;
 
     public InfoPanel() {
         this.setBorder(new BevelBorder(BevelBorder.LOWERED));
@@ -133,6 +140,51 @@ public class InfoPanel extends JPanel implements Updatable{
             
         });
         generalInfo.add(virusButton);
+
+        JButton buildingButton = new JButton("Building info");
+        buildingButton.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(buildingPanel == null){
+                    buildingPanel = new JPanel();
+
+                    cafe = new JLabel("Cafe");
+                    cafe.setForeground(Color.BLUE);
+                    buildingPanel.add(cafe);
+
+                    mall = new JLabel("Mall");
+                    mall.setForeground(Color.DARK_GRAY);
+                    buildingPanel.add(mall);
+
+                    shop = new JLabel("Shop");
+                    shop.setForeground(Color.MAGENTA);
+                    buildingPanel.add(shop);
+
+                    apartment = new JLabel("Apartment");
+                    apartment.setForeground(Color.GRAY);
+                    buildingPanel.add(apartment);
+                    
+                    house = new JLabel("House");
+                    house.setForeground(Color.ORANGE);
+                    buildingPanel.add(house);
+                    
+                    hospital = new JLabel("Hospital");
+                    hospital.setForeground(Color.RED);
+                    buildingPanel.add(hospital);
+
+                    thisJPanel.add(buildingPanel, BorderLayout.SOUTH);
+                }
+                else {
+                    
+                    thisJPanel.remove(buildingPanel);
+                    buildingPanel = null;
+                }
+                
+            }
+            
+        });
+        generalInfo.add(buildingButton);
 
 
         this.setVisible(true);
