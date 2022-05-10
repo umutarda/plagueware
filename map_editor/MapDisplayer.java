@@ -38,6 +38,6 @@ public class MapDisplayer{
     }
 
     public static void main(String[] args) {
-        new MapDisplayer(new Map(200, 70, 10, 1, "0".repeat(70*200)));   
+        new MapDisplayer(new Map(175, 95, 10, 1, "0".repeat(175*95)));   
     }
 }
