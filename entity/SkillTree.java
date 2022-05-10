@@ -9,9 +9,20 @@ public class SkillTree {
     public SkillTree(SkillTreeNode[] roots) {
         this.roots = roots.clone();
     }
+    public void addRoot(SkillTreeNode node) {
+        SkillTreeNode[] newArr = new SkillTreeNode[roots.length * 2];
+        for (int i = 0; i < roots.length; i++) {
+            newArr[i] = roots[i];
+        }
+        roots = newArr;
+        roots[roots.length - 1] = node;
+    }
     public SkillTreeNode[] getActivatable() {
         ArrayList<SkillTreeNode> activatable = new ArrayList<SkillTreeNode>();
         for (SkillTreeNode root : roots) {
+            if(root == null) {
+                continue;
+            }
             if(root.isActivatable()) {
                 activatable.add(root);
             }

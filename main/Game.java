@@ -19,7 +19,7 @@ public class Game extends JPanel {
         this.setLayout(new BorderLayout());
         this.user = user;
         GameData.setUp(new Map(200, 70, 10, 1, "0".repeat(70*200)),
-            new Virus(50, 15, 10));
+            new Virus(5, 15, 10));
         setUpBuildings();
         GameData.generatePeople(50, 5, 50, 0, 20, 50);
         add(GameData.drawManager, BorderLayout.CENTER);

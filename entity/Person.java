@@ -32,8 +32,8 @@ public class Person implements Updatable, Drawable{
 
     public Building home;
     public Building currentBuilding;
-    public int stress;//(discontent) 0-100 
-    public int awareness; // 0-100
+    public double stress;//(discontent) 0-100 
+    public double awareness; // 0-100
     public double penalty; //0-20
 
     public Object[] path;
@@ -83,14 +83,14 @@ public class Person implements Updatable, Drawable{
     public void setLeaveMinute(long minute) {
         leaveMinute = minute;
     }
-    private static final int PENALTY_BOUND = 31;
+    private static final int PENALTY_BOUND = 61;
     private void calculateSpreadPenalty(){
         penalty = 0;
         if(!vaccinated)
             penalty += 5;
         if(!mask)
             penalty += 5;
-        penalty += age * 0.03 + stress * 0.03 + (100-awareness) * 0.04 + GameData.virus.getContagiousness() * 0.1;
+        penalty += age * 0.03 + stress * 0.03 + (100-awareness) * 0.04 + GameData.virus.getContagiousness() * 0.3;
    }
     
     private boolean pathIntervalIsDone() 

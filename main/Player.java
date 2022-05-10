@@ -30,7 +30,7 @@ public abstract class Player {
         setActivatables();
         
     }
-    private void setActivatables() {
+    protected void setActivatables() {
         if(skills != null) {
             for (JButton skill : skills) {
                 skillPanel.remove(skill);
@@ -66,6 +66,7 @@ public abstract class Player {
         else {
             budget += addedBudget;
         }
+        budgetLabel.setText("Budget: " + budget);
     }
     
     protected abstract SkillTree getSkillTree();

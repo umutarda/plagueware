@@ -116,7 +116,7 @@ public class GameData {
     public static void chooseBuilding(Person p){
         int hour = time.hour;
         
-        if (rand.nextInt(20) == 0 || (p.isSick && !p.isAsymptomatic && p.awareness > rand.nextGaussian(50, 20))) 
+        if (rand.nextInt(20) == 0 || (p.isSick && !p.isAsymptomatic && p.awareness > rand.nextInt(100))) 
         {
             p.travelToBuilding(hospital);
         
