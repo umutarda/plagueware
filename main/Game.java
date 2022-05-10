@@ -15,9 +15,12 @@ public class Game extends JPanel {
     public static final int END_BRINGER = 1;
     public static final int SAVIOR = 2;
 
+    private int gameMode;
+
     public Game(User user, int gameMode) {
         this.setLayout(new BorderLayout());
         this.user = user;
+        this.gameMode = gameMode;
         GameData.setUp(new Map(200, 70, 10, 1, "0".repeat(70*200)),
             new Virus(5, 15, 10));
         setUpBuildings();
@@ -71,13 +74,29 @@ public class Game extends JPanel {
             e.printStackTrace();
         }
     }
-    protected boolean isOver() {
+    public boolean isOver() {
         return GameData.getPersonAmount() == 0 || GameData.getVirusAmount() == 0;
     }
+    public boolean hasWon() {
+        if(gameMode == SIMULATION) {
+            return true;
+        }
+        else if(gameMode == END_BRINGER) {
+            if(GameData.getPersonAmount() == 0) {
+                return true;
+            }
+            return false;
+        }
+        // gameMode == SAVIOR
+        if(GameData.getVirusAmount() == 0) {
+            return true;
+        }
+        return false;
+        
+    }
 
-    protected void endGame() {
+    private void endGame() {
         GameData.resetAll();
-
     }
     
     public static void main(String[] args) {

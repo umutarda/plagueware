@@ -335,7 +335,12 @@ public class Person implements Updatable, Drawable{
         if (location == null)
             return;
         if(isSick) {
-            g.setColor(Color.RED);
+            if(isAsymptomatic) {
+                g.setColor(Color.CYAN);
+            }
+            else {
+                g.setColor(Color.RED);
+            }
         }
         else {
             g.setColor(Color.GREEN);
