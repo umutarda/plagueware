@@ -68,7 +68,7 @@ public class User {
     @Override
     public String toString() {
         
-        return "\nNickname: " + getNickname() + " " + " Time(seconds): " +getTime() ;
+        return  getNickname() + " completed the game in " + getTime()/(60*24)+ " days " +  getTime()/60 + " hours" + getTime()%24 + " minutes."  ; 
     }
     public static void printLeaderboard(){
         try {
