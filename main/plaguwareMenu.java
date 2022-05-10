@@ -157,6 +157,7 @@ public class plaguwareMenu
             leaderTOmain.setBackground(Color.BLACK);
             leaderboard.add(leaderTOmain);
             BufferedImage myPicture6 = ImageIO.read(new File("main/pngFile/leaderboard.png"));
+            myPicture6 = myPicture6.getSubimage(0, 0, myPicture6.getWidth(), myPicture6.getHeight()/3);
             JLabel picLabel6 = new JLabel(new ImageIcon(myPicture6));
 
 
@@ -198,9 +199,12 @@ public class plaguwareMenu
             leaderboardText.setSize(700, 700);
             leaderboardText.setFont(new Font("Serif", Font.ITALIC, 26));
             JScrollPane j = new JScrollPane(leaderboardText); //might be removed
+            leaderboard.add(picLabel6);
             leaderboard.add(j);
-            //leaderboard.add(picLabel6);
-            //leaderboard.setBackground(Color.BLACK);
+            
+            
+            
+            leaderboard.setBackground(Color.BLACK);
 
 
             panelCont.add(letsRoll, "1");
