@@ -199,7 +199,7 @@ public class Savior extends Player implements Updatable {
         }
         budgetLabel.setText("Budget: " + budget);
 
-        if(!spyInfaltration && new Random().nextInt(30) >= 0) { //spy infaltration
+        if(!spyInfaltration && new Random().nextInt(30) == 0) { //spy infaltration
             spyInfaltration = true;
             spyType = new Random().nextInt(3);
             spyLevel = 1;
