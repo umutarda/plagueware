@@ -22,9 +22,9 @@ public class Game extends JPanel {
         this.user = user;
         this.gameMode = gameMode;
         GameData.setUp(new Map(200, 70, 10, 1, "0".repeat(70*200)),
-            new Virus(5, 15, 10));
+            new Virus(5, 15, 1000));
         setUpBuildings();
-        GameData.generatePeople(50, 5, 50, 0, 20, 50);
+        GameData.generatePeople(50, 50, 50, 0, 20, 50);
         add(GameData.drawManager, BorderLayout.CENTER);
         add(new InfoPanel(), BorderLayout.NORTH);
         setBackground(Color.BLACK);
@@ -96,7 +96,17 @@ public class Game extends JPanel {
     }
 
     private void endGame() {
+        
+
+        if(!user.getNickname().equals(""))
+        {
+            user.setTime(GameData.time.getTotalMinutes());
+            User.insertIntoDatabase(user);
+            System.out.println("Inserted");
+        }
         GameData.resetAll();
+
+        
     }
     
     public static void main(String[] args) {

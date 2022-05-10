@@ -36,7 +36,7 @@ public class plaguwareMenu
     JFrame frame = new JFrame("PLAGUEWARE");
     JPanel panelCont = new JPanel();
     Icon backIcon = new ImageIcon("main/pngFile/BACK.png");
-    
+    String nickname = "";
     
     JPanel letsRoll = new JPanel();
     JPanel mainMenu = new JPanel();
@@ -171,6 +171,12 @@ public class plaguwareMenu
             tfUser.setFont(new Font("Serif", Font.BOLD, 40));
             tfUser.setBackground(Color.RED);
             playLoginToChooseMode.setPreferredSize(new Dimension(300,120));
+
+            playLoginToChooseMode.addActionListener(new ActionListener(){
+                public void actionPerformed(ActionEvent ae){
+                    nickname = tfUser.getText();
+                }
+             });
             playLogin.add(userName);
             playLogin.add(tfUser);
             playLogin.add(playLoginToChooseMode);
@@ -303,7 +309,7 @@ public class plaguwareMenu
                 @Override
                 public void actionPerformed(ActionEvent arg0)
                 {
-                    Game endBringer = new Game(new User("nickname"),1);
+                    Game endBringer = new Game(new User(nickname),1);
                     panelCont.add(endBringer,"7");
                     cl.show(panelCont, "7");
                     new Timer().schedule(new TimerTask() {
@@ -321,7 +327,7 @@ public class plaguwareMenu
                 @Override
                 public void actionPerformed(ActionEvent arg0)
                 {
-                    Game simulation = new Game(new User("nickname"),0);
+                    Game simulation = new Game(new User(nickname),0);
                 panelCont.add(simulation,"8");
                     
                     cl.show(panelCont, "8");
@@ -341,7 +347,7 @@ public class plaguwareMenu
                 @Override
                 public void actionPerformed(ActionEvent arg0)
                 {
-                    Game saviour = new Game(new User("nickname"),2);
+                    Game saviour = new Game(new User(nickname),2);
                     panelCont.add(saviour,"9");
                     cl.show(panelCont, "9");
                     new Timer().schedule(new TimerTask() {
