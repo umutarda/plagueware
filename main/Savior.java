@@ -83,7 +83,7 @@ public class Savior extends Player implements Updatable {
             @Override
             protected void activateEvent() {
                 try {
-                    controlBuilding = new Building(30, 50) {
+                    controlBuilding = new Building(118, 10) {
                         @Override
                         public void enter(Person p) {
                             super.enter(p);
@@ -191,7 +191,7 @@ public class Savior extends Player implements Updatable {
 
     @Override
     protected void getPaid() {
-        budget += GameData.getPersonAmount() * 5;
+        budget += GameData.getPersonAmount() * 2;
         if(!GameData.hospital.isVaccineFree) {
             int currentVacAmount = GameData.getVaccinationAmount();
             budget += (currentVacAmount - lastVacAmount) * 15;
