@@ -192,7 +192,7 @@ public class Savior extends Player implements Updatable {
 
     @Override
     protected void getPaid() {
-        budget += GameData.getPersonAmount() * 2;
+        budget += GameData.getPersonAmount() * 3;
         if(!GameData.hospital.isVaccineFree) {
             int currentVacAmount = GameData.getVaccinationAmount();
             budget += (currentVacAmount - lastVacAmount) * 15;
