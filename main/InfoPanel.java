@@ -227,9 +227,9 @@ public class InfoPanel extends JPanel implements Updatable{
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                GameData.time.settımeFactor(2);
+                GameData.time.settımeFactor(1);
                 //GameData.TIME_FACTOR = 2;
-                GameData.PERSON_SPEED = 80;
+                GameData.PERSON_SPEED = 160;
                 
             }
             
