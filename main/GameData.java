@@ -18,8 +18,8 @@ public class GameData {
     public static Time time;
     public static Virus virus;
 
-    public static final int PERSON_SPEED = 20;
-    public static final int TIME_FACTOR = 8;
+    public static int PERSON_SPEED = 20;
+    public static int TIME_FACTOR = 8;
     public static final double RESOLUTION_RATIO = Math.min(Toolkit.getDefaultToolkit().getScreenSize().getWidth()/1920,
     Toolkit.getDefaultToolkit().getScreenSize().getHeight() /1080);
     //static Time time = new Time();

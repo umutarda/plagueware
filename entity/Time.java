@@ -23,7 +23,11 @@ public class Time implements Updatable{
     }
 
 
-    
+    public void settımeFactor(int newFactor) {
+        lasttime = lasttime * GameData.TIME_FACTOR;
+        lasttime = lasttime / newFactor;
+        GameData.TIME_FACTOR = newFactor;
+    }
     
     @Override
     public void run() {

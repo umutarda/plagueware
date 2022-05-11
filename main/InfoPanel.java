@@ -1,8 +1,11 @@
 package main;
 
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.border.BevelBorder;
 
 import entity.Buildings;
@@ -17,6 +20,10 @@ public class InfoPanel extends JPanel implements Updatable{
     JLabel asymptomaticAmount;
     JLabel virusAmount;
     JLabel fps;
+    JRadioButton speedRadioButton1;
+    JRadioButton speedRadioButton2;
+    JRadioButton speedRadioButton3;
+
 
     //pop
     JPanel popPanel;
@@ -185,6 +192,56 @@ public class InfoPanel extends JPanel implements Updatable{
             
         });
         generalInfo.add(buildingButton);
+        speedRadioButton1 = new JRadioButton();
+        speedRadioButton2 = new JRadioButton();
+        speedRadioButton3 = new JRadioButton();
+        ButtonGroup bg = new ButtonGroup();
+        bg.add(speedRadioButton1);
+        bg.add(speedRadioButton2);
+        bg.add(speedRadioButton3);
+        speedRadioButton1.setSelected(true);
+
+        speedRadioButton1.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                GameData.time.settımeFactor(8);
+                //GameData.TIME_FACTOR = 8;
+                GameData.PERSON_SPEED = 20;
+                
+            }
+            
+        });
+        speedRadioButton2.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                GameData.time.settımeFactor(4);
+                //GameData.TIME_FACTOR = 4;
+                GameData.PERSON_SPEED = 40;
+                
+            }
+            
+        });
+        speedRadioButton3.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                GameData.time.settımeFactor(2);
+                //GameData.TIME_FACTOR = 2;
+                GameData.PERSON_SPEED = 80;
+                
+            }
+            
+        });
+
+        
+        generalInfo.add(new JLabel("Game Speed: "));
+        generalInfo.add(speedRadioButton1);
+        generalInfo.add(speedRadioButton2);
+        generalInfo.add(speedRadioButton3);
+
+        
 
 
         this.setVisible(true);
