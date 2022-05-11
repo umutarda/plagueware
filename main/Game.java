@@ -263,13 +263,17 @@ public class Game extends JPanel {
             if(GameData.getPersonAmount() == 0) {
                 hasWon = true;
             }
-            hasWon = false;
+            else {
+                hasWon = false;
+            }
         }
         else {
             if(GameData.getVirusAmount() == 0) {
                 hasWon = true;
             }
-            hasWon = false;
+            else {
+                hasWon = false;
+            }
         }
         
 
