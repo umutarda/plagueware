@@ -24,7 +24,7 @@ public class Game extends JPanel {
         this.user = user;
         this.gameMode = gameMode;
         GameData.setUp(new Map(175, 95, 10, 1, "0".repeat(175*95)),
-            new Virus(5, 15, 15));
+            new Virus(25, 25, 15));
         setUpBuildings();
         GameData.generatePeople(200, 20, 1, 0.3, 20, 50);
         add(GameData.drawManager, BorderLayout.CENTER);

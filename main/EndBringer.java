@@ -30,11 +30,11 @@ public class EndBringer extends Player implements Updatable{
         changeVirusPanel.setLayout(new GridLayout(4,1));
         changeVirusPanel.setBorder(new BevelBorder(BevelBorder.RAISED));
         ButtonGroup group = new ButtonGroup();
-        JRadioButton contagiousnessRadio = new JRadioButton("Contagiousness +1");
+        JRadioButton contagiousnessRadio = new JRadioButton("Contagiousness +5");
         changeVirusPanel.add(contagiousnessRadio);
-        JRadioButton mortalityRadio = new JRadioButton("Mortality +1");
+        JRadioButton mortalityRadio = new JRadioButton("Mortality +5");
         changeVirusPanel.add(mortalityRadio);
-        JRadioButton asymptomaticRadio = new JRadioButton("Asymptomatic Rate +1");
+        JRadioButton asymptomaticRadio = new JRadioButton("Asymptomatic Rate +5");
         changeVirusPanel.add(asymptomaticRadio);
         group.add(contagiousnessRadio); group.add(mortalityRadio); group.add(asymptomaticRadio);
 
@@ -48,19 +48,19 @@ public class EndBringer extends Player implements Updatable{
                     return;
                 }
                 if(contagiousnessRadio.isSelected()) {
-                    GameData.virus.setContagiousness(GameData.virus.getContagiousness() + 1);
-                    GameData.virus.setAsymptomaticRate(GameData.virus.getAsymptomaticRate() - 0.5);
-                    GameData.virus.setMortality(GameData.virus.getMortality() - 0.5);
+                    GameData.virus.setContagiousness(GameData.virus.getContagiousness() + 5.0);
+                    GameData.virus.setAsymptomaticRate(GameData.virus.getAsymptomaticRate() - 2.5);
+                    GameData.virus.setMortality(GameData.virus.getMortality() - 2.5);
                 }
                 else if(mortalityRadio.isSelected()) {
-                    GameData.virus.setContagiousness(GameData.virus.getContagiousness() - 0.5);
-                    GameData.virus.setAsymptomaticRate(GameData.virus.getAsymptomaticRate() - 0.5);
-                    GameData.virus.setMortality(GameData.virus.getMortality() + 1);
+                    GameData.virus.setContagiousness(GameData.virus.getContagiousness() - 2.5);
+                    GameData.virus.setAsymptomaticRate(GameData.virus.getAsymptomaticRate() - 2.5);
+                    GameData.virus.setMortality(GameData.virus.getMortality() + 5);
                 }
                 else if(asymptomaticRadio.isSelected()) {
-                    GameData.virus.setContagiousness(GameData.virus.getContagiousness() - 0.5);
-                    GameData.virus.setAsymptomaticRate(GameData.virus.getAsymptomaticRate() + 1);
-                    GameData.virus.setMortality(GameData.virus.getMortality() - 0.5);
+                    GameData.virus.setContagiousness(GameData.virus.getContagiousness() - 2.5);
+                    GameData.virus.setAsymptomaticRate(GameData.virus.getAsymptomaticRate() + 5);
+                    GameData.virus.setMortality(GameData.virus.getMortality() - 2.5);
                 }
                 else {
                     return;
