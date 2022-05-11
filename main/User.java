@@ -128,7 +128,6 @@ public class User {
             Statement st = db.createStatement();
             //st.executeQuery ("create table elephant (id int, name varchar)");
             ResultSet rs = st.executeQuery("SELECT * FROM leaderboard ORDER BY time asc");
-            System.out.println("Users in ascending order: ");
             while (rs.next()) {
                 res.add(new User(rs.getString(2), Integer.parseInt(rs.getString(3)), (rs.getString(4))  ));
                 //System.out.println("User ID: " +rs.getString(1)+ " \nUser Nickname: " +rs.getString(2)+ " \nTime (in seconds): "+rs.getString(3));
