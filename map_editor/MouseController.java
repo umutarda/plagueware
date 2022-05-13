@@ -48,7 +48,6 @@ public class MouseController extends MouseInputAdapter {
             System.out.printf("new Buildings.%s(%d, %d);\n",name,p.x,p.y);
             mapDisplayer.frame.repaint();
         } catch (Exception e1) {
-            // TODO Auto-generated catch block
             e1.printStackTrace();
         }     
     }

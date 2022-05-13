@@ -111,24 +111,8 @@ public class Person implements Updatable, Drawable{
    
     public void travelToBuilding(Building b) {
 
-        // if (b == null)
-        //     return;
-
-        // Node startNode;
-        // if (currentBuilding != null) 
-        // {
-        //     startNode = currentBuilding.getEnterNode();
-        //     currentBuilding.exit(this);
-        //     currentBuilding = null;
-        // }
-            
-       
-        // else
-        //     startNode = GameData.map.getNodeAtPosition(location);
-
         currentBuilding = b;
         GameData.pathManager.requestPath(this, GameData.map.getNodeAtPosition(location), b.getEnterNode());
-        // GameData.pathManager.requestPath(this, startNode, b.getEnterNode());
 
     }
 
@@ -285,7 +269,7 @@ public class Person implements Updatable, Drawable{
 
             if (path != null) 
             {
-                currentPathIntervalPercentage = Math.min(currentPathIntervalPercentage + GameData.PERSON_SPEED * GameData.updateManager.deltaTime(), 1);
+                currentPathIntervalPercentage = Math.min(currentPathIntervalPercentage + GameData.personSpeed * GameData.updateManager.deltaTime(), 1);
                 location.setLocation(currentNodePosition.x + (nextNodePosition.x - currentNodePosition.x) * currentPathIntervalPercentage,
                 currentNodePosition.y + (nextNodePosition.y - currentNodePosition.y) * currentPathIntervalPercentage );
             }

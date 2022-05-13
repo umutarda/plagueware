@@ -18,11 +18,10 @@ public class GameData {
     public static Time time;
     public static Virus virus;
 
-    public static int PERSON_SPEED = 20;
-    public static int TIME_FACTOR = 8;
+    public static int personSpeed = 20;
+    public static int timeFactor = 8;
     public static final double RESOLUTION_RATIO = Math.min(Toolkit.getDefaultToolkit().getScreenSize().getWidth()/1920,
     Toolkit.getDefaultToolkit().getScreenSize().getHeight() /1080);
-    //static Time time = new Time();
     public static ArrayList<Building> getEntertainmentBuildings() {
         ArrayList<Building> entertainment = new ArrayList<Building>();
         for (Building building : buildings) {
@@ -202,37 +201,5 @@ public class GameData {
         updateManager.addUpdatable(pathManager);
     }
 
-    // public static void main(String[] args) {
-    //     ArrayList<Person> x =  generatePeople(300, 0, 0.99, 0.99, 30);
-
-    //     int mask = 0;
-    //     int vac = 0;
-    //     int age = 0;
-    //     int illCount = 0;
-    //     int count = 0;
-
-    //     for (Person person : x) {
-    //         if(person.mask)
-    //             mask++;
-    //         if(person.vaccinated)
-    //             vac++;
-    //         if(person.condition)
-    //             illCount++;
-
-    //         count++;
-    //         age += person.age;
-    // }
     
-    // System.out.println(1.0*mask/x.size());
-    // System.out.println(1.0*vac/x.size());
-    // System.out.println(1.0*age/x.size()); 
-    // System.out.println(illCount);
-    // System.out.println(count);
-
-    // for (Person person : x) {
-    //     System.out.println("Mask: " +person.mask+", Vacc: "+person.vaccinated+", Age: " +person.age);
-    // }
-
-    
-    // }
 }

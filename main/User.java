@@ -130,8 +130,6 @@ public class User {
             ResultSet rs = st.executeQuery("SELECT * FROM leaderboard ORDER BY time asc");
             while (rs.next()) {
                 res.add(new User(rs.getString(2), Integer.parseInt(rs.getString(3)), (rs.getString(4))  ));
-                //System.out.println("User ID: " +rs.getString(1)+ " \nUser Nickname: " +rs.getString(2)+ " \nTime (in seconds): "+rs.getString(3));
-                //System.out.println();
                 
             }
             rs.close();
@@ -142,15 +140,6 @@ public class User {
         }
         return res;
         
-    }
-
-    public static void main(String[] args) {
-        User user = new User("TestSim");
-
-        user.setGamemode("Simulation");
-        user.setTime(12123);
-        insertIntoDatabase(user);
-        System.out.println(LeaderboardToArray());
     }
  
 

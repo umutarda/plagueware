@@ -13,7 +13,7 @@ public class Map implements Drawable
     private int width, height, blockSize, gap;
     private Node[] nodes;
 
-    public Map(int width, int height, int blockSize, int gap, String impassibleMap) {
+    public Map(int width, int height, int blockSize, int gap) {
         this.width = width;
         this.height = height;
         this.blockSize = blockSize;
@@ -27,15 +27,8 @@ public class Map implements Drawable
                 
                 Point position = new Point (i,j);
 
-                if (impassibleMap.charAt(i + j*width) == '0') 
-                {
-                    nodes [i + j*width] = new PathfindNode(position, PathfindNode.State.NORMAL);
-                }
-
-                else 
-                {
-                    nodes [i + j*width] = new ImpassibleNode(position);
-                }
+                
+                nodes [i + j*width] = new PathfindNode(position, PathfindNode.State.NORMAL);
                 
             }
 

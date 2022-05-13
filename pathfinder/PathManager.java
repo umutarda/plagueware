@@ -123,7 +123,6 @@ public class PathManager implements Updatable {
 
     @Override
     public void reset() {
-        // TODO Auto-generated method stub
 
     }
 }

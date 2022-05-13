@@ -65,8 +65,6 @@ public class EndBringer extends Player implements Updatable{
                 else {
                     return;
                 }
-                // skillPanel.remove(changeVirusPanel);
-                // changeVirusPanel = null;
                 budget -= changeVirusCost;
                 budgetLabel.setText("Budget: " + budget);
                 

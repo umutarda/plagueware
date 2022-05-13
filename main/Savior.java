@@ -34,7 +34,6 @@ public class Savior extends Player implements Updatable {
     public Savior(int initialBudget) {
         super(initialBudget);
         GameData.updateManager.addUpdatable(this);
-        //TODO Auto-generated constructor stub
     }
 
     @Override
@@ -48,13 +47,11 @@ public class Savior extends Player implements Updatable {
 
     @Override
     public boolean hasFullyUpdated() {
-        // TODO Auto-generated method stub
         return false;
     }
 
     @Override
     public void reset() {
-        // TODO Auto-generated method stub
     }
 
     @Override

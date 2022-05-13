@@ -100,7 +100,6 @@ public class PathfindNode extends Node implements IHeapItem<PathfindNode> {
 
     @Override
     public Color getColor() {
-        // return Color.WHITE;
         if(color == null) {
             return Color.WHITE;
         }

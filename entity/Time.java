@@ -15,7 +15,7 @@ public class Time implements Updatable{
 
     
 
-    long lasttime = System.currentTimeMillis() / GameData.TIME_FACTOR;
+    long lasttime = System.currentTimeMillis() / GameData.timeFactor;
     long now;
     long delta;
     public Time() {
@@ -23,16 +23,16 @@ public class Time implements Updatable{
     }
 
 
-    public void settımeFactor(int newFactor) {
-        lasttime = lasttime * GameData.TIME_FACTOR;
+    public void setTimeFactor(int newFactor) {
+        lasttime = lasttime * GameData.timeFactor;
         lasttime = lasttime / newFactor;
-        GameData.TIME_FACTOR = newFactor;
+        GameData.timeFactor = newFactor;
     }
     
     @Override
     public void run() {
 
-            now = System.currentTimeMillis()/GameData.TIME_FACTOR;
+            now = System.currentTimeMillis()/GameData.timeFactor;
             delta = now - lasttime;
             minute += delta;
             if(minute>59)
@@ -57,7 +57,7 @@ public class Time implements Updatable{
     }
     @Override
     public void reset() {
-        now = System.currentTimeMillis()/GameData.TIME_FACTOR;
+        now = System.currentTimeMillis()/GameData.timeFactor;
         delta = now - lasttime;
         minute += delta;
         if(minute>59)

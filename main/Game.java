@@ -23,7 +23,7 @@ public class Game extends JPanel {
         this.setLayout(new BorderLayout());
         this.user = user;
         this.gameMode = gameMode;
-        GameData.setUp(new Map(175, 95, 10, 1, "0".repeat(175*95)),
+        GameData.setUp(new Map(175, 95, 10, 1),
             new Virus(25, 25, 15));
         setUpBuildings();
         GameData.generatePeople(200, 20, 1, 0.3, 20, 50);
@@ -461,21 +461,6 @@ public class Game extends JPanel {
         GameData.resetAll();
 
         
-    }
-    
-    public static void main(String[] args) {
-        JFrame frame = new JFrame();
-        frame.setTitle("PLAGUEWARE");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setBackground(Color.BLACK);
-        frame.setVisible(true);
-        Game game = new Game(new User("kerem"), SAVIOR);
-        frame.add(game);
-        frame.pack();
-        // game.add(new EndBringer(100).skillPanel, BorderLayout.EAST);
-        game.start();
-
-
     }
 
     
