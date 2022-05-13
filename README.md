@@ -1,6 +1,14 @@
 # Welcome to Plagueware!
 Plagueware is a simulation game in which you observe the spread of a virus over a small town.
 You view the town from an overhead perspective and watch the inhabitants of the town go about their daily lives as they slowly spread the virus.
+# How to run
+You can run this game by cloning this repository, and running the `main/Main.java` file on Visual Studio Code or by running the `plagueware.jar` file. You will need to have Java installed.
+# Technologies and dependencies
+* Plagueware is a desktop app written in java.
+* We used java swing as our GUI libary.
+* We used PostgreSQL to create the leaderboard. 
+* We used the `postgresql-42.3.4.jar` libary which is included in the repository.
+# About Plagueware
 The people of the town travel between different buildings based on the in-game time and the individual desicions of a person.
 Each person has many variables that will affect the epidemic in different ways.
 The virus has three variables: contagiosness, asymptomatic rate and mortality rate.
@@ -28,4 +36,5 @@ If the vaccine is free, more people will get the virus, however, you won't gener
 Your town may be infiltrated by spies.
 These spies will manipulate the variables of the virus. 
 You can ban by spending a portion of your budget, or you may leave them as is since the way the spies manipulate the virus may be beneficial for you.
-# LET'S ROLL!
+
+**LET'S ROLL!**
